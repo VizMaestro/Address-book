@@ -1,0 +1,33 @@
+{
+  "name": "@sds/ui",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./primitives": "./src/ui/primitives/index.ts",
+    "./compositions": "./src/ui/compositions/index.ts",
+    "./layout": "./src/ui/layout/index.ts",
+    "./icons": "./src/ui/icons/index.ts",
+    "./hooks": "./src/ui/hooks/index.ts",
+    "./utils": "./src/ui/utils/index.ts",
+    "./theme.css": "./src/theme.css",
+    "./index.css": "./src/index.css",
+    "./reset.css": "./src/reset.css",
+    "./icons.css": "./src/icons.css",
+    "./responsive.css": "./src/responsive.css"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "react-aria-components": "^1.16.0"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
+  }
+}

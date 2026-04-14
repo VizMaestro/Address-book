@@ -1,0 +1,2364 @@
+# STRUCTURE
+# ---------
+# Source Figma URL:   https://www.figma.com/design/nHuQyck4BJMI3IqadWrpBp/Address-book?node-id=1-13208
+# Root frame:         Address book - Default
+# Generated:          2026-04-14
+# Companion file:     src/styles/tokens.css
+#
+# SUMMARY
+# -------
+# Total sections:     5
+# Total nodes mapped: 89  (88 children + 1 root)
+# Components found:   29  (all nodes with type: component — DS instances + Metric items)
+# Hardcoded values:   23  (# ⚠ occurrences across the file)
+# Flags:              8   (items requiring designer attention before coding)
+#
+# FLAGS
+# -----
+# Navigation > Menu items (×5): border-radius 8px not token-bound — var(--ld-primitive-scale-borderradius-100)=8px exists; bind in Figma
+# Navigation > Container (user area, 1:13231): fixed width 64px — no sizing token in design system
+# Navigation > Menu icons (×5): size 20px — no sizing token (sds-size-icon-medium=32px, large=40px; no 20px defined)
+# Navigation > [Address Book label] (1:13227): fixed width 57px — no sizing token; forces 2-line wrap on active item
+# Page Header > Title row (5:4177): fixed height 40px — no sizing token
+# Page Header > [heading text] (5:4181): font-size 24px not token-bound — var(--sds-typography-heading-size-base)=24 exists; bind in Figma
+# Metrics Row > icon container: border-radius uses var(--sds-size-icon-medium)=32px — a size token repurposed as radius; consider a dedicated radius token
+# Map Container > [illustration] (11:5045): fixed 390×234px — no sizing token for either dimension
+#
+# CODING CONTRACT
+# ---------------
+# The agent must not deviate from this file during implementation.
+# Any layout, component, or styling decision not covered here must
+# be raised with the user before proceeding — not resolved by assumption.
+
+root:
+  id:   "1:13208"
+  name: "Address book - Default"
+  type: section
+  layout:
+    direction: vertical
+    alignment: start
+    wrap:      false
+    gap:       0
+    padding:
+      top:    0
+      right:  0
+      bottom: 0
+      left:   0
+  sizing:
+    width:    fill-container
+    height:   fill-container
+    overflow: visible
+  tokens:
+    color_background: "var(--color-map-container-background)"  # same sds-color-background-default-default-hover = #f5f5f5
+  react:
+    component_name: AddressBookPage
+    element:        div
+    css_module:     AddressBookPage.module.css
+    notes:          "Root page wrapper — full viewport size, vertical flex"
+  children:
+
+    - id:   "1:13209"
+      name: "Topbar"
+      type: group
+      position:
+        order:          1
+        sibling_before: null
+        sibling_after:  null
+        layout_role:    flex-child
+      layout:
+        direction: horizontal
+        alignment: start
+        wrap:      false
+        gap:       0
+        padding:
+          top:    0
+          right:  0
+          bottom: 0
+          left:   0
+      sizing:
+        width:    fill-container
+        height:   fill-container
+        overflow: visible
+      react:
+        component_name: null
+        element:        div
+        css_module:     AddressBookPage.module.css
+        notes:          "Layout shell — splits Navigation (left) and Main Content (right). No separate component."
+      children:
+
+        # ─────────────────────────────────────────────────────────────────
+        # SECTION: Navigation
+        # ─────────────────────────────────────────────────────────────────
+
+        - id:   "1:13210"
+          name: "Navigation"
+          type: section
+          position:
+            order:          1
+            sibling_before: null
+            sibling_after:  "Main Content"
+            layout_role:    flex-child
+          layout:
+            direction: vertical
+            alignment: center
+            wrap:      false
+            gap:       0
+            padding:
+              top:    "var(--spacing-navigation-padding-vertical)"
+              right:  "var(--spacing-navigation-padding-horizontal)"
+              bottom: "var(--spacing-navigation-padding-vertical)"
+              left:   "var(--spacing-navigation-padding-horizontal)"
+          sizing:
+            width:    hug-content
+            height:   fill-container
+            overflow: visible
+          tokens:
+            color_background: "var(--color-navigation-background)"
+            spacing_padding:  "var(--spacing-navigation-padding-horizontal)"
+          react:
+            component_name: Navigation
+            element:        nav
+            css_module:     Navigation.module.css
+            notes:          "Left sidebar — hug-content width, fill-container height, justify-between (top group vs bottom user area)"
+          children:
+
+            - id:   "1:13211"
+              name: "Container"
+              type: group
+              position:
+                order:          1
+                sibling_before: null
+                sibling_after:  "Container"
+                layout_role:    flex-child
+              layout:
+                direction: vertical
+                alignment: center
+                wrap:      false
+                gap:       "var(--spacing-navigation-logo-gap)"
+                padding:
+                  top:    0
+                  right:  0
+                  bottom: 0
+                  left:   0
+              sizing:
+                width:    fill-container
+                height:   hug-content
+                overflow: visible
+              react:
+                component_name: null
+                element:        div
+                css_module:     Navigation.module.css
+                notes:          "Top nav group — logo icon + WMS label + nav item list"
+              children:
+
+                - id:   "1:13212"
+                  name: "Briefcase"
+                  type: component
+                  position:
+                    order:          1
+                    sibling_before: null
+                    sibling_after:  "[WMS label text]"
+                    layout_role:    flex-child
+                  sizing:
+                    width:    fixed-32px
+                    height:   fixed-32px
+                    overflow: hidden
+                  tokens:
+                    color_text: "var(--color-navigation-title-text)"
+                  react:
+                    component_name: null
+                    element:        img
+                    css_module:     Navigation.module.css
+                    notes:          "WMS logo icon — Briefcase DS component, 32×32px fixed"
+
+                - id:   "1:13213"
+                  name: "[WMS label text]"  # unnamed in Figma
+                  type: text
+                  position:
+                    order:          2
+                    sibling_before: "Briefcase"
+                    sibling_after:  "Container"
+                    layout_role:    flex-child
+                  sizing:
+                    width:    hug-content
+                    height:   hug-content
+                    overflow: visible
+                  tokens:
+                    color_text:   "var(--color-navigation-title-text)"
+                    font_family:  "var(--font-navigation-title-family)"
+                    font_weight:  "var(--font-navigation-title-weight)"
+                    font_size:    "var(--font-navigation-title-size)"
+                  react:
+                    component_name: null
+                    element:        span
+                    css_module:     Navigation.module.css
+                    notes:          "WMS text label — layer unnamed in Figma; text-center, whitespace-nowrap"
+
+                - id:   "1:13215"
+                  name: "Container"
+                  type: list
+                  position:
+                    order:          3
+                    sibling_before: "[WMS label text]"
+                    sibling_after:  null
+                    layout_role:    flex-child
+                  layout:
+                    direction: vertical
+                    alignment: center
+                    wrap:      false
+                    gap:       "var(--spacing-navigation-padding-horizontal)"
+                    padding:
+                      top:    0
+                      right:  0
+                      bottom: 0
+                      left:   0
+                  sizing:
+                    width:    fill-container
+                    height:   hug-content
+                    overflow: visible
+                  react:
+                    component_name: null
+                    element:        ul
+                    css_module:     Navigation.module.css
+                    notes:          "Nav item list — 5 menu items stacked vertically"
+                  children:
+
+                    - id:   "1:13216"
+                      name: "Menu Load Builder"
+                      type: component
+                      position:
+                        order:          1
+                        sibling_before: null
+                        sibling_after:  "Menu Load Builder"
+                        layout_role:    flex-child
+                      layout:
+                        direction: vertical
+                        alignment: center
+                        wrap:      false
+                        gap:       "var(--spacing-navigation-padding-horizontal)"
+                        padding:
+                          top:    "var(--spacing-navigation-menu-item-padding-vertical)"
+                          right:  "var(--spacing-navigation-padding-horizontal)"
+                          bottom: "var(--spacing-navigation-menu-item-padding-vertical)"
+                          left:   "var(--spacing-navigation-padding-horizontal)"
+                      sizing:
+                        width:    fill-container
+                        height:   hug-content
+                        overflow: visible
+                      tokens:
+                        radius:          "var(--radius-navigation-menu-item)"  # ⚠ 8px not token-bound in Figma
+                        color_text:      "var(--color-navigation-menu-item-text)"
+                        font_family:     "var(--font-navigation-caption-family)"
+                        font_size:       "var(--font-navigation-caption-size)"
+                        font_line_height: "var(--font-navigation-caption-line-height)"
+                      react:
+                        component_name: null
+                        element:        li
+                        css_module:     Navigation.module.css
+                        notes:          "Load Mgmt nav item — inactive state; 2-line label"
+                      children:
+
+                        - id:   "5:4019"
+                          name: "Truck"
+                          type: component
+                          position:
+                            order:          1
+                            sibling_before: null
+                            sibling_after:  "[Load Mgmt label]"
+                            layout_role:    flex-child
+                          sizing:
+                            width:    "var(--size-navigation-icon)"  # 20px — ⚠ no sizing token in DS
+                            height:   "var(--size-navigation-icon)"
+                            overflow: hidden
+                          react:
+                            component_name: null
+                            element:        img
+                            css_module:     Navigation.module.css
+                            notes:          "Truck DS icon, 20px"
+
+                        - id:   "1:13218"
+                          name: "[Load Mgmt label]"  # unnamed in Figma
+                          type: text
+                          position:
+                            order:          2
+                            sibling_before: "Truck"
+                            sibling_after:  null
+                            layout_role:    flex-child
+                          sizing:
+                            width:    hug-content
+                            height:   hug-content
+                          tokens:
+                            color_text:      "var(--color-navigation-menu-item-text)"
+                            font_family:     "var(--font-navigation-caption-family)"
+                            font_size:       "var(--font-navigation-caption-size)"
+                            font_line_height: "var(--font-navigation-caption-line-height)"
+                          react:
+                            component_name: null
+                            element:        span
+                            css_module:     Navigation.module.css
+                            notes:          "2-line label: 'Load / Mgmt' — text-center"
+
+                    - id:   "5:4025"
+                      name: "Menu Load Builder"
+                      type: component
+                      position:
+                        order:          2
+                        sibling_before: "Menu Load Builder"
+                        sibling_after:  "Menu Load Builder"
+                        layout_role:    flex-child
+                      layout:
+                        direction: vertical
+                        alignment: center
+                        wrap:      false
+                        gap:       "var(--spacing-navigation-padding-horizontal)"
+                        padding:
+                          top:    "var(--spacing-navigation-menu-item-padding-vertical)"
+                          right:  "var(--spacing-navigation-padding-horizontal)"
+                          bottom: "var(--spacing-navigation-menu-item-padding-vertical)"
+                          left:   "var(--spacing-navigation-padding-horizontal)"
+                      sizing:
+                        width:    fill-container
+                        height:   hug-content
+                        overflow: visible
+                      tokens:
+                        radius:          "var(--radius-navigation-menu-item)"  # ⚠ 8px not token-bound
+                        color_text:      "var(--color-navigation-menu-item-text)"
+                        font_family:     "var(--font-navigation-caption-family)"
+                        font_size:       "var(--font-navigation-caption-size)"
+                        font_line_height: "var(--font-navigation-caption-line-height)"
+                      react:
+                        component_name: null
+                        element:        li
+                        css_module:     Navigation.module.css
+                        notes:          "Backlog nav item — inactive state"
+                      children:
+
+                        - id:   "5:4026"
+                          name: "Box"
+                          type: component
+                          position:
+                            order:          1
+                            sibling_before: null
+                            sibling_after:  "[Backlog label]"
+                            layout_role:    flex-child
+                          sizing:
+                            width:    "var(--size-navigation-icon)"
+                            height:   "var(--size-navigation-icon)"
+                            overflow: hidden
+                          react:
+                            component_name: null
+                            element:        img
+                            css_module:     Navigation.module.css
+                            notes:          "Box DS icon, 20px"
+
+                        - id:   "5:4027"
+                          name: "[Backlog label]"  # unnamed in Figma
+                          type: text
+                          position:
+                            order:          2
+                            sibling_before: "Box"
+                            sibling_after:  null
+                            layout_role:    flex-child
+                          sizing:
+                            width:    hug-content
+                            height:   hug-content
+                          tokens:
+                            color_text:      "var(--color-navigation-menu-item-text)"
+                            font_family:     "var(--font-navigation-caption-family)"
+                            font_size:       "var(--font-navigation-caption-size)"
+                            font_line_height: "var(--font-navigation-caption-line-height)"
+                          react:
+                            component_name: null
+                            element:        span
+                            css_module:     Navigation.module.css
+                            notes:          "Single-line label: 'Backlog'"
+
+                    - id:   "5:4039"
+                      name: "Menu Load Builder"
+                      type: component
+                      position:
+                        order:          3
+                        sibling_before: "Menu Load Builder"
+                        sibling_after:  "Menu Address Book"
+                        layout_role:    flex-child
+                      layout:
+                        direction: vertical
+                        alignment: center
+                        wrap:      false
+                        gap:       "var(--spacing-navigation-padding-horizontal)"
+                        padding:
+                          top:    "var(--spacing-navigation-menu-item-padding-vertical)"
+                          right:  "var(--spacing-navigation-padding-horizontal)"
+                          bottom: "var(--spacing-navigation-menu-item-padding-vertical)"
+                          left:   "var(--spacing-navigation-padding-horizontal)"
+                      sizing:
+                        width:    fill-container
+                        height:   hug-content
+                        overflow: visible
+                      tokens:
+                        radius:          "var(--radius-navigation-menu-item)"  # ⚠ 8px not token-bound
+                        color_text:      "var(--color-navigation-menu-item-text)"
+                        font_family:     "var(--font-navigation-caption-family)"
+                        font_size:       "var(--font-navigation-caption-size)"
+                        font_line_height: "var(--font-navigation-caption-line-height)"
+                      react:
+                        component_name: null
+                        element:        li
+                        css_module:     Navigation.module.css
+                        notes:          "Order Picking nav item — inactive state; 2-line label"
+                      children:
+
+                        - id:   "5:4040"
+                          name: "Shopping cart"
+                          type: component
+                          position:
+                            order:          1
+                            sibling_before: null
+                            sibling_after:  "[Order Picking label]"
+                            layout_role:    flex-child
+                          sizing:
+                            width:    "var(--size-navigation-icon)"
+                            height:   "var(--size-navigation-icon)"
+                            overflow: hidden
+                          react:
+                            component_name: null
+                            element:        img
+                            css_module:     Navigation.module.css
+                            notes:          "Shopping cart DS icon, 20px"
+
+                        - id:   "5:4041"
+                          name: "[Order Picking label]"  # unnamed in Figma
+                          type: text
+                          position:
+                            order:          2
+                            sibling_before: "Shopping cart"
+                            sibling_after:  null
+                            layout_role:    flex-child
+                          sizing:
+                            width:    hug-content
+                            height:   hug-content
+                          tokens:
+                            color_text:      "var(--color-navigation-menu-item-text)"
+                            font_family:     "var(--font-navigation-caption-family)"
+                            font_size:       "var(--font-navigation-caption-size)"
+                            font_line_height: "var(--font-navigation-caption-line-height)"
+                          react:
+                            component_name: null
+                            element:        span
+                            css_module:     Navigation.module.css
+                            notes:          "2-line label: 'Order / Picking' — text-center"
+
+                    - id:   "1:13225"
+                      name: "Menu Address Book"
+                      type: component
+                      position:
+                        order:          4
+                        sibling_before: "Menu Load Builder"
+                        sibling_after:  "Menu Load Builder"
+                        layout_role:    flex-child
+                      layout:
+                        direction: vertical
+                        alignment: center
+                        wrap:      false
+                        gap:       "var(--spacing-navigation-padding-horizontal)"
+                        padding:
+                          top:    "var(--spacing-navigation-menu-item-padding-vertical)"
+                          right:  "var(--spacing-navigation-padding-horizontal)"
+                          bottom: "var(--spacing-navigation-menu-item-padding-vertical)"
+                          left:   "var(--spacing-navigation-padding-horizontal)"
+                      sizing:
+                        width:    fill-container
+                        height:   hug-content
+                        overflow: visible
+                      tokens:
+                        color_background: "var(--color-navigation-menu-item-active-background)"
+                        radius:           "var(--radius-navigation-menu-item)"  # ⚠ 8px not token-bound
+                        color_text:       "var(--color-navigation-menu-item-active-text)"
+                        font_family:      "var(--font-navigation-title-family)"
+                        font_weight:      "var(--font-navigation-title-weight)"
+                        font_size:        "var(--font-navigation-title-size)"
+                      react:
+                        component_name: null
+                        element:        li
+                        css_module:     Navigation.module.css
+                        notes:          "Address Book nav item — ACTIVE state; uses body-small-strong (not caption), green bg"
+                      children:
+
+                        - id:   "1:13226"
+                          name: "Book open"
+                          type: component
+                          position:
+                            order:          1
+                            sibling_before: null
+                            sibling_after:  "[Address Book label]"
+                            layout_role:    flex-child
+                          sizing:
+                            width:    "var(--size-navigation-icon)"
+                            height:   "var(--size-navigation-icon)"
+                            overflow: hidden
+                          react:
+                            component_name: null
+                            element:        img
+                            css_module:     Navigation.module.css
+                            notes:          "Book open DS icon, 20px"
+
+                        - id:   "1:13227"
+                          name: "[Address Book label]"  # unnamed in Figma
+                          type: text
+                          position:
+                            order:          2
+                            sibling_before: "Book open"
+                            sibling_after:  null
+                            layout_role:    flex-child
+                          sizing:
+                            width:    fixed-57px  # ⚠ no token — raw value; forces 2-line wrap
+                            height:   hug-content
+                          tokens:
+                            color_text:  "var(--color-navigation-menu-item-active-text)"
+                            font_family: "var(--font-navigation-title-family)"
+                            font_weight: "var(--font-navigation-title-weight)"
+                            font_size:   "var(--font-navigation-title-size)"
+                          react:
+                            component_name: null
+                            element:        span
+                            css_module:     Navigation.module.css
+                            notes:          "2-line label: 'Address / Book' — fixed 57px width forces wrap; text-center"
+
+                    - id:   "5:4086"
+                      name: "Menu Load Builder"
+                      type: component
+                      position:
+                        order:          5
+                        sibling_before: "Menu Address Book"
+                        sibling_after:  null
+                        layout_role:    flex-child
+                      layout:
+                        direction: vertical
+                        alignment: center
+                        wrap:      false
+                        gap:       "var(--spacing-navigation-padding-horizontal)"
+                        padding:
+                          top:    "var(--spacing-navigation-menu-item-padding-vertical)"
+                          right:  "var(--spacing-navigation-padding-horizontal)"
+                          bottom: "var(--spacing-navigation-menu-item-padding-vertical)"
+                          left:   "var(--spacing-navigation-padding-horizontal)"
+                      sizing:
+                        width:    fill-container
+                        height:   hug-content
+                        overflow: visible
+                      tokens:
+                        radius:          "var(--radius-navigation-menu-item)"  # ⚠ 8px not token-bound
+                        color_text:      "var(--color-navigation-menu-item-text)"
+                        font_family:     "var(--font-navigation-caption-family)"
+                        font_size:       "var(--font-navigation-caption-size)"
+                        font_line_height: "var(--font-navigation-caption-line-height)"
+                      react:
+                        component_name: null
+                        element:        li
+                        css_module:     Navigation.module.css
+                        notes:          "Settings nav item — inactive state"
+                      children:
+
+                        - id:   "5:4087"
+                          name: "Settings"
+                          type: component
+                          position:
+                            order:          1
+                            sibling_before: null
+                            sibling_after:  "[Settings label]"
+                            layout_role:    flex-child
+                          sizing:
+                            width:    "var(--size-navigation-icon)"
+                            height:   "var(--size-navigation-icon)"
+                            overflow: hidden
+                          react:
+                            component_name: null
+                            element:        img
+                            css_module:     Navigation.module.css
+                            notes:          "Settings DS icon, 20px"
+
+                        - id:   "5:4088"
+                          name: "[Settings label]"  # unnamed in Figma
+                          type: text
+                          position:
+                            order:          2
+                            sibling_before: "Settings"
+                            sibling_after:  null
+                            layout_role:    flex-child
+                          sizing:
+                            width:    hug-content
+                            height:   hug-content
+                          tokens:
+                            color_text:      "var(--color-navigation-menu-item-text)"
+                            font_family:     "var(--font-navigation-caption-family)"
+                            font_size:       "var(--font-navigation-caption-size)"
+                            font_line_height: "var(--font-navigation-caption-line-height)"
+                          react:
+                            component_name: null
+                            element:        span
+                            css_module:     Navigation.module.css
+                            notes:          "Single-line label: 'Settings'"
+
+            - id:   "1:13231"
+              name: "Container"
+              type: group
+              position:
+                order:          2
+                sibling_before: "Container"
+                sibling_after:  null
+                layout_role:    flex-child
+              layout:
+                direction: vertical
+                alignment: center
+                wrap:      false
+                gap:       0
+                padding:
+                  top:    "var(--spacing-navigation-user-area-padding-vertical)"
+                  right:  "var(--spacing-navigation-logo-gap)"
+                  bottom: "var(--spacing-navigation-user-area-padding-vertical)"
+                  left:   "var(--spacing-navigation-logo-gap)"
+              sizing:
+                width:    fixed-64px  # ⚠ no token — raw value
+                height:   hug-content
+                overflow: visible
+              tokens:
+                color_border: "var(--color-navigation-user-area-border)"
+                radius:       "var(--radius-navigation-user-area)"
+              react:
+                component_name: null
+                element:        div
+                css_module:     Navigation.module.css
+                notes:          "User area footer — fixed 64px width, bordered rounded box; border-width: var(--border-navigation-user-area-width)"
+              children:
+
+                - id:   "1:13232"
+                  name: "Container"
+                  type: group
+                  position:
+                    order:          1
+                    sibling_before: null
+                    sibling_after:  null
+                    layout_role:    flex-child
+                  layout:
+                    direction: vertical
+                    alignment: center
+                    wrap:      false
+                    gap:       "var(--spacing-navigation-padding-vertical)"
+                    padding:
+                      top:    0
+                      right:  0
+                      bottom: 0
+                      left:   0
+                  sizing:
+                    width:    fill-container
+                    height:   hug-content
+                    overflow: visible
+                  react:
+                    component_name: null
+                    element:        div
+                    css_module:     Navigation.module.css
+                    notes:          "User area inner — avatar, logout, chevron stacked; gap = 20px (ld-space-250)"
+                  children:
+
+                    - id:   "5:4144"
+                      name: "Avatar"
+                      type: component
+                      position:
+                        order:          1
+                        sibling_before: null
+                        sibling_after:  "Log out"
+                        layout_role:    flex-child
+                      sizing:
+                        width:    "var(--size-navigation-avatar)"
+                        height:   "var(--size-navigation-avatar)"
+                        overflow: hidden
+                      tokens:
+                        radius: "var(--size-navigation-avatar-radius)"
+                      react:
+                        component_name: Avatar
+                        element:        div
+                        css_module:     Navigation.module.css
+                        notes:          "Avatar DS component — shape: Circle, size: Large, type: Image. Initials: single character only."
+
+                    - id:   "1:13235"
+                      name: "Log out"
+                      type: component
+                      position:
+                        order:          2
+                        sibling_before: "Avatar"
+                        sibling_after:  "Chevron right"
+                        layout_role:    flex-child
+                      sizing:
+                        width:    "var(--size-navigation-icon)"
+                        height:   "var(--size-navigation-icon)"
+                        overflow: hidden
+                      react:
+                        component_name: null
+                        element:        img
+                        css_module:     Navigation.module.css
+                        notes:          "Log out DS icon, 20px"
+
+                    - id:   "1:13236"
+                      name: "Chevron right"
+                      type: component
+                      position:
+                        order:          3
+                        sibling_before: "Log out"
+                        sibling_after:  null
+                        layout_role:    flex-child
+                      sizing:
+                        width:    fixed-24px  # ⚠ no token — raw value (differs from standard 20px nav icon size)
+                        height:   fixed-24px
+                        overflow: hidden
+                      react:
+                        component_name: null
+                        element:        img
+                        css_module:     Navigation.module.css
+                        notes:          "Chevron right DS icon, 24px — note: larger than other nav icons (20px)"
+
+        # ─────────────────────────────────────────────────────────────────
+        # MAIN CONTENT (layout shell, not a section component)
+        # ─────────────────────────────────────────────────────────────────
+
+        - id:   "1:13237"
+          name: "Main Content"
+          type: group
+          position:
+            order:          2
+            sibling_before: "Navigation"
+            sibling_after:  null
+            layout_role:    flex-child
+          layout:
+            direction: vertical
+            alignment: start
+            wrap:      false
+            gap:       24px  # ⚠ no token — raw value (var(--sds-size-space-600) not in tokens.css)
+            padding:
+              top:    24px  # ⚠ no token — raw value
+              right:  24px  # ⚠ no token — raw value
+              bottom: 24px  # ⚠ no token — raw value
+              left:   24px  # ⚠ no token — raw value
+          sizing:
+            width:    fill-container
+            height:   fill-container
+            overflow: hidden
+          react:
+            component_name: null
+            element:        main
+            css_module:     AddressBookPage.module.css
+            notes:          "Main content area — fills remaining width after Navigation, overflow hidden"
+          children:
+
+            # ─────────────────────────────────────────────────────────────
+            # SECTION: Page Header
+            # ─────────────────────────────────────────────────────────────
+
+            - id:   "5:4174"
+              name: "Page Header"
+              type: section
+              position:
+                order:          1
+                sibling_before: null
+                sibling_after:  "Metrics Row"
+                layout_role:    flex-child
+              layout:
+                direction: vertical
+                alignment: start
+                wrap:      false
+                gap:       0
+                padding:
+                  top:    0
+                  right:  0
+                  bottom: 0
+                  left:   0
+              sizing:
+                width:    fill-container
+                height:   hug-content
+                overflow: visible
+              react:
+                component_name: PageHeader
+                element:        header
+                css_module:     PageHeader.module.css
+                notes:          "Page header — isolate stacking context; Title row z-2 slightly overlaps Supporting row z-1"
+              children:
+
+                - id:   "5:4177"
+                  name: "Title row"
+                  type: group
+                  position:
+                    order:          1
+                    sibling_before: null
+                    sibling_after:  "Supporting row"
+                    layout_role:    flex-child
+                  layout:
+                    direction: horizontal
+                    alignment: start
+                    wrap:      false
+                    gap:       "var(--spacing-page-header-title-row-gap)"
+                    padding:
+                      top:    0
+                      right:  0
+                      bottom: 0
+                      left:   0
+                  sizing:
+                    width:    fill-container
+                    height:   fixed-40px  # ⚠ no token — raw value
+                    overflow: visible
+                  react:
+                    component_name: null
+                    element:        div
+                    css_module:     PageHeader.module.css
+                    notes:          "Title + actions row — fixed 40px height, z-index: 2"
+                  children:
+
+                    - id:   "5:4180"
+                      name: "Title"
+                      type: group
+                      position:
+                        order:          1
+                        sibling_before: null
+                        sibling_after:  "Button Group"
+                        layout_role:    flex-child
+                      layout:
+                        direction: horizontal
+                        alignment: center
+                        wrap:      true
+                        gap:       0
+                        padding:
+                          top:    0
+                          right:  0
+                          bottom: 0
+                          left:   0
+                      sizing:
+                        width:    fill-container
+                        height:   fill-container
+                        overflow: visible
+                      react:
+                        component_name: null
+                        element:        div
+                        css_module:     PageHeader.module.css
+                        notes:          "Title wrapper — fills horizontal space; wrapping flex container for h1"
+                      children:
+
+                        - id:   "5:4181"
+                          name: "[Address Book heading text]"  # unnamed in Figma
+                          type: text
+                          position:
+                            order:          1
+                            sibling_before: null
+                            sibling_after:  null
+                            layout_role:    flex-child
+                          sizing:
+                            width:    hug-content
+                            height:   hug-content
+                            overflow: hidden
+                          tokens:
+                            color_text:  "var(--color-page-header-title-text)"
+                            font_family: "var(--font-page-header-title-family)"
+                            font_weight: "var(--font-page-header-title-weight)"
+                            font_size:   "var(--font-page-header-title-size)"  # 24px — ⚠ token exists, bind in Figma
+                          react:
+                            component_name: null
+                            element:        h1
+                            css_module:     PageHeader.module.css
+                            notes:          "Page title text — text-ellipsis, whitespace-nowrap, letter-spacing -0.48px (no token)"
+
+                    - id:   "6:4779"
+                      name: "Button Group"
+                      type: component
+                      position:
+                        order:          2
+                        sibling_before: "Title"
+                        sibling_after:  null
+                        layout_role:    flex-child
+                      layout:
+                        direction: horizontal
+                        alignment: center
+                        wrap:      false
+                        gap:       "var(--spacing-page-header-button-group-gap)"
+                        padding:
+                          top:    0
+                          right:  0
+                          bottom: 0
+                          left:   0
+                      sizing:
+                        width:    hug-content
+                        height:   hug-content
+                        overflow: visible
+                      react:
+                        component_name: ButtonGroup
+                        element:        div
+                        css_module:     PageHeader.module.css
+                        notes:          "Button Group DS component — ghost + primary buttons"
+                      children:
+
+                        - id:   "I6:4779;2072:9460"
+                          name: "Button"
+                          type: component
+                          position:
+                            order:          1
+                            sibling_before: null
+                            sibling_after:  "Button"
+                            layout_role:    flex-child
+                          layout:
+                            direction: horizontal
+                            alignment: center
+                            wrap:      false
+                            gap:       "var(--spacing-page-header-title-row-gap)"
+                            padding:
+                              top:    "var(--spacing-page-header-title-row-gap)"
+                              right:  "var(--spacing-page-header-title-row-gap)"
+                              bottom: "var(--spacing-page-header-title-row-gap)"
+                              left:   "var(--spacing-page-header-title-row-gap)"
+                          sizing:
+                            width:    fill-container
+                            height:   hug-content
+                            overflow: hidden
+                          tokens:
+                            radius:      "var(--radius-page-header-button)"
+                            color_text:  "var(--color-page-header-ghost-button-text)"
+                            font_family: "var(--font-page-header-body-family)"
+                            font_weight: "var(--font-page-header-body-weight-regular)"
+                            font_size:   "var(--font-page-header-body-size-medium)"
+                          react:
+                            component_name: null
+                            element:        button
+                            css_module:     PageHeader.module.css
+                            notes:          "Ghost button — 'Download data'; no background, no border in this state"
+                          children:
+
+                            - id:   "I6:4779;2072:9460;4185:3840"
+                              name: "Download cloud"
+                              type: component
+                              position:
+                                order:          1
+                                sibling_before: null
+                                sibling_after:  "[Download data label]"
+                                layout_role:    flex-child
+                              sizing:
+                                width:    fixed-16px  # ⚠ no token — raw value
+                                height:   fixed-16px
+                                overflow: hidden
+                              react:
+                                component_name: null
+                                element:        img
+                                css_module:     PageHeader.module.css
+                                notes:          "Download cloud DS icon, 16px"
+
+                            - id:   "I6:4779;2072:9460;4185:3841"
+                              name: "[Download data label]"  # unnamed in Figma
+                              type: text
+                              position:
+                                order:          2
+                                sibling_before: "Download cloud"
+                                sibling_after:  null
+                                layout_role:    flex-child
+                              sizing:
+                                width:    hug-content
+                                height:   hug-content
+                              tokens:
+                                color_text:  "var(--color-page-header-ghost-button-text)"
+                                font_family: "var(--font-page-header-body-family)"
+                                font_weight: "var(--font-page-header-body-weight-regular)"
+                                font_size:   "var(--font-page-header-body-size-medium)"
+                              react:
+                                component_name: null
+                                element:        span
+                                css_module:     PageHeader.module.css
+                                notes:          "Button label — 'Download data'; whitespace-nowrap"
+
+                        - id:   "I6:4779;2072:9461"
+                          name: "Button"
+                          type: component
+                          position:
+                            order:          2
+                            sibling_before: "Button"
+                            sibling_after:  null
+                            layout_role:    flex-child
+                          layout:
+                            direction: horizontal
+                            alignment: center
+                            wrap:      false
+                            gap:       "var(--spacing-page-header-title-row-gap)"
+                            padding:
+                              top:    "var(--spacing-page-header-primary-button-padding)"
+                              right:  "var(--spacing-page-header-primary-button-padding)"
+                              bottom: "var(--spacing-page-header-primary-button-padding)"
+                              left:   "var(--spacing-page-header-primary-button-padding)"
+                          sizing:
+                            width:    hug-content
+                            height:   hug-content
+                            overflow: hidden
+                          tokens:
+                            color_background: "var(--color-page-header-primary-button-background)"
+                            color_border:     "var(--color-page-header-primary-button-border)"
+                            color_text:       "var(--color-page-header-primary-button-text)"
+                            radius:           "var(--radius-page-header-button)"
+                            font_family:      "var(--font-page-header-body-family)"
+                            font_weight:      "var(--font-page-header-body-weight-regular)"
+                            font_size:        "var(--font-page-header-body-size-medium)"
+                          react:
+                            component_name: null
+                            element:        button
+                            css_module:     PageHeader.module.css
+                            notes:          "Primary button — 'Add address'; dark bg, white text, 1px border; border-width: var(--border-page-header-primary-button-width)"
+                          children:
+
+                            - id:   "I6:4779;2072:9461;4185:3780"
+                              name: "Plus"
+                              type: component
+                              position:
+                                order:          1
+                                sibling_before: null
+                                sibling_after:  "[Add address label]"
+                                layout_role:    flex-child
+                              sizing:
+                                width:    fixed-16px  # ⚠ no token — raw value
+                                height:   fixed-16px
+                                overflow: hidden
+                              react:
+                                component_name: null
+                                element:        img
+                                css_module:     PageHeader.module.css
+                                notes:          "Plus DS icon, 16px"
+
+                            - id:   "I6:4779;2072:9461;4185:3781"
+                              name: "[Add address label]"  # unnamed in Figma
+                              type: text
+                              position:
+                                order:          2
+                                sibling_before: "Plus"
+                                sibling_after:  null
+                                layout_role:    flex-child
+                              sizing:
+                                width:    hug-content
+                                height:   hug-content
+                              tokens:
+                                color_text:  "var(--color-page-header-primary-button-text)"
+                                font_family: "var(--font-page-header-body-family)"
+                                font_weight: "var(--font-page-header-body-weight-regular)"
+                                font_size:   "var(--font-page-header-body-size-medium)"
+                              react:
+                                component_name: null
+                                element:        span
+                                css_module:     PageHeader.module.css
+                                notes:          "Button label — 'Add address'; whitespace-nowrap"
+
+                - id:   "5:4187"
+                  name: "Supporting row"
+                  type: group
+                  position:
+                    order:          2
+                    sibling_before: "Title row"
+                    sibling_after:  null
+                    layout_role:    flex-child
+                  layout:
+                    direction: horizontal
+                    alignment: start
+                    wrap:      false
+                    gap:       0
+                    padding:
+                      top:    0
+                      right:  0
+                      bottom: 0
+                      left:   0
+                  sizing:
+                    width:    fill-container
+                    height:   hug-content
+                    overflow: visible
+                  react:
+                    component_name: null
+                    element:        div
+                    css_module:     PageHeader.module.css
+                    notes:          "Subtitle row — z-index: 1, sits below title row in stacking context"
+                  children:
+
+                    - id:   "5:4188"
+                      name: "[subtitle text]"  # unnamed in Figma
+                      type: text
+                      position:
+                        order:          1
+                        sibling_before: null
+                        sibling_after:  null
+                        layout_role:    flex-child
+                      sizing:
+                        width:    fill-container
+                        height:   hug-content
+                        overflow: hidden
+                      tokens:
+                        color_text:  "var(--color-page-header-subtitle-text)"
+                        font_family: "var(--font-page-header-body-family)"
+                        font_weight: "var(--font-page-header-body-weight-regular)"
+                        font_size:   "var(--font-page-header-subtitle-size)"  # 14px — ⚠ token exists, bind in Figma
+                      react:
+                        component_name: null
+                        element:        p
+                        css_module:     PageHeader.module.css
+                        notes:          "Page subtitle — text-ellipsis, overflow hidden, line-height 1.4"
+
+            # ─────────────────────────────────────────────────────────────
+            # SECTION: Metrics Row
+            # ─────────────────────────────────────────────────────────────
+
+            - id:   "6:4558"
+              name: "Metrics Row"
+              type: card
+              position:
+                order:          2
+                sibling_before: "Page Header"
+                sibling_after:  "Container"
+                layout_role:    flex-child
+              layout:
+                direction: horizontal
+                alignment: start
+                wrap:      false
+                gap:       "var(--spacing-metrics-row-metric-gap)"
+                padding:
+                  top:    "var(--spacing-metrics-row-card-padding)"
+                  right:  "var(--spacing-metrics-row-card-padding)"
+                  bottom: "var(--spacing-metrics-row-card-padding)"
+                  left:   "var(--spacing-metrics-row-card-padding)"
+              sizing:
+                width:    fill-container
+                height:   hug-content
+                overflow: visible
+              tokens:
+                color_background: "var(--color-metrics-row-card-background)"
+                radius:           "var(--radius-metrics-row-card)"
+                shadow:           "var(--shadow-metrics-row-card)"
+                spacing_padding:  "var(--spacing-metrics-row-card-padding)"
+                spacing_gap:      "var(--spacing-metrics-row-metric-gap)"
+              react:
+                component_name: MetricsRow
+                element:        section
+                css_module:     MetricsRow.module.css
+                notes:          "Address stats card — 5 metrics separated by vertical dividers; shadow: Drop Shadow/200"
+              children:
+
+                - id:   "6:4559"
+                  name: "Metric"
+                  type: component
+                  position:
+                    order:          1
+                    sibling_before: null
+                    sibling_after:  "[divider]"
+                    layout_role:    flex-child
+                  layout:
+                    direction: horizontal
+                    alignment: center
+                    wrap:      false
+                    gap:       "var(--spacing-metrics-row-metric-gap)"
+                    padding:
+                      top:    0
+                      right:  0
+                      bottom: 0
+                      left:   0
+                  sizing:
+                    width:    fill-container
+                    height:   hug-content
+                    overflow: visible
+                  tokens:
+                    color_text:  "var(--color-metrics-row-metric-text)"
+                    spacing_gap: "var(--spacing-metrics-row-metric-gap)"
+                  react:
+                    component_name: MetricItem
+                    element:        div
+                    css_module:     MetricsRow.module.css
+                    notes:          "Total addresses — label: 'Total addresses', value: '120'"
+                  children:
+
+                    - id:   "I6:4559;6:4224"
+                      name: "[icon container]"  # unnamed in Figma
+                      type: group
+                      position:
+                        order:          1
+                        sibling_before: null
+                        sibling_after:  "Label"
+                        layout_role:    flex-child
+                      layout:
+                        direction: horizontal
+                        alignment: center
+                        wrap:      false
+                        gap:       0
+                        padding:
+                          top:    "var(--spacing-metrics-row-metric-gap)"
+                          right:  "var(--spacing-metrics-row-metric-gap)"
+                          bottom: "var(--spacing-metrics-row-metric-gap)"
+                          left:   "var(--spacing-metrics-row-metric-gap)"
+                      sizing:
+                        width:    hug-content
+                        height:   hug-content
+                        overflow: visible
+                      tokens:
+                        color_background: "var(--color-metrics-row-icon-container-background)"
+                        radius:           "var(--radius-metrics-row-icon-container)"  # ⚠ = var(--sds-size-icon-medium)=32px repurposed as radius
+                      react:
+                        component_name: null
+                        element:        div
+                        css_module:     MetricsRow.module.css
+                        notes:          "Icon bg container — circular, p-12px; icon child is 20px DS icon"
+                      children:
+
+                        - id:   "I6:4559;6:4225"
+                          name: "Shopping bag"
+                          type: component
+                          position:
+                            order:          1
+                            sibling_before: null
+                            sibling_after:  null
+                            layout_role:    flex-child
+                          sizing:
+                            width:    "var(--size-metrics-row-icon)"  # 20px — ⚠ no sizing token in DS
+                            height:   "var(--size-metrics-row-icon)"
+                            overflow: hidden
+                          react:
+                            component_name: null
+                            element:        img
+                            css_module:     MetricsRow.module.css
+                            notes:          "Shopping bag DS icon, 20px"
+
+                    - id:   "I6:4559;6:4226"
+                      name: "Label"
+                      type: group
+                      position:
+                        order:          2
+                        sibling_before: "[icon container]"
+                        sibling_after:  null
+                        layout_role:    flex-child
+                      layout:
+                        direction: vertical
+                        alignment: start
+                        wrap:      false
+                        gap:       "var(--spacing-metrics-row-label-value-gap)"
+                        padding:
+                          top:    0
+                          right:  0
+                          bottom: 0
+                          left:   0
+                      sizing:
+                        width:    hug-content
+                        height:   hug-content
+                        overflow: visible
+                      tokens:
+                        color_text:  "var(--color-metrics-row-metric-text)"
+                        spacing_gap: "var(--spacing-metrics-row-label-value-gap)"
+                      react:
+                        component_name: null
+                        element:        div
+                        css_module:     MetricsRow.module.css
+                        notes:          "Metric label + value stack"
+                      children:
+
+                        - id:   "I6:4559;6:4228"
+                          name: "[metric label text]"  # unnamed in Figma
+                          type: text
+                          position:
+                            order:          1
+                            sibling_before: null
+                            sibling_after:  "[metric value text]"
+                            layout_role:    flex-child
+                          sizing:
+                            width:    hug-content
+                            height:   hug-content
+                          tokens:
+                            color_text:  "var(--color-metrics-row-metric-text)"
+                            font_family: "var(--font-metrics-row-label-family)"
+                            font_weight: "var(--font-metrics-row-label-weight)"
+                            font_size:   "var(--font-metrics-row-label-size)"
+                          react:
+                            component_name: null
+                            element:        span
+                            css_module:     MetricsRow.module.css
+                            notes:          "Label text — 'Total addresses'"
+
+                        - id:   "I6:4559;6:4468"
+                          name: "[metric value text]"  # unnamed in Figma
+                          type: text
+                          position:
+                            order:          2
+                            sibling_before: "[metric label text]"
+                            sibling_after:  null
+                            layout_role:    flex-child
+                          sizing:
+                            width:    hug-content
+                            height:   hug-content
+                          tokens:
+                            color_text:  "var(--color-metrics-row-metric-text)"
+                            font_family: "var(--font-metrics-row-label-family)"
+                            font_weight: "var(--font-metrics-row-value-weight)"
+                            font_size:   "var(--font-metrics-row-value-size)"
+                          react:
+                            component_name: null
+                            element:        span
+                            css_module:     MetricsRow.module.css
+                            notes:          "Value text — '120'"
+
+                - id:   "6:4603"
+                  name: "[divider]"  # unnamed in Figma
+                  type: group
+                  position:
+                    order:          2
+                    sibling_before: "Metric"
+                    sibling_after:  "Metric"
+                    layout_role:    flex-child
+                  sizing:
+                    width:    fixed-0px
+                    height:   fixed-0px
+                    overflow: visible
+                  react:
+                    component_name: null
+                    element:        div
+                    css_module:     MetricsRow.module.css
+                    notes:          "Vertical divider — container-query width trick: h-0 w-0 wrapper, inner div rotated 90deg at 100cqh; renders as 1px vertical line"
+
+                - id:   "6:4560"
+                  name: "Metric"
+                  type: component
+                  position:
+                    order:          3
+                    sibling_before: "[divider]"
+                    sibling_after:  "[divider]"
+                    layout_role:    flex-child
+                  layout:
+                    direction: horizontal
+                    alignment: center
+                    wrap:      false
+                    gap:       "var(--spacing-metrics-row-metric-gap)"
+                    padding:
+                      top:    0
+                      right:  0
+                      bottom: 0
+                      left:   0
+                  sizing:
+                    width:    fill-container
+                    height:   hug-content
+                    overflow: visible
+                  tokens:
+                    color_text:  "var(--color-metrics-row-metric-text)"
+                    spacing_gap: "var(--spacing-metrics-row-metric-gap)"
+                  react:
+                    component_name: MetricItem
+                    element:        div
+                    css_module:     MetricsRow.module.css
+                    notes:          "Warehouse locations — label: 'Warehouse locations', value: '10'; identical structure to Metric 1"
+                  children:
+
+                    - id:   "I6:4560;6:4224"
+                      name: "[icon container]"
+                      type: group
+                      position:
+                        order:          1
+                        sibling_before: null
+                        sibling_after:  "Label"
+                        layout_role:    flex-child
+                      layout:
+                        direction: horizontal
+                        alignment: center
+                        wrap:      false
+                        gap:       0
+                        padding:
+                          top:    "var(--spacing-metrics-row-metric-gap)"
+                          right:  "var(--spacing-metrics-row-metric-gap)"
+                          bottom: "var(--spacing-metrics-row-metric-gap)"
+                          left:   "var(--spacing-metrics-row-metric-gap)"
+                      sizing:
+                        width:    hug-content
+                        height:   hug-content
+                      tokens:
+                        color_background: "var(--color-metrics-row-icon-container-background)"
+                        radius:           "var(--radius-metrics-row-icon-container)"
+                      react:
+                        component_name: null
+                        element:        div
+                        css_module:     MetricsRow.module.css
+                        notes:          "Icon bg container"
+                      children:
+                        - id:   "I6:4560;6:4225"
+                          name: "Layers"
+                          type: component
+                          position:
+                            order: 1
+                            sibling_before: null
+                            sibling_after:  null
+                            layout_role:    flex-child
+                          sizing:
+                            width:    "var(--size-metrics-row-icon)"
+                            height:   "var(--size-metrics-row-icon)"
+                            overflow: hidden
+                          react:
+                            component_name: null
+                            element:        img
+                            css_module:     MetricsRow.module.css
+                            notes:          "Layers DS icon, 20px"
+
+                    - id:   "I6:4560;6:4226"
+                      name: "Label"
+                      type: group
+                      position:
+                        order:          2
+                        sibling_before: "[icon container]"
+                        sibling_after:  null
+                        layout_role:    flex-child
+                      layout:
+                        direction: vertical
+                        alignment: start
+                        wrap:      false
+                        gap:       "var(--spacing-metrics-row-label-value-gap)"
+                        padding:
+                          top:    0
+                          right:  0
+                          bottom: 0
+                          left:   0
+                      sizing:
+                        width:    hug-content
+                        height:   hug-content
+                      tokens:
+                        color_text: "var(--color-metrics-row-metric-text)"
+                      react:
+                        component_name: null
+                        element:        div
+                        css_module:     MetricsRow.module.css
+                        notes:          "Metric label + value stack"
+                      children:
+                        - id:   "I6:4560;6:4228"
+                          name: "[metric label text]"
+                          type: text
+                          position:
+                            order: 1
+                            sibling_before: null
+                            sibling_after:  "[metric value text]"
+                            layout_role:    flex-child
+                          sizing:
+                            width: hug-content
+                            height: hug-content
+                          tokens:
+                            color_text:  "var(--color-metrics-row-metric-text)"
+                            font_family: "var(--font-metrics-row-label-family)"
+                            font_weight: "var(--font-metrics-row-label-weight)"
+                            font_size:   "var(--font-metrics-row-label-size)"
+                          react:
+                            component_name: null
+                            element:        span
+                            css_module:     MetricsRow.module.css
+                            notes:          "Label text — 'Warehouse locations'"
+                        - id:   "I6:4560;6:4468"
+                          name: "[metric value text]"
+                          type: text
+                          position:
+                            order: 2
+                            sibling_before: "[metric label text]"
+                            sibling_after:  null
+                            layout_role:    flex-child
+                          sizing:
+                            width: hug-content
+                            height: hug-content
+                          tokens:
+                            color_text:  "var(--color-metrics-row-metric-text)"
+                            font_family: "var(--font-metrics-row-label-family)"
+                            font_weight: "var(--font-metrics-row-value-weight)"
+                            font_size:   "var(--font-metrics-row-value-size)"
+                          react:
+                            component_name: null
+                            element:        span
+                            css_module:     MetricsRow.module.css
+                            notes:          "Value text — '10'"
+
+                - id:   "6:4605"
+                  name: "[divider]"
+                  type: group
+                  position:
+                    order:          4
+                    sibling_before: "Metric"
+                    sibling_after:  "Metric"
+                    layout_role:    flex-child
+                  sizing:
+                    width:    fixed-0px
+                    height:   fixed-0px
+                    overflow: visible
+                  react:
+                    component_name: null
+                    element:        div
+                    css_module:     MetricsRow.module.css
+                    notes:          "Vertical divider — same container-query trick as 6:4603"
+
+                - id:   "6:4574"
+                  name: "Metric"
+                  type: component
+                  position:
+                    order:          5
+                    sibling_before: "[divider]"
+                    sibling_after:  "[divider]"
+                    layout_role:    flex-child
+                  layout:
+                    direction: horizontal
+                    alignment: center
+                    wrap:      false
+                    gap:       "var(--spacing-metrics-row-metric-gap)"
+                    padding:
+                      top:    0
+                      right:  0
+                      bottom: 0
+                      left:   0
+                  sizing:
+                    width:    fill-container
+                    height:   hug-content
+                    overflow: visible
+                  tokens:
+                    color_text: "var(--color-metrics-row-metric-text)"
+                  react:
+                    component_name: MetricItem
+                    element:        div
+                    css_module:     MetricsRow.module.css
+                    notes:          "Active addresses — label: 'Active addresses', value: '10'"
+                  children:
+                    - id:   "I6:4574;6:4224"
+                      name: "[icon container]"
+                      type: group
+                      position:
+                        order: 1
+                        sibling_before: null
+                        sibling_after:  "Label"
+                        layout_role:    flex-child
+                      layout:
+                        direction: horizontal
+                        alignment: center
+                        wrap:      false
+                        gap:       0
+                        padding:
+                          top:    "var(--spacing-metrics-row-metric-gap)"
+                          right:  "var(--spacing-metrics-row-metric-gap)"
+                          bottom: "var(--spacing-metrics-row-metric-gap)"
+                          left:   "var(--spacing-metrics-row-metric-gap)"
+                      sizing:
+                        width: hug-content
+                        height: hug-content
+                      tokens:
+                        color_background: "var(--color-metrics-row-icon-container-background)"
+                        radius:           "var(--radius-metrics-row-icon-container)"
+                      react:
+                        component_name: null
+                        element:        div
+                        css_module:     MetricsRow.module.css
+                        notes:          "Icon bg container"
+                      children:
+                        - id:   "I6:4574;6:4225"
+                          name: "Check"
+                          type: component
+                          position:
+                            order: 1
+                            sibling_before: null
+                            sibling_after:  null
+                            layout_role:    flex-child
+                          sizing:
+                            width:    "var(--size-metrics-row-icon)"
+                            height:   "var(--size-metrics-row-icon)"
+                            overflow: hidden
+                          react:
+                            component_name: null
+                            element:        img
+                            css_module:     MetricsRow.module.css
+                            notes:          "Check DS icon, 20px"
+                    - id:   "I6:4574;6:4226"
+                      name: "Label"
+                      type: group
+                      position:
+                        order: 2
+                        sibling_before: "[icon container]"
+                        sibling_after:  null
+                        layout_role:    flex-child
+                      layout:
+                        direction: vertical
+                        alignment: start
+                        wrap:      false
+                        gap:       "var(--spacing-metrics-row-label-value-gap)"
+                        padding:
+                          top: 0
+                          right: 0
+                          bottom: 0
+                          left: 0
+                      sizing:
+                        width: hug-content
+                        height: hug-content
+                      tokens:
+                        color_text: "var(--color-metrics-row-metric-text)"
+                      react:
+                        component_name: null
+                        element:        div
+                        css_module:     MetricsRow.module.css
+                        notes:          "Metric label + value stack"
+                      children:
+                        - id:   "I6:4574;6:4228"
+                          name: "[metric label text]"
+                          type: text
+                          position:
+                            order: 1
+                            sibling_before: null
+                            sibling_after:  "[metric value text]"
+                            layout_role:    flex-child
+                          sizing:
+                            width: hug-content
+                            height: hug-content
+                          tokens:
+                            color_text:  "var(--color-metrics-row-metric-text)"
+                            font_family: "var(--font-metrics-row-label-family)"
+                            font_weight: "var(--font-metrics-row-label-weight)"
+                            font_size:   "var(--font-metrics-row-label-size)"
+                          react:
+                            component_name: null
+                            element:        span
+                            css_module:     MetricsRow.module.css
+                            notes:          "Label text — 'Active addresses'"
+                        - id:   "I6:4574;6:4468"
+                          name: "[metric value text]"
+                          type: text
+                          position:
+                            order: 2
+                            sibling_before: "[metric label text]"
+                            sibling_after:  null
+                            layout_role:    flex-child
+                          sizing:
+                            width: hug-content
+                            height: hug-content
+                          tokens:
+                            color_text:  "var(--color-metrics-row-metric-text)"
+                            font_family: "var(--font-metrics-row-label-family)"
+                            font_weight: "var(--font-metrics-row-value-weight)"
+                            font_size:   "var(--font-metrics-row-value-size)"
+                          react:
+                            component_name: null
+                            element:        span
+                            css_module:     MetricsRow.module.css
+                            notes:          "Value text — '10'"
+
+                - id:   "6:4607"
+                  name: "[divider]"
+                  type: group
+                  position:
+                    order:          6
+                    sibling_before: "Metric"
+                    sibling_after:  "Metric"
+                    layout_role:    flex-child
+                  sizing:
+                    width:    fixed-0px
+                    height:   fixed-0px
+                    overflow: visible
+                  react:
+                    component_name: null
+                    element:        div
+                    css_module:     MetricsRow.module.css
+                    notes:          "Vertical divider"
+
+                - id:   "6:4582"
+                  name: "Metric"
+                  type: component
+                  position:
+                    order:          7
+                    sibling_before: "[divider]"
+                    sibling_after:  "[divider]"
+                    layout_role:    flex-child
+                  layout:
+                    direction: horizontal
+                    alignment: center
+                    wrap:      false
+                    gap:       "var(--spacing-metrics-row-metric-gap)"
+                    padding:
+                      top:    0
+                      right:  0
+                      bottom: 0
+                      left:   0
+                  sizing:
+                    width:    fill-container
+                    height:   hug-content
+                    overflow: visible
+                  tokens:
+                    color_text: "var(--color-metrics-row-metric-text)"
+                  react:
+                    component_name: MetricItem
+                    element:        div
+                    css_module:     MetricsRow.module.css
+                    notes:          "Inactive addresses — label: 'Inactive addresses', value: '10'"
+                  children:
+                    - id:   "I6:4582;6:4224"
+                      name: "[icon container]"
+                      type: group
+                      position:
+                        order: 1
+                        sibling_before: null
+                        sibling_after:  "Label"
+                        layout_role:    flex-child
+                      layout:
+                        direction: horizontal
+                        alignment: center
+                        wrap:      false
+                        gap:       0
+                        padding:
+                          top:    "var(--spacing-metrics-row-metric-gap)"
+                          right:  "var(--spacing-metrics-row-metric-gap)"
+                          bottom: "var(--spacing-metrics-row-metric-gap)"
+                          left:   "var(--spacing-metrics-row-metric-gap)"
+                      sizing:
+                        width: hug-content
+                        height: hug-content
+                      tokens:
+                        color_background: "var(--color-metrics-row-icon-container-background)"
+                        radius:           "var(--radius-metrics-row-icon-container)"
+                      react:
+                        component_name: null
+                        element:        div
+                        css_module:     MetricsRow.module.css
+                        notes:          "Icon bg container"
+                      children:
+                        - id:   "I6:4582;6:4225"
+                          name: "Alert circle"
+                          type: component
+                          position:
+                            order: 1
+                            sibling_before: null
+                            sibling_after:  null
+                            layout_role:    flex-child
+                          sizing:
+                            width:    "var(--size-metrics-row-icon)"
+                            height:   "var(--size-metrics-row-icon)"
+                            overflow: hidden
+                          react:
+                            component_name: null
+                            element:        img
+                            css_module:     MetricsRow.module.css
+                            notes:          "Alert circle DS icon, 20px"
+                    - id:   "I6:4582;6:4226"
+                      name: "Label"
+                      type: group
+                      position:
+                        order: 2
+                        sibling_before: "[icon container]"
+                        sibling_after:  null
+                        layout_role:    flex-child
+                      layout:
+                        direction: vertical
+                        alignment: start
+                        wrap:      false
+                        gap:       "var(--spacing-metrics-row-label-value-gap)"
+                        padding:
+                          top: 0
+                          right: 0
+                          bottom: 0
+                          left: 0
+                      sizing:
+                        width: hug-content
+                        height: hug-content
+                      tokens:
+                        color_text: "var(--color-metrics-row-metric-text)"
+                      react:
+                        component_name: null
+                        element:        div
+                        css_module:     MetricsRow.module.css
+                        notes:          "Metric label + value stack"
+                      children:
+                        - id:   "I6:4582;6:4228"
+                          name: "[metric label text]"
+                          type: text
+                          position:
+                            order: 1
+                            sibling_before: null
+                            sibling_after:  "[metric value text]"
+                            layout_role:    flex-child
+                          sizing:
+                            width: hug-content
+                            height: hug-content
+                          tokens:
+                            color_text:  "var(--color-metrics-row-metric-text)"
+                            font_family: "var(--font-metrics-row-label-family)"
+                            font_weight: "var(--font-metrics-row-label-weight)"
+                            font_size:   "var(--font-metrics-row-label-size)"
+                          react:
+                            component_name: null
+                            element:        span
+                            css_module:     MetricsRow.module.css
+                            notes:          "Label text — 'Inactive addresses'"
+                        - id:   "I6:4582;6:4468"
+                          name: "[metric value text]"
+                          type: text
+                          position:
+                            order: 2
+                            sibling_before: "[metric label text]"
+                            sibling_after:  null
+                            layout_role:    flex-child
+                          sizing:
+                            width: hug-content
+                            height: hug-content
+                          tokens:
+                            color_text:  "var(--color-metrics-row-metric-text)"
+                            font_family: "var(--font-metrics-row-label-family)"
+                            font_weight: "var(--font-metrics-row-value-weight)"
+                            font_size:   "var(--font-metrics-row-value-size)"
+                          react:
+                            component_name: null
+                            element:        span
+                            css_module:     MetricsRow.module.css
+                            notes:          "Value text — '10'"
+
+                - id:   "6:4609"
+                  name: "[divider]"
+                  type: group
+                  position:
+                    order:          8
+                    sibling_before: "Metric"
+                    sibling_after:  "Metric"
+                    layout_role:    flex-child
+                  sizing:
+                    width:    fixed-0px
+                    height:   fixed-0px
+                    overflow: visible
+                  react:
+                    component_name: null
+                    element:        div
+                    css_module:     MetricsRow.module.css
+                    notes:          "Vertical divider"
+
+                - id:   "6:4590"
+                  name: "Metric"
+                  type: component
+                  position:
+                    order:          9
+                    sibling_before: "[divider]"
+                    sibling_after:  null
+                    layout_role:    flex-child
+                  layout:
+                    direction: horizontal
+                    alignment: center
+                    wrap:      false
+                    gap:       "var(--spacing-metrics-row-metric-gap)"
+                    padding:
+                      top:    0
+                      right:  0
+                      bottom: 0
+                      left:   0
+                  sizing:
+                    width:    fill-container
+                    height:   hug-content
+                    overflow: visible
+                  tokens:
+                    color_text: "var(--color-metrics-row-metric-text)"
+                  react:
+                    component_name: MetricItem
+                    element:        div
+                    css_module:     MetricsRow.module.css
+                    notes:          "Prepaid addresses — label: 'Prepaid addresses', value: '10'"
+                  children:
+                    - id:   "I6:4590;6:4224"
+                      name: "[icon container]"
+                      type: group
+                      position:
+                        order: 1
+                        sibling_before: null
+                        sibling_after:  "Label"
+                        layout_role:    flex-child
+                      layout:
+                        direction: horizontal
+                        alignment: center
+                        wrap:      false
+                        gap:       0
+                        padding:
+                          top:    "var(--spacing-metrics-row-metric-gap)"
+                          right:  "var(--spacing-metrics-row-metric-gap)"
+                          bottom: "var(--spacing-metrics-row-metric-gap)"
+                          left:   "var(--spacing-metrics-row-metric-gap)"
+                      sizing:
+                        width: hug-content
+                        height: hug-content
+                      tokens:
+                        color_background: "var(--color-metrics-row-icon-container-background)"
+                        radius:           "var(--radius-metrics-row-icon-container)"
+                      react:
+                        component_name: null
+                        element:        div
+                        css_module:     MetricsRow.module.css
+                        notes:          "Icon bg container"
+                      children:
+                        - id:   "I6:4590;6:4225"
+                          name: "Credit card"
+                          type: component
+                          position:
+                            order: 1
+                            sibling_before: null
+                            sibling_after:  null
+                            layout_role:    flex-child
+                          sizing:
+                            width:    "var(--size-metrics-row-icon)"
+                            height:   "var(--size-metrics-row-icon)"
+                            overflow: hidden
+                          react:
+                            component_name: null
+                            element:        img
+                            css_module:     MetricsRow.module.css
+                            notes:          "Credit card DS icon, 20px"
+                    - id:   "I6:4590;6:4226"
+                      name: "Label"
+                      type: group
+                      position:
+                        order: 2
+                        sibling_before: "[icon container]"
+                        sibling_after:  null
+                        layout_role:    flex-child
+                      layout:
+                        direction: vertical
+                        alignment: start
+                        wrap:      false
+                        gap:       "var(--spacing-metrics-row-label-value-gap)"
+                        padding:
+                          top: 0
+                          right: 0
+                          bottom: 0
+                          left: 0
+                      sizing:
+                        width: hug-content
+                        height: hug-content
+                      tokens:
+                        color_text: "var(--color-metrics-row-metric-text)"
+                      react:
+                        component_name: null
+                        element:        div
+                        css_module:     MetricsRow.module.css
+                        notes:          "Metric label + value stack"
+                      children:
+                        - id:   "I6:4590;6:4228"
+                          name: "[metric label text]"
+                          type: text
+                          position:
+                            order: 1
+                            sibling_before: null
+                            sibling_after:  "[metric value text]"
+                            layout_role:    flex-child
+                          sizing:
+                            width: hug-content
+                            height: hug-content
+                          tokens:
+                            color_text:  "var(--color-metrics-row-metric-text)"
+                            font_family: "var(--font-metrics-row-label-family)"
+                            font_weight: "var(--font-metrics-row-label-weight)"
+                            font_size:   "var(--font-metrics-row-label-size)"
+                          react:
+                            component_name: null
+                            element:        span
+                            css_module:     MetricsRow.module.css
+                            notes:          "Label text — 'Prepaid addresses'"
+                        - id:   "I6:4590;6:4468"
+                          name: "[metric value text]"
+                          type: text
+                          position:
+                            order: 2
+                            sibling_before: "[metric label text]"
+                            sibling_after:  null
+                            layout_role:    flex-child
+                          sizing:
+                            width: hug-content
+                            height: hug-content
+                          tokens:
+                            color_text:  "var(--color-metrics-row-metric-text)"
+                            font_family: "var(--font-metrics-row-label-family)"
+                            font_weight: "var(--font-metrics-row-value-weight)"
+                            font_size:   "var(--font-metrics-row-value-size)"
+                          react:
+                            component_name: null
+                            element:        span
+                            css_module:     MetricsRow.module.css
+                            notes:          "Value text — '10'"
+
+            # ─────────────────────────────────────────────────────────────
+            # SECTION: Container (Address Search)
+            # ─────────────────────────────────────────────────────────────
+
+            - id:   "1:13240"
+              name: "Container"
+              type: section
+              position:
+                order:          3
+                sibling_before: "Metrics Row"
+                sibling_after:  "Map Container"
+                layout_role:    flex-child
+              layout:
+                direction: vertical
+                alignment: start
+                wrap:      false
+                gap:       "var(--spacing-container-section-gap)"
+                padding:
+                  top:    0
+                  right:  0
+                  bottom: 0
+                  left:   0
+              sizing:
+                width:    fill-container
+                height:   hug-content
+                overflow: visible
+              tokens:
+                spacing_gap: "var(--spacing-container-section-gap)"
+              react:
+                component_name: AddressSearch
+                element:        section
+                css_module:     AddressSearch.module.css
+                notes:          "Address search section — 'Container' is the Figma layer name; section heading + filter panel"
+              children:
+
+                - id:   "1:13241"
+                  name: "Container"
+                  type: group
+                  position:
+                    order:          1
+                    sibling_before: null
+                    sibling_after:  "Filters"
+                    layout_role:    flex-child
+                  layout:
+                    direction: horizontal
+                    alignment: center
+                    wrap:      false
+                    gap:       0
+                    padding:
+                      top:    "var(--spacing-container-section-gap)"
+                      right:  "var(--spacing-container-section-gap)"
+                      bottom: "var(--spacing-container-section-gap)"
+                      left:   "var(--spacing-container-section-gap)"
+                  sizing:
+                    width:    hug-content
+                    height:   hug-content
+                    overflow: visible
+                  react:
+                    component_name: null
+                    element:        div
+                    css_module:     AddressSearch.module.css
+                    notes:          "Section heading wrapper — p-8px, hug-content"
+                  children:
+
+                    - id:   "1:13242"
+                      name: "[Address search heading text]"  # unnamed in Figma
+                      type: text
+                      position:
+                        order:          1
+                        sibling_before: null
+                        sibling_after:  null
+                        layout_role:    flex-child
+                      sizing:
+                        width:    hug-content
+                        height:   hug-content
+                        overflow: hidden
+                      tokens:
+                        color_text:       "var(--color-container-heading-text)"
+                        font_family:      "var(--font-container-heading-family)"
+                        font_weight:      "var(--font-container-heading-weight)"
+                        font_size:        "var(--font-container-heading-size)"  # 18px — ⚠ token exists, bind in Figma
+                        font_line_height: "var(--font-container-heading-line-height)"
+                      react:
+                        component_name: null
+                        element:        h2
+                        css_module:     AddressSearch.module.css
+                        notes:          "Section heading — 'Address search'; text-ellipsis, whitespace-nowrap"
+
+                - id:   "1:13243"
+                  name: "Filters"
+                  type: group
+                  position:
+                    order:          2
+                    sibling_before: "Container"
+                    sibling_after:  null
+                    layout_role:    flex-child
+                  layout:
+                    direction: horizontal
+                    alignment: start
+                    wrap:      false
+                    gap:       "var(--spacing-container-filter-panel-padding-vertical)"
+                    padding:
+                      top:    "var(--spacing-container-filter-panel-padding-vertical)"
+                      right:  "var(--spacing-container-filter-panel-padding-horizontal)"
+                      bottom: "var(--spacing-container-filter-panel-padding-vertical)"
+                      left:   "var(--spacing-container-filter-panel-padding-horizontal)"
+                  sizing:
+                    width:    fill-container
+                    height:   hug-content
+                    overflow: visible
+                  tokens:
+                    color_border: "var(--color-container-filter-panel-border)"
+                    radius:       "var(--radius-container-filter-panel)"
+                  react:
+                    component_name: null
+                    element:        div
+                    css_module:     AddressSearch.module.css
+                    notes:          "Filter fields row — horizontal, 1px border; border-width: var(--border-container-filter-panel-width)"
+                  children:
+
+                    - id:   "7:4872"
+                      name: "Input Field"
+                      type: input
+                      position:
+                        order:          1
+                        sibling_before: null
+                        sibling_after:  "Input Field"
+                        layout_role:    flex-child
+                      layout:
+                        direction: vertical
+                        alignment: start
+                        wrap:      false
+                        gap:       "var(--spacing-container-field-label-gap)"
+                        padding:
+                          top:    0
+                          right:  0
+                          bottom: 0
+                          left:   0
+                      sizing:
+                        width:    fill-container
+                        height:   hug-content
+                        min_width: 120px  # ⚠ no token — raw value
+                        overflow: visible
+                      tokens:
+                        color_text:       "var(--color-container-field-label-text)"
+                        font_family:      "var(--font-container-field-label-family)"
+                        font_weight:      "var(--font-container-field-label-weight)"
+                        font_size:        "var(--font-container-field-label-size)"
+                        color_background: "var(--color-container-input-background)"
+                        color_border:     "var(--color-container-filter-panel-border)"
+                        radius:           "var(--radius-container-input)"
+                      react:
+                        component_name: null
+                        element:        div
+                        css_module:     AddressSearch.module.css
+                        notes:          "DS Input Field component — label: 'Warehouse location', placeholder: 'Enter a warehouse location'; input border-width: var(--border-container-input-width); placeholder color: var(--color-container-input-placeholder-text)"
+
+                    - id:   "7:4933"
+                      name: "Input Field"
+                      type: input
+                      position:
+                        order:          2
+                        sibling_before: "Input Field"
+                        sibling_after:  "Select Field"
+                        layout_role:    flex-child
+                      layout:
+                        direction: vertical
+                        alignment: start
+                        wrap:      false
+                        gap:       "var(--spacing-container-field-label-gap)"
+                        padding:
+                          top:    0
+                          right:  0
+                          bottom: 0
+                          left:   0
+                      sizing:
+                        width:    fill-container
+                        height:   hug-content
+                        min_width: 120px  # ⚠ no token — raw value
+                        overflow: visible
+                      tokens:
+                        color_text:       "var(--color-container-field-label-text)"
+                        font_family:      "var(--font-container-field-label-family)"
+                        font_weight:      "var(--font-container-field-label-weight)"
+                        font_size:        "var(--font-container-field-label-size)"
+                        color_background: "var(--color-container-input-background)"
+                        color_border:     "var(--color-container-filter-panel-border)"
+                        radius:           "var(--radius-container-input)"
+                      react:
+                        component_name: null
+                        element:        div
+                        css_module:     AddressSearch.module.css
+                        notes:          "DS Input Field component — label: 'Vendor', placeholder: 'Enter a vendor name'"
+
+                    - id:   "7:5014"
+                      name: "Select Field"
+                      type: input
+                      position:
+                        order:          3
+                        sibling_before: "Input Field"
+                        sibling_after:  "Select Field"
+                        layout_role:    flex-child
+                      layout:
+                        direction: vertical
+                        alignment: start
+                        wrap:      false
+                        gap:       "var(--spacing-container-field-label-gap)"
+                        padding:
+                          top:    0
+                          right:  0
+                          bottom: 0
+                          left:   0
+                      sizing:
+                        width:    fill-container
+                        height:   hug-content
+                        min_width: 120px  # ⚠ no token — raw value
+                        overflow: visible
+                      tokens:
+                        color_text:       "var(--color-container-field-label-text)"
+                        font_family:      "var(--font-container-field-label-family)"
+                        font_weight:      "var(--font-container-field-label-weight)"
+                        font_size:        "var(--font-container-field-label-size)"
+                        color_background: "var(--color-container-input-background)"
+                        color_border:     "var(--color-container-filter-panel-border)"
+                        radius:           "var(--radius-container-input)"
+                      react:
+                        component_name: null
+                        element:        div
+                        css_module:     AddressSearch.module.css
+                        notes:          "DS Select Field component — label: 'Payment policy', placeholder: 'Select a payment policy'; select fixed height 40px (no token); includes Chevron down icon"
+
+                    - id:   "7:5031"
+                      name: "Select Field"
+                      type: input
+                      position:
+                        order:          4
+                        sibling_before: "Select Field"
+                        sibling_after:  null
+                        layout_role:    flex-child
+                      layout:
+                        direction: vertical
+                        alignment: start
+                        wrap:      false
+                        gap:       "var(--spacing-container-field-label-gap)"
+                        padding:
+                          top:    0
+                          right:  0
+                          bottom: 0
+                          left:   0
+                      sizing:
+                        width:    fill-container
+                        height:   hug-content
+                        min_width: 120px  # ⚠ no token — raw value
+                        overflow: visible
+                      tokens:
+                        color_text:       "var(--color-container-field-label-text)"
+                        font_family:      "var(--font-container-field-label-family)"
+                        font_weight:      "var(--font-container-field-label-weight)"
+                        font_size:        "var(--font-container-field-label-size)"
+                        color_background: "var(--color-container-input-background)"
+                        color_border:     "var(--color-container-filter-panel-border)"
+                        radius:           "var(--radius-container-input)"
+                      react:
+                        component_name: null
+                        element:        div
+                        css_module:     AddressSearch.module.css
+                        notes:          "DS Select Field component — label: 'Status', placeholder: 'Select an address status'"
+
+            # ─────────────────────────────────────────────────────────────
+            # SECTION: Map Container
+            # ─────────────────────────────────────────────────────────────
+
+            - id:   "1:13248"
+              name: "Map Container"
+              type: section
+              position:
+                order:          4
+                sibling_before: "Container"
+                sibling_after:  null
+                layout_role:    flex-child
+              layout:
+                direction: vertical
+                alignment: center
+                wrap:      false
+                gap:       "var(--spacing-map-container-content-gap)"
+                padding:
+                  top:    0
+                  right:  0
+                  bottom: 0
+                  left:   0
+              sizing:
+                width:    fill-container
+                height:   fill-container
+                overflow: visible
+              tokens:
+                color_background: "var(--color-map-container-background)"
+                color_border:     "var(--color-map-container-border)"
+                radius:           "var(--radius-map-container)"
+                spacing_gap:      "var(--spacing-map-container-content-gap)"
+              react:
+                component_name: MapContainer
+                element:        section
+                css_module:     MapContainer.module.css
+                notes:          "Results area / empty-state — fills remaining height; border-width: var(--border-map-container-width); currently shows empty-state illustration + text"
+              children:
+
+                - id:   "11:5045"
+                  name: "[illustration]"  # unnamed in Figma (long auto-generated name)
+                  type: image
+                  position:
+                    order:          1
+                    sibling_before: null
+                    sibling_after:  "Search Info Text"
+                    layout_role:    flex-child
+                  sizing:
+                    width:    fixed-390px  # ⚠ no token — raw value
+                    height:   fixed-234px  # ⚠ no token — raw value
+                    overflow: hidden
+                  react:
+                    component_name: null
+                    element:        img
+                    css_module:     MapContainer.module.css
+                    notes:          "Warehouse staff illustration — empty-state image; object-cover; fixed 390×234px with no token"
+
+                - id:   "1:13250"
+                  name: "Search Info Text"
+                  type: group
+                  position:
+                    order:          2
+                    sibling_before: "[illustration]"
+                    sibling_after:  null
+                    layout_role:    flex-child
+                  layout:
+                    direction: vertical
+                    alignment: center
+                    wrap:      false
+                    gap:       "var(--spacing-map-container-text-gap)"
+                    padding:
+                      top:    0
+                      right:  0
+                      bottom: 0
+                      left:   0
+                  sizing:
+                    width:    hug-content
+                    height:   hug-content
+                    overflow: visible
+                  react:
+                    component_name: null
+                    element:        div
+                    css_module:     MapContainer.module.css
+                    notes:          "Empty-state text group — heading + body stacked, center aligned"
+                  children:
+
+                    - id:   "1:13251"
+                      name: "[empty state heading text]"  # unnamed in Figma
+                      type: text
+                      position:
+                        order:          1
+                        sibling_before: null
+                        sibling_after:  "[empty state body text]"
+                        layout_role:    flex-child
+                      sizing:
+                        width:    hug-content
+                        height:   hug-content
+                        overflow: hidden
+                      tokens:
+                        color_text:  "var(--color-map-container-empty-heading-text)"
+                        font_family: "var(--font-map-container-heading-family)"
+                        font_weight: "var(--font-map-container-heading-weight)"
+                        font_size:   "var(--font-map-container-heading-size)"  # 16px — ⚠ token exists, bind in Figma
+                      react:
+                        component_name: null
+                        element:        p
+                        css_module:     MapContainer.module.css
+                        notes:          "Empty-state heading — 'Search to find the address'; text-ellipsis"
+
+                    - id:   "1:13252"
+                      name: "[empty state body text]"  # unnamed in Figma
+                      type: text
+                      position:
+                        order:          2
+                        sibling_before: "[empty state heading text]"
+                        sibling_after:  null
+                        layout_role:    flex-child
+                      sizing:
+                        width:    hug-content
+                        height:   hug-content
+                        overflow: hidden
+                      tokens:
+                        color_text:  "var(--color-map-container-empty-body-text)"
+                        font_family: "var(--font-map-container-heading-family)"
+                        font_weight: "var(--font-map-container-body-weight)"
+                        font_size:   "var(--font-map-container-body-size)"  # 14px — ⚠ token exists, bind in Figma
+                      react:
+                        component_name: null
+                        element:        p
+                        css_module:     MapContainer.module.css
+                        notes:          "Empty-state body — 'Use the text entry sections above...'; text-ellipsis"

@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  transpilePackages: ["@sds/ui"],
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  turbopack: {
+    root: ".",
+  },
 };
 
 export default nextConfig;

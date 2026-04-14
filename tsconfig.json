@@ -11,6 +11,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "allowImportingTsExtensions": true,
     "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
@@ -19,11 +20,28 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@sds/ui": ["./packages/sds/src/index.ts"],
+      "@sds/ui/primitives": ["./packages/sds/src/ui/primitives/index.ts"],
+      "@sds/ui/compositions": ["./packages/sds/src/ui/compositions/index.ts"],
+      "@sds/ui/layout": ["./packages/sds/src/ui/layout/index.ts"],
+      "@sds/ui/icons": ["./packages/sds/src/ui/icons/index.ts"],
+      "@sds/ui/hooks": ["./packages/sds/src/ui/hooks/index.ts"],
+      "@sds/ui/utils": ["./packages/sds/src/ui/utils/index.ts"],
+      "compositions": ["./packages/sds/src/ui/compositions"],
+      "data": ["./packages/sds/src/data"],
+      "hooks": ["./packages/sds/src/ui/hooks"],
+      "icons": ["./packages/sds/src/ui/icons"],
+      "images": ["./packages/sds/src/ui/images"],
+      "layout": ["./packages/sds/src/ui/layout"],
+      "primitives": ["./packages/sds/src/ui/primitives"],
+      "providers": ["./packages/sds/src/ui/providers"],
+      "utils": ["./packages/sds/src/ui/utils"]
     }
   },
   "include": [
     "next-env.d.ts",
+    "packages/sds/src/index.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",

@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "baseUrl": "./src",
+    "paths": {
+      "data": ["./data"],
+      "compositions": ["./ui/compositions"],
+      "hooks": ["./ui/hooks"],
+      "icons": ["./ui/icons"],
+      "images": ["./ui/images"],
+      "layout": ["./ui/layout"],
+      "primitives": ["./ui/primitives"],
+      "providers": ["./ui/providers"],
+      "utils": ["./ui/utils"]
+    }
+  },
+  "include": ["src"]
+}
