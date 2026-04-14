@@ -1,3 +1,5 @@
+"use client";
+
 import clsx from "clsx";
 import { ComponentPropsWithoutRef, useState } from "react";
 import "./image.css";

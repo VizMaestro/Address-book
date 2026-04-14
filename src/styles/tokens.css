@@ -35,6 +35,38 @@
 
 
 /* ============================================================
+   FALLBACK DEFINITIONS for --ld-* tokens not present in @sds/ui/theme.css
+   These map to equivalent SDS values or explicit px fallbacks.
+   ============================================================ */
+
+:root {
+  /* Primitive scale — spacing */
+  --ld-primitive-scale-space-50:  0.25rem;   /* 4px  */
+  --ld-primitive-scale-space-100: 0.5rem;    /* 8px  */
+  --ld-primitive-scale-space-150: 0.75rem;   /* 12px */
+  --ld-primitive-scale-space-200: 1rem;      /* 16px */
+  --ld-primitive-scale-space-250: 1.25rem;   /* 20px */
+  --ld-primitive-scale-space-300: 1.5rem;    /* 24px */
+
+  /* Primitive scale — border-radius */
+  --ld-primitive-scale-borderradius-100: 0.5rem; /* 8px */
+
+  /* Semantic scale — border width */
+  --ld-semantic-scale-borderwidth-interactive: 1px;
+
+  /* Semantic font — caption */
+  --ld-semantic-font-caption-family:     var(--sds-typography-body-font-family, system-ui, sans-serif);
+  --ld-semantic-font-caption-size:       0.75rem; /* 12px */
+  --ld-semantic-font-caption-lineheight: 1.4;
+  --ld-semantic-font-caption-weight-default: 400;
+
+  /* Semantic font — heading small */
+  --ld-semantic-font-heading-small-family:         var(--sds-typography-heading-font-family, system-ui, sans-serif);
+  --ld-semantic-font-heading-small-weight-default: var(--sds-typography-heading-font-weight, 600);
+  --ld-semantic-font-heading-small-lineheight:     1.25;
+}
+
+/* ============================================================
    TOKEN MAP — generated from Figma
    Source: https://www.figma.com/design/nHuQyck4BJMI3IqadWrpBp/Address-book?node-id=1-13208
    Generated: 2026-04-14

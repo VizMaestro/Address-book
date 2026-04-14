@@ -1,0 +1,148 @@
+/* Applied on top of SDS .navigation — override only what differs from the SDS default. */
+.sidebar {
+  background-color: var(--color-navigation-background, #aff4c6);
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--spacing-navigation-padding-vertical, 20px);
+  padding-right: var(--spacing-navigation-padding-horizontal, 8px);
+  padding-bottom: var(--spacing-navigation-padding-vertical, 20px);
+  padding-left: var(--spacing-navigation-padding-horizontal, 8px);
+  height: 100%;
+  flex-shrink: 0;
+  /* SDS navigation sets gap via --sds-size-space-200; sidebar uses space-between instead */
+  gap: 0;
+}
+
+.topGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-navigation-logo-gap, 12px);
+  width: 100%;
+}
+
+.logoIcon {
+  /* 32px matches the Figma Briefcase node (5:3919) which renders at 32×32 */
+  width: var(--sds-size-icon-large, 32px);
+  height: var(--sds-size-icon-large, 32px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  --svg-stroke-color: var(--color-navigation-title-text, #1e1e1e);
+}
+
+.logoLabel {
+  color: var(--color-navigation-title-text, #1e1e1e);
+  font-family: var(--font-navigation-title-family, system-ui, sans-serif);
+  font-weight: var(--font-navigation-title-weight, 600);
+  font-size: var(--font-navigation-title-size, 14px);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.navList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-navigation-padding-horizontal, 8px);
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-navigation-padding-horizontal, 8px);
+  padding-top: var(--spacing-navigation-menu-item-padding-vertical, 16px);
+  padding-right: var(--spacing-navigation-padding-horizontal, 8px);
+  padding-bottom: var(--spacing-navigation-menu-item-padding-vertical, 16px);
+  padding-left: var(--spacing-navigation-padding-horizontal, 8px);
+  width: 100%;
+  border-radius: var(--radius-navigation-menu-item, 8px);
+  cursor: pointer;
+  color: var(--color-navigation-menu-item-text, #303030);
+  font-family: var(--font-navigation-caption-family, system-ui, sans-serif);
+  font-size: var(--font-navigation-caption-size, 12px);
+  line-height: var(--font-navigation-caption-line-height, 1.4);
+  font-weight: var(--font-navigation-caption-weight, 400);
+  text-align: center;
+  user-select: none;
+}
+
+.navItem.active {
+  background-color: var(--color-navigation-menu-item-active-background, #009951);
+  color: var(--color-navigation-menu-item-active-text, #f3f3f3);
+  font-family: var(--font-navigation-title-family, system-ui, sans-serif);
+  font-weight: var(--font-navigation-title-weight, 600);
+  font-size: var(--font-navigation-title-size, 14px);
+}
+
+/* SDS icons use stroke="var(--svg-stroke-color)" on their SVG paths — not currentColor. */
+.navIcon {
+  width: var(--size-navigation-icon, 20px);
+  height: var(--size-navigation-icon, 20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  --svg-stroke-color: var(--color-navigation-menu-item-text, #303030);
+}
+
+/* Active item: icon must use the on-neutral token (near-white #f3f3f3) */
+.navItem.active .navIcon {
+  --svg-stroke-color: var(--color-navigation-menu-item-active-text, #f3f3f3);
+}
+
+/* 57px matches the Figma label width constraint (node 1:13227) */
+.navLabel {
+  text-align: center;
+  width: 57px;
+}
+
+.userArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* 64px matches the Figma user area container (node 1:13231) */
+  width: 64px;
+  border: var(--border-navigation-user-area-width, 1px) solid var(--color-navigation-user-area-border, #02542d);
+  border-radius: var(--radius-navigation-user-area, 8px);
+  padding-top: var(--spacing-navigation-user-area-padding-vertical, 24px);
+  padding-right: var(--spacing-navigation-logo-gap, 12px);
+  padding-bottom: var(--spacing-navigation-user-area-padding-vertical, 24px);
+  padding-left: var(--spacing-navigation-logo-gap, 12px);
+}
+
+.userAreaInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-navigation-padding-vertical, 20px);
+  width: 100%;
+}
+
+.userActionIcon {
+  width: var(--size-navigation-icon, 20px);
+  height: var(--size-navigation-icon, 20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  --svg-stroke-color: var(--color-navigation-menu-item-text, #303030);
+}
+
+.chevronIcon {
+  /* 24px matches the Figma chevron icon size (node 1:13236) */
+  width: var(--sds-size-icon-small, 24px);
+  height: var(--sds-size-icon-small, 24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  --svg-stroke-color: var(--color-navigation-menu-item-text, #303030);
+}
