@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0;
+  gap: var(--spacing-search-results-row-gap, 8px);
   width: 100%;
   min-height: var(--size-search-results-row-height, 48px);
   padding: var(--spacing-search-results-row-padding, 8px);
@@ -42,7 +42,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: var(--spacing-search-results-row-gap, 8px);
+  gap: var(--spacing-search-results-column-gap, 12px);
   padding-right: var(--spacing-search-results-row-padding, 8px);
   overflow: hidden;
 }

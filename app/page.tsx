@@ -1,16 +1,14 @@
 /**
  * Application root — server component entry point.
  * Pre-fetches address data and metrics concurrently so both are available
- * before the first render; passes allAddresses to the client container
- * as a prop to keep filtering logic client-side without an additional API call.
+ * before the first render; hands them to DashboardClient which owns all
+ * interactive state (add/edit address, search results).
  */
 
 import type { JSX } from "react";
 
 import NavigationSidebar from "@/src/components/NavigationSidebar";
-import PageHeader from "@/src/components/PageHeader";
-import MetricsRow from "@/src/components/MetricsRow";
-import AddressSearchContainer from "@/src/components/AddressSearchContainer";
+import DashboardClient from "@/src/components/DashboardClient";
 
 import { fetchAddresses, fetchMetrics } from "@/src/services/addressService";
 
@@ -27,12 +25,7 @@ export default async function AddressBookPage(): Promise<JSX.Element> {
       <div className={styles.topbar}>
         <NavigationSidebar />
         <main className={styles.main}>
-          <PageHeader
-            title="Address Book"
-            subtitle="Manage warehouse addresses, vendors, carriers, and payment policies."
-          />
-          <MetricsRow metrics={metrics} />
-          <AddressSearchContainer allAddresses={allAddresses} />
+          <DashboardClient initialAddresses={allAddresses} metrics={metrics} />
         </main>
       </div>
     </div>

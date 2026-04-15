@@ -2,7 +2,7 @@
  * TOKEN SUMMARY
  * -------------
  * Total sections: 8
- * Total tokens mapped: 185
+ * Total tokens mapped: 186
  * Hardcoded values flagged: 20
  *
  * Sections:
@@ -305,7 +305,10 @@
   --spacing-search-results-header-gap: var(--sds-size-space-200);
   --spacing-search-results-stack-gap: var(--ld-primitive-scale-space-200);
   --spacing-search-results-row-padding: var(--sds-size-space-200);
+  /* Row-level flex gap — between column groups and vertical dividers (8px) */
   --spacing-search-results-row-gap: var(--sds-size-space-200);
+  /* Column internal gap — icon to label text within each column (12px) */
+  --spacing-search-results-column-gap: var(--sds-size-space-300);
   --spacing-search-results-icon-container-padding: var(--sds-size-space-300);
 
   /* Corner radius */

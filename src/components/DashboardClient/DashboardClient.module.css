@@ -1,0 +1,17 @@
+/*
+ * Edit address dialog — reuses the same visual treatment as the add dialog
+ * defined in PageHeader.module.css. Token names kept in sync.
+ */
+
+.editAddressDialog {
+  padding-left: var(--spacing-add-address-dialog-padding, 2rem);
+  padding-right: var(--spacing-add-address-dialog-padding, 2rem);
+  max-width: calc(
+    var(--size-add-address-dialog-content-width, 539px) +
+    var(--spacing-add-address-dialog-padding, 2rem) * 2
+  );
+}
+
+.editAddressOverlay {
+  background: var(--color-add-address-dialog-overlay, rgba(12, 12, 13, 0.55));
+}

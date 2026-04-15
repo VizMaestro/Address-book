@@ -17,6 +17,7 @@ import {
 } from "@sds/ui/primitives";
 import { IconDownloadCloud, IconPlus } from "@sds/ui/icons";
 
+import type { Address } from "@/src/types/address.types";
 import AddAddressModal from "@/src/components/AddAddressModal";
 import styles from "./PageHeader.module.css";
 
@@ -24,12 +25,15 @@ interface PageHeaderProps {
   title: string;
   subtitle: string;
   onDownload?: () => void;
+  /** Called with the parsed address data when the user submits the add-address form. */
+  onAddAddress?: (data: Omit<Address, "id">) => void;
 }
 
 export default function PageHeader({
   title,
   subtitle,
   onDownload,
+  onAddAddress,
 }: PageHeaderProps): JSX.Element {
   return (
     <header className={styles.header}>
@@ -55,7 +59,12 @@ export default function PageHeader({
                 type="card"
                 className={styles.addAddressDialog}
               >
-                {({ close }) => <AddAddressModal onClose={close} />}
+                {({ close }) => (
+                  <AddAddressModal
+                    onClose={close}
+                    onSubmit={onAddAddress}
+                  />
+                )}
               </Dialog>
             </DialogModal>
           </DialogTrigger>

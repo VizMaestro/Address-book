@@ -2379,7 +2379,7 @@ root:
 # Total nodes mapped: 18
 # Components found:   8  (Tag, IconButton×2, IconLayers, IconShoppingBag, IconMap, IconDollarSign/IconCreditCard, IconTruck)
 # Hardcoded values:   5  (icon 20px, row 48px, vendor col 220px, payment col 180px, carrier col 160px)
-# Flags:              5  (same as hardcoded — no sizing tokens)
+# Flags:              7  (5 hardcoded sizing + 2 gap corrections applied 2026-04-15)
 #
 # FLAGS
 # -----
@@ -2388,6 +2388,8 @@ root:
 # AddressRow > vendor-column: width 220px — no sizing token
 # AddressRow > payment-column: width 180px — no sizing token
 # AddressRow > carrier-column: width 160px — no sizing token
+# AddressRow > row (1:13351): gap was 0 in CSS — corrected to var(--spacing-search-results-row-gap) = 8px (matches Figma node 1:13351 gap-[var(--sds-size-space-200)])
+# AddressRow > columns (1:13352, 1:13358, 1:13363, 1:13368): internal gap was 8px (row-gap token) — corrected to var(--spacing-search-results-column-gap) = 12px (matches Figma gap-[var(--sds-size-space-300)])
 #
 # CODING CONTRACT
 # ---------------
@@ -2628,7 +2630,7 @@ results_state:
                     direction: horizontal
                     alignment: center
                     wrap:      false
-                    gap:       "var(--spacing-search-results-row-gap)"
+                    gap:       "var(--spacing-search-results-column-gap)"
                     padding:
                       top:    0
                       right:  "var(--spacing-search-results-row-padding)"
@@ -2643,6 +2645,7 @@ results_state:
                     font_family: "var(--font-search-results-vendor-family)"
                     font_weight: "var(--font-search-results-vendor-weight)"
                     font_size:   "var(--font-search-results-vendor-size)"
+                    spacing_gap: "var(--spacing-search-results-column-gap)"
                   react:
                     component_name: null
                     element:        div
@@ -2661,7 +2664,7 @@ results_state:
                     direction: horizontal
                     alignment: center
                     wrap:      false
-                    gap:       "var(--spacing-search-results-row-gap)"
+                    gap:       "var(--spacing-search-results-column-gap)"
                     padding:
                       top:    0
                       right:  "var(--spacing-search-results-row-padding)"
@@ -2676,6 +2679,7 @@ results_state:
                     font_family: "var(--font-search-results-detail-family)"
                     font_weight: "var(--font-search-results-detail-weight)"
                     font_size:   "var(--font-search-results-detail-size)"
+                    spacing_gap: "var(--spacing-search-results-column-gap)"
                   react:
                     component_name: null
                     element:        div
@@ -2694,7 +2698,7 @@ results_state:
                     direction: horizontal
                     alignment: center
                     wrap:      false
-                    gap:       "var(--spacing-search-results-row-gap)"
+                    gap:       "var(--spacing-search-results-column-gap)"
                     padding:
                       top:    0
                       right:  "var(--spacing-search-results-row-padding)"
@@ -2709,6 +2713,7 @@ results_state:
                     font_family: "var(--font-search-results-detail-family)"
                     font_weight: "var(--font-search-results-detail-weight)"
                     font_size:   "var(--font-search-results-detail-size)"
+                    spacing_gap: "var(--spacing-search-results-column-gap)"
                   react:
                     component_name: null
                     element:        div
@@ -2727,7 +2732,7 @@ results_state:
                     direction: horizontal
                     alignment: center
                     wrap:      false
-                    gap:       "var(--spacing-search-results-row-gap)"
+                    gap:       "var(--spacing-search-results-column-gap)"
                     padding:
                       top:    0
                       right:  "var(--spacing-search-results-row-padding)"
@@ -2742,6 +2747,7 @@ results_state:
                     font_family: "var(--font-search-results-detail-family)"
                     font_weight: "var(--font-search-results-detail-weight)"
                     font_size:   "var(--font-search-results-detail-size)"
+                    spacing_gap: "var(--spacing-search-results-column-gap)"
                   react:
                     component_name: null
                     element:        div

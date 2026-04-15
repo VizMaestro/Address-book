@@ -17,10 +17,13 @@ import MapContainer from "@/src/components/MapContainer";
 
 interface AddressSearchContainerProps {
   allAddresses: Address[];
+  /** Forwarded to each AddressRow's edit icon button via MapContainer → SearchResultCard. */
+  onEditAddress?: (id: string) => void;
 }
 
 export default function AddressSearchContainer({
   allAddresses,
+  onEditAddress,
 }: AddressSearchContainerProps): JSX.Element {
   const [results, setResults] = useState<Address[] | undefined>(undefined);
 
@@ -31,7 +34,7 @@ export default function AddressSearchContainer({
   return (
     <>
       <AddressSearch onSearch={handleSearch} />
-      <MapContainer results={results} />
+      <MapContainer results={results} onEditAddress={onEditAddress} />
     </>
   );
 }

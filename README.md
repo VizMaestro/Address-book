@@ -36,10 +36,11 @@ The app runs in **mock mode** by default — no environment variables are requir
 │   ├── config/
 │   │   └── env.ts                      # Centralised environment config (lazy getters)
 │   ├── components/
-│   │   ├── AddAddressModal/            # Add address dialog — single entry form + bulk CSV upload
+│   │   ├── AddAddressModal/            # Add / Edit address dialog — single entry + bulk CSV upload
 │   │   ├── AddressRow/                 # Single vendor row inside a result card
 │   │   ├── AddressSearch/              # Filter bar (warehouse, vendor, policy, status)
 │   │   ├── AddressSearchContainer/     # Client boundary: holds filter state, runs filtering
+│   │   ├── DashboardClient/            # Client state owner: address list + edit-dialog state
 │   │   ├── MapContainer/               # Results area / empty-state panel
 │   │   ├── MetricsRow/                 # Stats summary card (5 metrics)
 │   │   ├── NavigationSidebar/          # Left sidebar with WMS nav and user area
@@ -61,7 +62,8 @@ The app runs in **mock mode** by default — no environment variables are requir
 │       ├── computeMetrics.ts           # Derives 5 aggregate metrics from Address[]
 │       ├── filterAddresses.ts          # Pure client-side filter predicate
 │       ├── formatAddress.ts            # formatFullAddress() string helper
-│       └── groupByWarehouse.ts         # Groups Address[] into Map<code, Address[]>
+│       ├── groupByWarehouse.ts         # Groups Address[] into Map<code, Address[]>
+│       └── parseAddress.ts             # parseAddressText() + formatAddressToText() for the address textarea
 │
 ├── packages/
 │   └── sds/                            # Internal shared design-system package
@@ -92,16 +94,37 @@ ComponentName/
 
 ---
 
+## Add / Edit Address
+
+Clicking **Add address** in the page header opens `AddAddressModal` in `add` mode (two tabs: Single entry and Bulk upload). When the user submits the single-entry form:
+
+1. The free-text address textarea is parsed by `parseAddressText()` in `src/utils/parseAddress.ts` into `addressLine1`, `addressLine2?`, `city`, `state`, `zip`, and `country`.
+2. All other fields (warehouse location, vendor, payment policy, carrier) are taken directly from their select/input controls.
+3. A new `Address` object is prepended to the in-memory list owned by `DashboardClient`.
+
+Clicking the **edit icon** on any `AddressRow` opens `AddAddressModal` in `edit` mode:
+
+- The tab bar is hidden — only the single-entry form is shown.
+- All fields are pre-filled from the selected vendor's `Address` record (the address text is reconstructed by `formatAddressToText()`).
+- Saving merges the edited fields back into the list.
+
+The dialog state is managed by `DashboardClient`, which sits between the server page and its interactive children.
+
+---
+
 ## Search Results Flow
 
 When the user enters a value in any filter field, `AddressSearchContainer` runs `filterAddresses()` client-side and passes the matching records to `MapContainer`. `MapContainer` groups them by warehouse code via `groupByWarehouse()` and renders one `SearchResultCard` per group. Each card renders a `AddressRow` per vendor.
 
 ```
-AddressSearchContainer (client, holds state)
-├── AddressSearch          → emits AddressSearchFilters on every change
-└── MapContainer           → receives Address[] results prop
-    └── SearchResultCard   → one per warehouseCode group
-        └── AddressRow     → one per Address in the group
+DashboardClient (client, owns address list + edit state)
+├── PageHeader             → "Add address" dialog trigger; onAddAddress callback
+├── MetricsRow             → server-fetched metrics display
+└── AddressSearchContainer → holds filter results in state
+    ├── AddressSearch      → emits AddressSearchFilters on every change
+    └── MapContainer       → receives Address[] results + onEditAddress callback
+        └── SearchResultCard → one per warehouseCode group
+            └── AddressRow   → one per Address; edit button triggers onEdit(id)
 ```
 
 The server page (`app/page.tsx`) pre-fetches all addresses once with `fetchAddresses()`. No additional API call is made when the user types — filtering is a pure in-memory operation until the API supports server-side query params, at which point only `src/utils/filterAddresses.ts` needs to change.
@@ -156,7 +179,7 @@ All design tokens are stored as CSS custom properties in `src/styles/tokens.css`
 
 | Metric | Value |
 |--------|-------|
-| Total tokens mapped | 185 |
+| Total tokens mapped | 186 |
 | Sections | 8 (Navigation, Page Header, Metrics Row, Container, Map Container, Search Results Card, Add Address Dialog, Bulk Upload Panel) |
 | Hardcoded values flagged | 20 |
 | Fallback `--ld-*` tokens defined | `space-50` → `space-600`, `borderradius-100/200`, caption/heading-small typography |
@@ -164,6 +187,8 @@ All design tokens are stored as CSS custom properties in `src/styles/tokens.css`
 Every `var()` call in every CSS Module includes a hardcoded fallback as the second argument so the UI degrades gracefully if a token fails to resolve.
 
 The Bulk Upload Panel dropzone previously collapsed because `--ld-primitive-scale-space-600` (48 px) was absent from the local fallback block. Both `--ld-primitive-scale-space-600` and `--ld-primitive-scale-borderradius-200` are now defined, and `--radius-bulk-upload-dropzone` is bound to the token instead of a hardcoded `16px`.
+
+Two gap corrections were applied to the Search Results Card section after a Figma VQA against node 1:13349: `--spacing-search-results-row-gap` is now the row-level flex gap between column groups (8 px), and the new `--spacing-search-results-column-gap` token (12 px, `var(--sds-size-space-300)`) covers the icon-to-label gap within each column.
 
 Flagged items are documented inline in `tokens.css` with `⚠ HARDCODED` comments and require Figma variable bindings before the next design handoff.
 
@@ -219,15 +244,16 @@ All code follows `architect.md` — the project's coding constitution. Key rules
 | Component | File | Role |
 |-----------|------|------|
 | `AddressBookPage` | `app/page.tsx` | Root async server component; pre-fetches all addresses + metrics |
+| `DashboardClient` | `src/components/DashboardClient/` | Client state owner; bridges server data to interactive children |
 | `NavigationSidebar` | `src/components/NavigationSidebar/` | Left sidebar, WMS nav, user area |
 | `PageHeader` | `src/components/PageHeader/` | Title, subtitle, Download + Add address |
-| `AddAddressModal` | `src/components/AddAddressModal/` | Tabbed dialog — single-entry form + bulk CSV upload dropzone |
+| `AddAddressModal` | `src/components/AddAddressModal/` | Add / Edit dialog — single-entry form + bulk CSV upload; mode-aware |
 | `MetricsRow` | `src/components/MetricsRow/` | Five-metric stats summary card |
-| `AddressSearchContainer` | `src/components/AddressSearchContainer/` | Client boundary; holds filter state |
+| `AddressSearchContainer` | `src/components/AddressSearchContainer/` | Client boundary; holds filter state; forwards edit callback |
 | `AddressSearch` | `src/components/AddressSearch/` | Four-field filter bar |
 | `MapContainer` | `src/components/MapContainer/` | Toggles empty state / grouped result cards |
 | `SearchResultCard` | `src/components/SearchResultCard/` | One card per warehouse group |
-| `AddressRow` | `src/components/AddressRow/` | Five-column vendor + address row |
+| `AddressRow` | `src/components/AddressRow/` | Five-column vendor + address row with copy and edit actions |
 
 ---
 
@@ -269,6 +295,8 @@ The following agent tasks have been completed against the Figma source:
 5. **Add Address dialog UI** — Implemented `AddAddressModal` from Figma nodes 13:7305 (single-entry tab) + 14:1616 (bulk upload tab). Tabbed layout with SDS Dialog, two field rows, full-width textarea, footer buttons on single-entry, and the bulk upload dropzone. Warehouse locations sourced from the new typed data file.
 6. **Data file migration** — `src/data/warehouseLocations.json` replaced with `src/data/warehouseLocations.ts` (exports `WarehouseLocation` interface + typed array). JSON files are not permissible data sources under architect rule 3.7.
 7. **Architecture audit** (`architect.md`) — Applied all coding standards across the new and modified files: extracted pure utilities into `src/utils/`, consolidated types in `src/types/`, ensured every `var()` in every CSS Module has a hardcoded fallback, added file-level header comments, and verified import order throughout.
+8. **Add / Edit address flow** — Introduced `DashboardClient` as the shared state owner for the address list. `AddAddressModal` extended with `mode` / `initialValues` props to support both add and edit without code duplication. `src/utils/parseAddress.ts` created: `parseAddressText()` converts free-text textarea input into structured address fields; `formatAddressToText()` serialises a stored `Address` back into the textarea string for pre-filling. Edit is triggered by the row-level edit icon and opens the modal pre-filled without tabs.
+9. **AddressRow gap VQA** — Compared node 1:13349 against the live CSS. Corrected two token mismatches: the row-level flex gap (`.row`) now uses `--spacing-search-results-row-gap` (8 px / `var(--sds-size-space-200)`) and each column's internal icon-to-label gap uses the new `--spacing-search-results-column-gap` token (12 px / `var(--sds-size-space-300)`). Token count updated to 186; `.agent/structure` flags updated.
 
 ---
 
