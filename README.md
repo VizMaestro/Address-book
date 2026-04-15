@@ -26,8 +26,8 @@ The app runs in **mock mode** by default — no environment variables are requir
 ├── app/
 │   ├── page.tsx                        # Address Book page (async server component)
 │   ├── AddressBookPage.module.css      # Root layout styles
-│   ├── globals.css                     # Body reset + token imports
-│   └── layout.tsx
+│   ├── globals.css                     # Body reset, html/body layout rules, token imports
+│   └── layout.tsx                      # Root HTML shell; registers SDS reset + theme globally
 │
 ├── src/
 │   ├── api/
@@ -35,11 +35,14 @@ The app runs in **mock mode** by default — no environment variables are requir
 │   ├── config/
 │   │   └── env.ts                      # Centralised environment config (lazy getters)
 │   ├── components/
+│   │   ├── AddressRow/                 # Single vendor row inside a result card
 │   │   ├── AddressSearch/              # Filter bar (warehouse, vendor, policy, status)
+│   │   ├── AddressSearchContainer/     # Client boundary: holds filter state, runs filtering
 │   │   ├── MapContainer/               # Results area / empty-state panel
 │   │   ├── MetricsRow/                 # Stats summary card (5 metrics)
 │   │   ├── NavigationSidebar/          # Left sidebar with WMS nav and user area
-│   │   └── PageHeader/                 # Page title, subtitle, Download + Add address
+│   │   ├── PageHeader/                 # Page title, subtitle, Download + Add address
+│   │   └── SearchResultCard/           # One card per warehouse; wraps AddressRow list
 │   ├── data/
 │   │   ├── mockAddresses.ts            # 20-record mock dataset (mirrors API shape)
 │   │   └── navItems.ts                 # Sidebar nav item configuration
@@ -48,9 +51,12 @@ The app runs in **mock mode** by default — no environment variables are requir
 │   ├── styles/
 │   │   └── tokens.css                  # CSS custom properties from Figma design tokens
 │   ├── types/
-│   │   └── address.types.ts            # Address + AddressMetrics interfaces
+│   │   └── address.types.ts            # Address, AddressMetrics, AddressSearchFilters interfaces
 │   └── utils/
-│       └── computeMetrics.ts           # Pure metric computation function
+│       ├── computeMetrics.ts           # Derives 5 aggregate metrics from Address[]
+│       ├── filterAddresses.ts          # Pure client-side filter predicate
+│       ├── formatAddress.ts            # formatFullAddress() string helper
+│       └── groupByWarehouse.ts         # Groups Address[] into Map<code, Address[]>
 │
 ├── packages/
 │   └── sds/                            # Internal shared design-system package
@@ -62,7 +68,7 @@ The app runs in **mock mode** by default — no environment variables are requir
 │           └── hooks/                  # useMediaQuery
 │
 ├── .agent/
-│   └── structure                       # YAML design blueprint (89 nodes)
+│   └── structure                       # YAML design blueprint (89+ nodes)
 ├── .env.example                        # API_BASE_URL + API_TOKEN template
 ├── APICreation.md                      # API layer creation guide
 ├── architect.md                        # Coding standards constitution
@@ -74,10 +80,26 @@ Each component folder follows the pattern:
 
 ```
 ComponentName/
-├── ComponentName.tsx       # Default export, explicit return type, no data inline
+├── ComponentName.tsx         # Default export, explicit return type, no data inline
 ├── ComponentName.module.css  # CSS Modules only — all values reference tokens
-└── index.ts                # Single re-export: export { default } from './ComponentName'
+└── index.ts                  # Single re-export: export { default } from './ComponentName'
 ```
+
+---
+
+## Search Results Flow
+
+When the user enters a value in any filter field, `AddressSearchContainer` runs `filterAddresses()` client-side and passes the matching records to `MapContainer`. `MapContainer` groups them by warehouse code via `groupByWarehouse()` and renders one `SearchResultCard` per group. Each card renders a `AddressRow` per vendor.
+
+```
+AddressSearchContainer (client, holds state)
+├── AddressSearch          → emits AddressSearchFilters on every change
+└── MapContainer           → receives Address[] results prop
+    └── SearchResultCard   → one per warehouseCode group
+        └── AddressRow     → one per Address in the group
+```
+
+The server page (`app/page.tsx`) pre-fetches all addresses once with `fetchAddresses()`. No additional API call is made when the user types — filtering is a pure in-memory operation until the API supports server-side query params, at which point only `src/utils/filterAddresses.ts` needs to change.
 
 ---
 
@@ -86,8 +108,8 @@ ComponentName/
 The API layer is structured in three tiers following `APICreation.md`:
 
 ```
-src/config/env.ts          → reads API_BASE_URL + API_TOKEN from process.env (lazy)
-src/api/addressApi.ts      → low-level fetch wrapper; all curl logic lives here
+src/config/env.ts              → reads API_BASE_URL + API_TOKEN from process.env (lazy)
+src/api/addressApi.ts          → low-level fetch wrapper; all curl logic lives here
 src/services/addressService.ts → fetchAddresses() + fetchMetrics() for page use
 ```
 
@@ -117,9 +139,9 @@ All design tokens are stored as CSS custom properties in `src/styles/tokens.css`
 
 | Metric | Value |
 |--------|-------|
-| Total tokens mapped | 91 |
-| Sections | 5 (Navigation, Page Header, Metrics Row, Container, Map Container) |
-| Hardcoded values flagged | 9 |
+| Total tokens mapped | 132 |
+| Sections | 6 (Navigation, Page Header, Metrics Row, Container, Map Container, Search Results Card) |
+| Hardcoded values flagged | 11 |
 
 Every `var()` call in every CSS Module includes a hardcoded fallback as the second argument so the UI degrades gracefully if a token fails to resolve.
 
@@ -139,6 +161,7 @@ Examples:
 --font-page-header-title-size
 --radius-container-filter-panel
 --shadow-metrics-row-card
+--font-search-results-header-family
 ```
 
 ---
@@ -153,6 +176,8 @@ All code follows `architect.md` — the project's coding constitution. Key rules
 | CSS | CSS Modules only; no inline styles; no `!important`; every `var()` has a fallback |
 | TypeScript | Strict mode; no `any`; explicit return types on every function; `interface` for object shapes |
 | React | Functional components; default exports; data imported from `src/data/`, never defined inline |
+| Utilities | Pure functions live in `src/utils/`; never defined inside a component file |
+| Shared types | Canonical definitions in `src/types/`; never duplicated across files |
 | Imports | React → third-party → internal components → data/types → styles |
 | Lists | Stable `key` props on all `.map()` renders (never index) |
 | Data flow | Service layer for fetching; components receive data as props |
@@ -161,7 +186,7 @@ All code follows `architect.md` — the project's coding constitution. Key rules
 
 ## Design Blueprint
 
-`.agent/structure` is a 2,364-line YAML file — the unambiguous contract between the Figma design and the React codebase. It maps every node to:
+`.agent/structure` is a YAML file — the unambiguous contract between the Figma design and the React codebase. It maps every node to:
 
 - `type` — classification (`section`, `group`, `component`, `card`, `list`, `text`, `image`, `input`)
 - `layout` — direction, alignment, gap, padding (resolved to token references)
@@ -169,23 +194,19 @@ All code follows `architect.md` — the project's coding constitution. Key rules
 - `tokens` — CSS custom property references for every styled property
 - `react` — target component name, HTML element, CSS module, and implementation notes
 
-| Metric | Value |
-|--------|-------|
-| Total nodes mapped | 89 |
-| Sections | 5 |
-| Design-system component instances | 29 |
-| Inline hardcoded-value flags (`⚠`) | 23 |
-
 ### Component map
 
 | Component | File | Role |
 |-----------|------|------|
-| `AddressBookPage` | `app/page.tsx` | Root async server component |
+| `AddressBookPage` | `app/page.tsx` | Root async server component; pre-fetches all addresses + metrics |
 | `NavigationSidebar` | `src/components/NavigationSidebar/` | Left sidebar, WMS nav, user area |
 | `PageHeader` | `src/components/PageHeader/` | Title, subtitle, Download + Add address |
 | `MetricsRow` | `src/components/MetricsRow/` | Five-metric stats summary card |
+| `AddressSearchContainer` | `src/components/AddressSearchContainer/` | Client boundary; holds filter state |
 | `AddressSearch` | `src/components/AddressSearch/` | Four-field filter bar |
-| `MapContainer` | `src/components/MapContainer/` | Results area / empty-state panel |
+| `MapContainer` | `src/components/MapContainer/` | Toggles empty state / grouped result cards |
+| `SearchResultCard` | `src/components/SearchResultCard/` | One card per warehouse group |
+| `AddressRow` | `src/components/AddressRow/` | Five-column vendor + address row |
 
 ---
 
@@ -193,7 +214,7 @@ All code follows `architect.md` — the project's coding constitution. Key rules
 
 The internal design-system package provides all primitive UI building blocks:
 
-- **Primitives** — `Button`, `ButtonGroup`, `Input`, `InputField`, `Select`, `SelectField`, `SelectItem`, `Navigation`, `Avatar`, `Icon`, `IconButton`, `Search`, `Image`, and more
+- **Primitives** — `Button`, `ButtonGroup`, `Input`, `InputField`, `Select`, `SelectField`, `SelectItem`, `Navigation`, `Avatar`, `Icon`, `IconButton`, `Tag`, `TextSmall`, `TextStrong`, `Search`, `Image`, and more
 - **Icons** — 200+ Feather-icon React components (all use `stroke="var(--svg-stroke-color)"` — set this custom property to control icon colour)
 - **Compositions** — `Cards`, `Forms`, `Headers`, `Sections`
 - **Layout** — `Flex`, `Grid`, `Section`
@@ -220,10 +241,11 @@ SDS icons render SVG paths with `stroke="var(--svg-stroke-color)"`. Set this pro
 
 The following agent tasks have been completed against the Figma source:
 
-1. **Token extraction** (`tokenparser.md`) — Parsed all Figma variables and styles from the Address Book frame, resolved token references, and wrote `src/styles/tokens.css`.
-2. **Structure generation** (`structuregenerator.md`) — Walked the full node tree (89 nodes), classified every frame, documented layout and token references, and wrote `.agent/structure`.
+1. **Token extraction** (`tokenparser.md`) — Parsed all Figma variables and styles from the Address Book frame, resolved token references, and wrote `src/styles/tokens.css`. Re-run after the search results card was added (Figma node 12:5949); token count grew from 91 to 132.
+2. **Structure generation** (`structuregenerator.md`) — Walked the full node tree, classified every frame, documented layout and token references, and wrote `.agent/structure`. Updated to include the results state (nodes 11:5556 and 12:5949).
 3. **API layer creation** (`APICreation.md`) — Created the full `config → api → service` stack with typed interfaces, environment config, fetch wrapper with PROD curl placeholder, and service functions.
-4. **Architecture refactor** (`architect.md`) — Applied all coding standards across every file: CSS token fallbacks, no `!important`, TypeScript strict types, default exports, `index.ts` barrels, correct import order, and data/component separation.
+4. **Search results UI** — Implemented `SearchResultCard` and `AddressRow` components from Figma node 12:5949. Added `AddressSearchContainer` as the client state boundary. `MapContainer` now toggles between empty state and grouped result cards.
+5. **Architecture refactor** (`architect.md`) — Applied all coding standards: extracted pure utilities into `src/utils/`, consolidated `AddressSearchFilters` into `src/types/`, removed barrel re-exports from `src/data/`, stripped Tailwind utility classes from JSX, added `var()` fallbacks to all CSS modules, and added file-level header comments throughout.
 
 ---
 
