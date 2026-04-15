@@ -2378,18 +2378,22 @@ root:
 # Total sections:     2  (SearchResultCard, AddressRow)
 # Total nodes mapped: 18
 # Components found:   8  (Tag, IconButton×2, IconLayers, IconShoppingBag, IconMap, IconDollarSign/IconCreditCard, IconTruck)
-# Hardcoded values:   5  (icon 20px, row 48px, vendor col 220px, payment col 180px, carrier col 160px)
-# Flags:              7  (5 hardcoded sizing + 2 gap corrections applied 2026-04-15)
+# Hardcoded values:   3  (vendor col 220px, payment col 180px, carrier col 160px — no DS token)
+#                        icon 20px and row 48px were hardcoded; resolved 2026-04-15 (see RESOLUTION below)
+# Flags:              5  (3 hardcoded sizing + 2 gap corrections applied 2026-04-15)
 #
 # FLAGS
 # -----
-# AddressRow > icon: size 20px — no sizing token (sds-size-icon-medium=32px; no 20px token)
-# AddressRow > row: height 48px — no sizing token
-# AddressRow > vendor-column: width 220px — no sizing token
-# AddressRow > payment-column: width 180px — no sizing token
-# AddressRow > carrier-column: width 160px — no sizing token
+# AddressRow > vendor-column: width 220px — no sizing token (content-driven layout width)
+# AddressRow > payment-column: width 180px — no sizing token (content-driven layout width)
+# AddressRow > carrier-column: width 160px — no sizing token (content-driven layout width)
 # AddressRow > row (1:13351): gap was 0 in CSS — corrected to var(--spacing-search-results-row-gap) = 8px (matches Figma node 1:13351 gap-[var(--sds-size-space-200)])
 # AddressRow > columns (1:13352, 1:13358, 1:13363, 1:13368): internal gap was 8px (row-gap token) — corrected to var(--spacing-search-results-column-gap) = 12px (matches Figma gap-[var(--sds-size-space-300)])
+#
+# RESOLUTION (2026-04-15)
+# -----------------------
+# AddressRow > icon: size 20px — resolved via --size-search-results-icon → var(--ld-primitive-scale-space-250, 20px)
+# AddressRow > row: height 48px — resolved via --size-search-results-row-height → var(--ld-primitive-scale-space-600, 48px)
 #
 # CODING CONTRACT
 # ---------------

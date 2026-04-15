@@ -181,16 +181,26 @@ All design tokens are stored as CSS custom properties in `src/styles/tokens.css`
 |--------|-------|
 | Total tokens mapped | 186 |
 | Sections | 8 (Navigation, Page Header, Metrics Row, Container, Map Container, Search Results Card, Add Address Dialog, Bulk Upload Panel) |
-| Hardcoded values flagged | 20 |
-| Fallback `--ld-*` tokens defined | `space-50` → `space-600`, `borderradius-100/200`, caption/heading-small typography |
+| Hardcoded values flagged | 7 (13 of original 20 resolved — see RESOLUTION LOG in `tokens.css`) |
+| Fallback `--ld-*` tokens defined | `space-50` → `space-600`, `borderradius-100/200`, caption/heading-small typography (incl. `heading-small-size` 18 px) |
 
 Every `var()` call in every CSS Module includes a hardcoded fallback as the second argument so the UI degrades gracefully if a token fails to resolve.
 
-The Bulk Upload Panel dropzone previously collapsed because `--ld-primitive-scale-space-600` (48 px) was absent from the local fallback block. Both `--ld-primitive-scale-space-600` and `--ld-primitive-scale-borderradius-200` are now defined, and `--radius-bulk-upload-dropzone` is bound to the token instead of a hardcoded `16px`.
+**Fallback block additions (chronological):**
 
-Two gap corrections were applied to the Search Results Card section after a Figma VQA against node 1:13349: `--spacing-search-results-row-gap` is now the row-level flex gap between column groups (8 px), and the new `--spacing-search-results-column-gap` token (12 px, `var(--sds-size-space-300)`) covers the icon-to-label gap within each column.
+- `--ld-primitive-scale-space-600` and `--ld-primitive-scale-borderradius-200` added — resolved dropzone collapse and migrated `--radius-bulk-upload-dropzone` off a raw `16px`.
+- `--ld-semantic-font-heading-small-size: 1.125rem` (18 px) added — enables `--font-container-heading-size` to reference the heading-small semantic scale.
 
-Flagged items are documented inline in `tokens.css` with `⚠ HARDCODED` comments and require Figma variable bindings before the next design handoff.
+**Gap corrections (Figma VQA, node 1:13349):**
+
+- `--spacing-search-results-row-gap` — row-level flex gap between column groups (8 px).
+- `--spacing-search-results-column-gap` (new) — icon-to-label gap within each column (12 px, `var(--sds-size-space-300)`).
+
+**Token resolution pass (2026-04-15):**
+
+13 of the original 20 raw-value token definitions were replaced with proper token references (e.g. three 20 px icon sizes now use `var(--ld-primitive-scale-space-250)`, the 48 px row height uses `var(--ld-primitive-scale-space-600)`, font sizes map to their SDS typography tokens). The full resolution log is in the `tokens.css` header.
+
+The 7 remaining `⚠ HARDCODED` values have no design-system token equivalent and are documented inline with the reason — they require designer attention before the next Figma variable handoff.
 
 ### Token naming convention
 
@@ -297,6 +307,7 @@ The following agent tasks have been completed against the Figma source:
 7. **Architecture audit** (`architect.md`) — Applied all coding standards across the new and modified files: extracted pure utilities into `src/utils/`, consolidated types in `src/types/`, ensured every `var()` in every CSS Module has a hardcoded fallback, added file-level header comments, and verified import order throughout.
 8. **Add / Edit address flow** — Introduced `DashboardClient` as the shared state owner for the address list. `AddAddressModal` extended with `mode` / `initialValues` props to support both add and edit without code duplication. `src/utils/parseAddress.ts` created: `parseAddressText()` converts free-text textarea input into structured address fields; `formatAddressToText()` serialises a stored `Address` back into the textarea string for pre-filling. Edit is triggered by the row-level edit icon and opens the modal pre-filled without tabs.
 9. **AddressRow gap VQA** — Compared node 1:13349 against the live CSS. Corrected two token mismatches: the row-level flex gap (`.row`) now uses `--spacing-search-results-row-gap` (8 px / `var(--sds-size-space-200)`) and each column's internal icon-to-label gap uses the new `--spacing-search-results-column-gap` token (12 px / `var(--sds-size-space-300)`). Token count updated to 186; `.agent/structure` flags updated.
+10. **Token resolution pass** — Resolved 13 of the original 20 flagged hardcoded values by mapping each to the nearest existing design-system token. Added `--ld-semantic-font-heading-small-size` (18 px) to the fallback `:root` block. 7 values remain hardcoded with documented reasons (no DS token equivalent). Flagged count in `tokens.css` header updated 20 → 7; `.agent/structure` sizing flags updated.
 
 ---
 

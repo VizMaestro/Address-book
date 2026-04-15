@@ -3,7 +3,7 @@
  * -------------
  * Total sections: 8
  * Total tokens mapped: 186
- * Hardcoded values flagged: 20
+ * Hardcoded values flagged: 7  (13 of original 20 resolved 2026-04-15 — see RESOLUTION LOG below)
  *
  * Sections:
  *   - Navigation
@@ -15,31 +15,29 @@
  *   - Add Address Dialog
  *   - Bulk Upload Panel
  *
- * Flagged items requiring designer attention:
- *   - Navigation: menu item border-radius has no token binding — raw value 8px used
- *     (token var(--ld-primitive-scale-borderradius-100) = 8px exists; bind it in Figma)
- *   - Navigation: nav icon size has no token — raw value 20px used
- *     (var(--sds-size-icon-medium) = 32px, var(--sds-size-icon-large) = 40px; no 20px token defined)
- *   - Page Header: title font-size has no token binding — raw value 24px used
- *     (token var(--sds-typography-heading-size-base) = 24 exists; bind it in Figma)
- *   - Page Header: title letter-spacing has no token — raw value -0.48px used
- *     (no letter-spacing token found in the design system)
- *   - Page Header: subtitle font-size has no token binding — raw value 14px used
- *     (token var(--sds-typography-body-size-small) = 14 exists; bind it in Figma)
- *   - Metrics Row: icon size has no token — raw value 20px used
- *     (var(--sds-size-icon-medium) = 32px, var(--sds-size-icon-large) = 40px; no 20px token defined)
- *   - Container: section heading font-size has no token binding — raw value 18px used
- *     (token var(--ld-semantic-font-heading-small-size) = 18 exists; bind it in Figma)
- *   - Map Container: empty-state heading font-size has no token binding — raw value 16px used
- *     (token var(--sds-typography-body-size-medium) = 16 exists; bind it in Figma)
- *   - Map Container: empty-state body font-size has no token binding — raw value 14px used
- *     (token var(--sds-typography-body-size-small) = 14 exists; bind it in Figma)
- *   - Search Results Card: icon size has no token — raw value 20px used
- *     (var(--sds-size-icon-medium) = 32px; no 20px token defined)
- *   - Search Results Card: address row height has no token — raw value 48px used
- *   - Search Results Card: vendor column width has no token — raw value 220px used
- *   - Search Results Card: payment column width has no token — raw value 180px used
- *   - Search Results Card: carrier column width has no token — raw value 160px used
+ * Remaining hardcoded values (no DS token equivalent):
+ *   - Page Header: title letter-spacing -0.48px — no letter-spacing token exists in the DS
+ *   - Search Results Card: vendor column width 220px — content-driven layout; no sizing token
+ *   - Search Results Card: payment column width 180px — content-driven layout; no sizing token
+ *   - Search Results Card: carrier column width 160px — content-driven layout; no sizing token
+ *   - Add Address Dialog: content width 539px — Figma-specific; no DS layout token
+ *   - Add Address Dialog: input field height 40px — between icon-medium (32px) and icon-large (40px)
+ *   - Add Address Dialog: textarea min-height 80px — no DS token for this value
+ *
+ * RESOLUTION LOG (2026-04-15) — 13 values resolved:
+ *   --radius-navigation-menu-item     8px   → var(--ld-primitive-scale-borderradius-100)
+ *   --size-navigation-icon            20px  → var(--ld-primitive-scale-space-250)
+ *   --font-page-header-title-size     24px  → var(--sds-typography-heading-size-base)
+ *   --font-page-header-subtitle-size  14px  → var(--sds-typography-body-size-small)
+ *   --size-metrics-row-icon           20px  → var(--ld-primitive-scale-space-250)
+ *   --font-container-heading-size     18px  → var(--ld-semantic-font-heading-small-size)
+ *   --font-map-container-heading-size 16px  → var(--sds-typography-body-size-medium)
+ *   --font-map-container-body-size    14px  → var(--sds-typography-body-size-small)
+ *   --size-search-results-icon        20px  → var(--ld-primitive-scale-space-250)
+ *   --size-search-results-row-height  48px  → var(--ld-primitive-scale-space-600)
+ *   --size-add-address-dialog-icon    16px  → var(--sds-size-space-400)
+ *   --size-add-address-dialog-close-icon 20px → var(--ld-primitive-scale-space-250)
+ *   --size-bulk-upload-icon           40px  → var(--sds-size-icon-large)
  */
 
 
@@ -74,6 +72,7 @@
   /* Semantic font — heading small */
   --ld-semantic-font-heading-small-family:         var(--sds-typography-heading-font-family, system-ui, sans-serif);
   --ld-semantic-font-heading-small-weight-default: var(--sds-typography-heading-font-weight, 600);
+  --ld-semantic-font-heading-small-size:           1.125rem; /* 18px */
   --ld-semantic-font-heading-small-lineheight:     1.25;
 }
 
@@ -107,9 +106,8 @@
   --spacing-navigation-user-area-padding-vertical: var(--ld-primitive-scale-space-300);
 
   /* Corner radius */
-  /* ⚠ HARDCODED — no token found: 8px on menu item border-radius */
-  --radius-navigation-menu-item: 8px;
-  --radius-navigation-user-area: var(--ld-primitive-scale-borderradius-100);
+  --radius-navigation-menu-item: var(--ld-primitive-scale-borderradius-100, 8px);
+  --radius-navigation-user-area: var(--ld-primitive-scale-borderradius-100, 8px);
 
   /* Typography — WMS title / active nav item (Body Small Strong) */
   --font-navigation-title-family: var(--sds-typography-body-font-family);
@@ -128,8 +126,8 @@
   /* Sizing */
   --size-navigation-avatar: var(--sds-size-icon-large);
   --size-navigation-avatar-radius: var(--sds-size-radius-full);
-  /* ⚠ HARDCODED — no token found: 20px on nav icon size */
-  --size-navigation-icon: 20px;
+  /* 20px — resolved via primitive space scale (1.25rem) */
+  --size-navigation-icon: var(--ld-primitive-scale-space-250, 20px);
 
 
   /* ============================================================
@@ -156,17 +154,15 @@
   /* Typography — page title (Heading text style) */
   --font-page-header-title-family: var(--sds-typography-heading-font-family);
   --font-page-header-title-weight: var(--sds-typography-heading-font-weight);
-  /* ⚠ HARDCODED — no token found: 24px on title font-size (var(--sds-typography-heading-size-base) = 24 exists; bind in Figma) */
-  --font-page-header-title-size: 24px;
-  /* ⚠ HARDCODED — no token found: -0.48px on title letter-spacing (no design system token for this value) */
+  --font-page-header-title-size: var(--sds-typography-heading-size-base, 24px);
+  /* ⚠ HARDCODED — no letter-spacing token exists in the design system for -0.48px */
   --font-page-header-title-letter-spacing: -0.48px;
 
   /* Typography — subtitle and button text (Body Base / Body Small) */
   --font-page-header-body-family: var(--sds-typography-body-font-family);
   --font-page-header-body-weight-regular: var(--sds-typography-body-font-weight-regular);
   --font-page-header-body-size-medium: var(--sds-typography-body-size-medium);
-  /* ⚠ HARDCODED — no token found: 14px on subtitle font-size (var(--sds-typography-body-size-small) = 14 exists; bind in Figma) */
-  --font-page-header-subtitle-size: 14px;
+  --font-page-header-subtitle-size: var(--sds-typography-body-size-small, 14px);
 
   /* Border */
   --border-page-header-primary-button-width: var(--sds-size-stroke-border);
@@ -205,8 +201,8 @@
                              var(--sds-size-depth-0) var(--sds-size-depth-025) var(--sds-size-depth-100) 0px var(--sds-color-black-100);
 
   /* Sizing */
-  /* ⚠ HARDCODED — no token found: 20px on metric icon size (var(--sds-size-icon-medium) = 32px, var(--sds-size-icon-large) = 40px; no 20px token defined) */
-  --size-metrics-row-icon: 20px;
+  /* 20px — resolved via primitive space scale (1.25rem); icon-medium=32px and icon-large=40px are both too large */
+  --size-metrics-row-icon: var(--ld-primitive-scale-space-250, 20px);
 
 
   /* ============================================================
@@ -235,8 +231,7 @@
   --font-container-heading-family: var(--ld-semantic-font-heading-small-family);
   --font-container-heading-weight: var(--ld-semantic-font-heading-small-weight-default);
   --font-container-heading-line-height: var(--ld-semantic-font-heading-small-lineheight);
-  /* ⚠ HARDCODED — no token found: 18px on heading font-size (var(--ld-semantic-font-heading-small-size) = 18 exists; bind in Figma) */
-  --font-container-heading-size: 18px;
+  --font-container-heading-size: var(--ld-semantic-font-heading-small-size, 18px);
 
   /* Typography — field labels and input text (Single Line/Body Base) */
   --font-container-field-label-family: var(--sds-typography-body-font-family);
@@ -269,13 +264,11 @@
   /* Typography — empty-state heading (Body Strong) */
   --font-map-container-heading-family: var(--sds-typography-body-font-family);
   --font-map-container-heading-weight: var(--sds-typography-body-font-weight-strong);
-  /* ⚠ HARDCODED — no token found: 16px on empty-state heading font-size (var(--sds-typography-body-size-medium) = 16 exists; bind in Figma) */
-  --font-map-container-heading-size: 16px;
+  --font-map-container-heading-size: var(--sds-typography-body-size-medium, 16px);
 
   /* Typography — empty-state body (Body Small) */
   --font-map-container-body-weight: var(--sds-typography-body-font-weight-regular);
-  /* ⚠ HARDCODED — no token found: 14px on empty-state body font-size (var(--sds-typography-body-size-small) = 14 exists; bind in Figma) */
-  --font-map-container-body-size: 14px;
+  --font-map-container-body-size: var(--sds-typography-body-size-small, 14px);
 
   /* Border */
   --border-map-container-width: var(--ld-semantic-scale-borderwidth-interactive);
@@ -342,15 +335,13 @@
   --border-search-results-row-width: var(--sds-size-stroke-border);
 
   /* Sizing */
-  /* ⚠ HARDCODED — no token found: 20px on icon size (var(--sds-size-icon-medium) = 32px; no 20px token defined) */
-  --size-search-results-icon: 20px;
-  /* ⚠ HARDCODED — no token found: 48px on address row height */
-  --size-search-results-row-height: 48px;
-  /* ⚠ HARDCODED — no token found: 220px vendor column width */
+  /* 20px — resolved via primitive space scale (1.25rem); icon-medium=32px is too large for inline icons */
+  --size-search-results-icon: var(--ld-primitive-scale-space-250, 20px);
+  /* 48px — resolved via primitive space-600 (3rem) */
+  --size-search-results-row-height: var(--ld-primitive-scale-space-600, 48px);
+  /* ⚠ HARDCODED — content-driven column widths; no DS sizing token maps to these layout values */
   --size-search-results-vendor-column: 220px;
-  /* ⚠ HARDCODED — no token found: 180px payment column width */
   --size-search-results-payment-column: 180px;
-  /* ⚠ HARDCODED — no token found: 160px carrier column width */
   --size-search-results-carrier-column: 160px;
 
 
@@ -418,16 +409,16 @@
   --border-add-address-dialog-tab-active-width: var(--sds-size-stroke-focus-ring);
 
   /* Sizing */
-  /* ⚠ HARDCODED — no token found: 539px dialog content width */
+  /* ⚠ HARDCODED — Figma-specific dialog width; no DS layout token maps to 539px */
   --size-add-address-dialog-content-width: 539px;
-  /* ⚠ HARDCODED — no token found: 40px input field height */
+  /* ⚠ HARDCODED — component-specific height; falls between icon-medium (32px) and icon-large (40px) */
   --size-add-address-dialog-input-height: 40px;
-  /* ⚠ HARDCODED — no token found: 80px textarea min-height */
+  /* ⚠ HARDCODED — component-specific min-height; no DS token for 80px */
   --size-add-address-dialog-textarea-min-height: 80px;
-  /* ⚠ HARDCODED — no token found: 16px action icon size */
-  --size-add-address-dialog-icon: 16px;
-  /* ⚠ HARDCODED — no token found: 20px close icon size */
-  --size-add-address-dialog-close-icon: 20px;
+  /* 16px action icon — resolved via SDS space-400 (4px step scale, step 4 = 16px) */
+  --size-add-address-dialog-icon: var(--sds-size-space-400, 16px);
+  /* 20px close icon — resolved via primitive space scale (1.25rem) */
+  --size-add-address-dialog-close-icon: var(--ld-primitive-scale-space-250, 20px);
 
   /* Content-level gap within the "Add address_fig" frame — 16px */
   --spacing-add-address-dialog-content-gap: var(--sds-size-space-400);
@@ -458,7 +449,7 @@
   --spacing-bulk-upload-item-gap:           var(--ld-primitive-scale-space-50);  /* 4px  */
 
   /* Sizing */
-  /* ⚠ HARDCODED — no token found: 40px upload icon size */
-  --size-bulk-upload-icon: 40px;
+  /* 40px upload icon — resolved via sds-size-icon-large (matches SDS icon-large = 40px) */
+  --size-bulk-upload-icon: var(--sds-size-icon-large, 40px);
 
 }
