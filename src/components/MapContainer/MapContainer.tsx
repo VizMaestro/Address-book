@@ -1,10 +1,51 @@
+/**
+ * Results area — Figma node 1:13248 "Map Container".
+ * Toggles between an empty-state illustration (no active filter) and a
+ * scrollable list of SearchResultCard components (filter has returned results).
+ * Grouping by warehouse is deferred to this component so SearchResultCard
+ * receives a clean, pre-grouped slice of the data.
+ */
+
 import type { JSX } from "react";
 
 import Image from "next/image";
 
+import type { Address } from "@/src/types/address.types";
+import { groupByWarehouse } from "@/src/utils/groupByWarehouse";
+import SearchResultCard from "@/src/components/SearchResultCard";
+
 import styles from "./MapContainer.module.css";
 
-export default function MapContainer(): JSX.Element {
+interface MapContainerProps {
+  results?: Address[];
+  onCopyAddress?: (id: string) => void;
+  onEditAddress?: (id: string) => void;
+}
+
+export default function MapContainer({
+  results,
+  onCopyAddress,
+  onEditAddress,
+}: MapContainerProps): JSX.Element {
+  const hasResults = results && results.length > 0;
+
+  if (hasResults) {
+    const groups = groupByWarehouse(results);
+    return (
+      <section className={styles.resultsContainer}>
+        {Array.from(groups.entries()).map(([code, addresses]) => (
+          <SearchResultCard
+            key={code}
+            warehouseCode={code}
+            addresses={addresses}
+            onCopyAddress={onCopyAddress}
+            onEditAddress={onEditAddress}
+          />
+        ))}
+      </section>
+    );
+  }
+
   return (
     <section className={styles.mapContainer}>
       <Image

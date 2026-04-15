@@ -1,0 +1,103 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  min-height: var(--size-search-results-row-height, 48px);
+  padding: var(--spacing-search-results-row-padding, 8px);
+  border: var(--border-search-results-row-width, 1px) solid var(--color-search-results-row-border, #babbbe);
+  border-radius: var(--radius-search-results-row, 8px);
+  background-color: var(--color-search-results-card-background, #fff);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Vertical divider between columns */
+.divider {
+  flex-shrink: 0;
+  width: var(--border-search-results-row-width, 1px);
+  align-self: stretch;
+  background-color: var(--color-search-results-row-border, #babbbe);
+}
+
+/* Icon container — circular white background */
+.iconContainer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: var(--spacing-search-results-icon-container-padding, 12px);
+  border-radius: var(--radius-search-results-icon-container, 32px);
+  background-color: var(--color-search-results-icon-container-background, #fff);
+}
+
+/* Column base — shared layout */
+.vendorColumn,
+.addressColumn,
+.paymentColumn,
+.carrierColumn,
+.statusColumn,
+.actionsColumn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-search-results-row-gap, 8px);
+  padding-right: var(--spacing-search-results-row-padding, 8px);
+  overflow: hidden;
+}
+
+/* Fixed-width columns */
+.vendorColumn {
+  flex: 0 0 var(--size-search-results-vendor-column, 220px);
+  width: var(--size-search-results-vendor-column, 220px);
+}
+
+.paymentColumn {
+  flex: 0 0 var(--size-search-results-payment-column, 180px);
+  width: var(--size-search-results-payment-column, 180px);
+}
+
+.carrierColumn {
+  flex: 0 0 var(--size-search-results-carrier-column, 160px);
+  width: var(--size-search-results-carrier-column, 160px);
+}
+
+/* Fill remaining space */
+.addressColumn {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* Hug-content columns */
+.statusColumn {
+  flex-shrink: 0;
+  padding-right: var(--spacing-search-results-row-padding, 8px);
+}
+
+.actionsColumn {
+  flex-shrink: 0;
+  gap: 0;
+  padding-right: 0;
+}
+
+/* Text overrides — vendor bold, detail regular small */
+.vendorText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-search-results-vendor-text, #1e1e1e);
+  font-family: var(--font-search-results-vendor-family, system-ui, sans-serif);
+  font-weight: var(--font-search-results-vendor-weight, 600);
+  font-size: var(--font-search-results-vendor-size, 16px);
+}
+
+.detailText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-search-results-detail-text, #303030);
+  font-family: var(--font-search-results-detail-family, system-ui, sans-serif);
+  font-weight: var(--font-search-results-detail-weight, 400);
+  font-size: var(--font-search-results-detail-size, 14px);
+}

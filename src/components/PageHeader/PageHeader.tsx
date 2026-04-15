@@ -1,3 +1,9 @@
+/**
+ * Page title bar — Figma node 5:4174 "Page Header".
+ * Contains the application title, subtitle, and two action buttons.
+ * onDownload and onAddAddress are optional so the component renders
+ * safely in contexts where those actions are not yet wired.
+ */
 "use client";
 
 import type { JSX } from "react";

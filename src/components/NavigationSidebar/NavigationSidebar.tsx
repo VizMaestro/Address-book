@@ -1,3 +1,8 @@
+/**
+ * Vertical navigation sidebar — Figma node 1:13210 "Navigation".
+ * iconMap is defined in this file (not in src/data/) because it maps icon names
+ * to JSX elements, which cannot be expressed in a plain data module.
+ */
 "use client";
 
 import type { JSX } from "react";

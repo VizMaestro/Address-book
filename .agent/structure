@@ -2362,3 +2362,446 @@ root:
                         element:        p
                         css_module:     MapContainer.module.css
                         notes:          "Empty-state body — 'Use the text entry sections above...'; text-ellipsis"
+
+
+# =============================================================
+# SECOND STATE: Address book — With Results
+# ---------
+# Source Figma URL:   https://www.figma.com/design/nHuQyck4BJMI3IqadWrpBp/Address-book?node-id=11-5556
+#                     (card detail) node-id=12-5949
+# Root frame:         Address book - Default (results state)
+# Generated:          2026-04-15
+# Companion file:     src/styles/tokens.css
+#
+# SUMMARY
+# -------
+# Total sections:     2  (SearchResultCard, AddressRow)
+# Total nodes mapped: 18
+# Components found:   8  (Tag, IconButton×2, IconLayers, IconShoppingBag, IconMap, IconDollarSign/IconCreditCard, IconTruck)
+# Hardcoded values:   5  (icon 20px, row 48px, vendor col 220px, payment col 180px, carrier col 160px)
+# Flags:              5  (same as hardcoded — no sizing tokens)
+#
+# FLAGS
+# -----
+# AddressRow > icon: size 20px — no sizing token (sds-size-icon-medium=32px; no 20px token)
+# AddressRow > row: height 48px — no sizing token
+# AddressRow > vendor-column: width 220px — no sizing token
+# AddressRow > payment-column: width 180px — no sizing token
+# AddressRow > carrier-column: width 160px — no sizing token
+#
+# CODING CONTRACT
+# ---------------
+# The agent must not deviate from this file during implementation.
+# Any layout, component, or styling decision not covered here must
+# be raised with the user before proceeding — not resolved by assumption.
+
+# ---------------------------------------------------------
+# MapContainer — results mode
+# Replaces: empty-state illustration + text
+# When results prop is non-empty, renders SearchResultCard list
+# ---------------------------------------------------------
+results_state:
+  id:   "11:5556-results"
+  name: "Map Container (results state)"
+  type: section
+  layout:
+    direction: vertical
+    alignment: start
+    wrap:      false
+    gap:       "var(--sds-size-space-300)"  # ⚠ no token — raw value (gap between cards)
+    padding:
+      top:    "var(--sds-size-space-300)"   # ⚠ no token — raw value
+      right:  "var(--sds-size-space-300)"
+      bottom: "var(--sds-size-space-300)"
+      left:   "var(--sds-size-space-300)"
+  sizing:
+    width:    fill-container
+    height:   fill-container
+    overflow: auto
+  tokens:
+    color_background: "var(--color-map-container-background)"
+    color_border:     "var(--color-map-container-border)"
+    radius:           "var(--radius-map-container)"
+  react:
+    component_name: MapContainer
+    element:        section
+    css_module:     MapContainer.module.css
+    notes:          "Same element as empty state — conditionally renders SearchResultCard list when results.length > 0"
+  children:
+
+    # ---------------------------------------------------------
+    # SECTION: SearchResultCard
+    # One card per unique warehouseCode, rendered from results grouped by warehouseCode
+    # ---------------------------------------------------------
+    - id:   "12:5949"
+      name: "Card (Slot)"
+      type: card
+      position:
+        order:          1
+        sibling_before: null
+        sibling_after:  null
+        layout_role:    flex-child
+      layout:
+        direction: vertical
+        alignment: start
+        wrap:      false
+        gap:       "var(--spacing-search-results-card-gap)"
+        padding:
+          top:    "var(--spacing-search-results-card-padding)"
+          right:  "var(--spacing-search-results-card-padding)"
+          bottom: "var(--spacing-search-results-card-padding)"
+          left:   "var(--spacing-search-results-card-padding)"
+      sizing:
+        width:    fill-container
+        height:   hug-content
+        overflow: visible
+      tokens:
+        color_background: "var(--color-search-results-card-background)"
+        color_border:     "var(--color-search-results-card-border)"
+        shadow:           "var(--shadow-search-results-card)"
+        radius:           "var(--radius-search-results-card)"
+        spacing_padding:  "var(--spacing-search-results-card-padding)"
+        spacing_gap:      "var(--spacing-search-results-card-gap)"
+      react:
+        component_name: SearchResultCard
+        element:        article
+        css_module:     SearchResultCard.module.css
+        notes:          "Props: warehouseCode: string, addresses: Address[]. Renders one per warehouse group."
+      children:
+
+        - id:   "I12:5949;6062:16210;12:5948;12:5854"
+          name: "Header"
+          type: group
+          position:
+            order:          1
+            sibling_before: null
+            sibling_after:  "Address stack_fig"
+            layout_role:    flex-child
+          layout:
+            direction: horizontal
+            alignment: center
+            wrap:      false
+            gap:       "var(--spacing-search-results-header-gap)"
+            padding:
+              top:    0
+              right:  "var(--spacing-search-results-header-padding-horizontal)"
+              bottom: "var(--spacing-search-results-header-padding-bottom)"
+              left:   "var(--spacing-search-results-header-padding-horizontal)"
+          sizing:
+            width:    fill-container
+            height:   hug-content
+            overflow: visible
+          tokens:
+            spacing_gap:     "var(--spacing-search-results-header-gap)"
+            color_text:      "var(--color-search-results-card-header-text)"
+            font_family:     "var(--font-search-results-header-family)"
+            font_weight:     "var(--font-search-results-header-weight)"
+            font_size:       "var(--font-search-results-header-size)"
+          react:
+            component_name: null
+            element:        header
+            css_module:     SearchResultCard.module.css
+            notes:          "Inline group — IconLayers icon + warehouse code text. No separate component."
+          children:
+
+            - id:   "I12:5949;6062:16210;12:5948;12:5862"
+              name: "Layers"
+              type: icon
+              position:
+                order:          1
+                sibling_before: null
+                sibling_after:  "warehouse-code-text"
+                layout_role:    flex-child
+              sizing:
+                width:    fixed-20px  # ⚠ no token — raw value
+                height:   fixed-20px  # ⚠ no token — raw value
+                overflow: hidden
+              tokens:
+                color_text: "var(--color-search-results-card-header-text)"
+              react:
+                component_name: null
+                element:        span
+                css_module:     SearchResultCard.module.css
+                notes:          "Render as <IconLayers size='20' /> from @sds/ui/icons"
+
+            - id:   "I12:5949;6062:16210;12:5948;12:5856"
+              name: "warehouse-code-text"
+              type: text
+              position:
+                order:          2
+                sibling_before: "Layers"
+                sibling_after:  null
+                layout_role:    flex-child
+              sizing:
+                width:    fill-container
+                height:   hug-content
+                overflow: visible
+              tokens:
+                color_text:  "var(--color-search-results-card-header-text)"
+                font_family: "var(--font-search-results-header-family)"
+                font_weight: "var(--font-search-results-header-weight)"
+                font_size:   "var(--font-search-results-header-size)"
+              react:
+                component_name: null
+                element:        span
+                css_module:     SearchResultCard.module.css
+                notes:          "Render via TextStrong from @sds/ui/primitives. Content: props.warehouseCode"
+
+        - id:   "I12:5949;6062:16210;12:5948;12:5792"
+          name: "Address stack_fig"
+          type: list
+          position:
+            order:          2
+            sibling_before: "Header"
+            sibling_after:  null
+            layout_role:    flex-child
+          layout:
+            direction: vertical
+            alignment: start
+            wrap:      false
+            gap:       "var(--spacing-search-results-stack-gap)"
+            padding:
+              top:    0
+              right:  0
+              bottom: 0
+              left:   0
+          sizing:
+            width:    fill-container
+            height:   hug-content
+            overflow: visible
+          tokens:
+            spacing_gap: "var(--spacing-search-results-stack-gap)"
+          react:
+            component_name: null
+            element:        div
+            css_module:     SearchResultCard.module.css
+            notes:          "Maps addresses[] → <AddressRow> list"
+          children:
+
+            # ---------------------------------------------------------
+            # SECTION: AddressRow
+            # One row per vendor address within the warehouse group
+            # ---------------------------------------------------------
+            - id:   "1:13342"
+              name: "Address_fig"
+              type: component
+              position:
+                order:          1
+                sibling_before: null
+                sibling_after:  "Address_fig (n+1)"
+                layout_role:    flex-child
+              layout:
+                direction: horizontal
+                alignment: center
+                wrap:      false
+                gap:       "var(--spacing-search-results-row-gap)"
+                padding:
+                  top:    "var(--spacing-search-results-row-padding)"
+                  right:  "var(--spacing-search-results-row-padding)"
+                  bottom: "var(--spacing-search-results-row-padding)"
+                  left:   "var(--spacing-search-results-row-padding)"
+              sizing:
+                width:    fill-container
+                height:   fixed-48px  # ⚠ no token — raw value
+                overflow: visible
+              tokens:
+                color_border:    "var(--color-search-results-row-border)"
+                radius:          "var(--radius-search-results-row)"
+                spacing_padding: "var(--spacing-search-results-row-padding)"
+                spacing_gap:     "var(--spacing-search-results-row-gap)"
+              react:
+                component_name: AddressRow
+                element:        div
+                css_module:     AddressRow.module.css
+                notes:          "Props: address: Address, onCopy?: (id) => void, onEdit?: (id) => void. Five columns + 2 icon buttons."
+              children:
+
+                - id:   "vendor-column"
+                  name: "Vendor column"
+                  type: group
+                  position:
+                    order:          1
+                    sibling_before: null
+                    sibling_after:  "divider"
+                    layout_role:    flex-child
+                  layout:
+                    direction: horizontal
+                    alignment: center
+                    wrap:      false
+                    gap:       "var(--spacing-search-results-row-gap)"
+                    padding:
+                      top:    0
+                      right:  "var(--spacing-search-results-row-padding)"
+                      bottom: 0
+                      left:   0
+                  sizing:
+                    width:    fixed-220px  # ⚠ no token — raw value
+                    height:   fill-container
+                    overflow: hidden
+                  tokens:
+                    color_text:  "var(--color-search-results-vendor-text)"
+                    font_family: "var(--font-search-results-vendor-family)"
+                    font_weight: "var(--font-search-results-vendor-weight)"
+                    font_size:   "var(--font-search-results-vendor-size)"
+                  react:
+                    component_name: null
+                    element:        div
+                    css_module:     AddressRow.module.css
+                    notes:          "Icon container (white circle) + vendor name via TextStrong"
+
+                - id:   "address-column"
+                  name: "Address column"
+                  type: group
+                  position:
+                    order:          3
+                    sibling_before: "divider"
+                    sibling_after:  "divider"
+                    layout_role:    flex-child
+                  layout:
+                    direction: horizontal
+                    alignment: center
+                    wrap:      false
+                    gap:       "var(--spacing-search-results-row-gap)"
+                    padding:
+                      top:    0
+                      right:  "var(--spacing-search-results-row-padding)"
+                      bottom: 0
+                      left:   0
+                  sizing:
+                    width:    fill-container
+                    height:   fill-container
+                    overflow: hidden
+                  tokens:
+                    color_text:  "var(--color-search-results-detail-text)"
+                    font_family: "var(--font-search-results-detail-family)"
+                    font_weight: "var(--font-search-results-detail-weight)"
+                    font_size:   "var(--font-search-results-detail-size)"
+                  react:
+                    component_name: null
+                    element:        div
+                    css_module:     AddressRow.module.css
+                    notes:          "Icon container + full address text via TextSmall"
+
+                - id:   "payment-column"
+                  name: "Payment column"
+                  type: group
+                  position:
+                    order:          5
+                    sibling_before: "divider"
+                    sibling_after:  "divider"
+                    layout_role:    flex-child
+                  layout:
+                    direction: horizontal
+                    alignment: center
+                    wrap:      false
+                    gap:       "var(--spacing-search-results-row-gap)"
+                    padding:
+                      top:    0
+                      right:  "var(--spacing-search-results-row-padding)"
+                      bottom: 0
+                      left:   0
+                  sizing:
+                    width:    fixed-180px  # ⚠ no token — raw value
+                    height:   fill-container
+                    overflow: hidden
+                  tokens:
+                    color_text:  "var(--color-search-results-detail-text)"
+                    font_family: "var(--font-search-results-detail-family)"
+                    font_weight: "var(--font-search-results-detail-weight)"
+                    font_size:   "var(--font-search-results-detail-size)"
+                  react:
+                    component_name: null
+                    element:        div
+                    css_module:     AddressRow.module.css
+                    notes:          "IconDollarSign (Collect) or IconCreditCard (Prepaid) + payment policy text via TextSmall"
+
+                - id:   "carrier-column"
+                  name: "Carrier column"
+                  type: group
+                  position:
+                    order:          7
+                    sibling_before: "divider"
+                    sibling_after:  "divider"
+                    layout_role:    flex-child
+                  layout:
+                    direction: horizontal
+                    alignment: center
+                    wrap:      false
+                    gap:       "var(--spacing-search-results-row-gap)"
+                    padding:
+                      top:    0
+                      right:  "var(--spacing-search-results-row-padding)"
+                      bottom: 0
+                      left:   0
+                  sizing:
+                    width:    fixed-160px  # ⚠ no token — raw value
+                    height:   fill-container
+                    overflow: hidden
+                  tokens:
+                    color_text:  "var(--color-search-results-detail-text)"
+                    font_family: "var(--font-search-results-detail-family)"
+                    font_weight: "var(--font-search-results-detail-weight)"
+                    font_size:   "var(--font-search-results-detail-size)"
+                  react:
+                    component_name: null
+                    element:        div
+                    css_module:     AddressRow.module.css
+                    notes:          "IconTruck + carrier SCAC code via TextSmall"
+
+                - id:   "status-tag"
+                  name: "Tag"
+                  type: component
+                  position:
+                    order:          9
+                    sibling_before: "divider"
+                    sibling_after:  "divider"
+                    layout_role:    flex-child
+                  sizing:
+                    width:    hug-content
+                    height:   hug-content
+                    overflow: visible
+                  tokens:
+                    color_background: "var(--color-search-results-tag-active-background)"
+                    color_text:       "var(--color-search-results-tag-active-text)"
+                    radius:           "var(--radius-search-results-tag)"
+                  react:
+                    component_name: Tag
+                    element:        span
+                    css_module:     AddressRow.module.css
+                    notes:          "SDS Tag from @sds/ui/primitives. scheme='positive' for Active, scheme='neutral' for Inactive. variant='secondary'."
+
+                - id:   "copy-button"
+                  name: "Icon Button (Copy)"
+                  type: component
+                  position:
+                    order:          11
+                    sibling_before: "divider"
+                    sibling_after:  "edit-button"
+                    layout_role:    flex-child
+                  sizing:
+                    width:    hug-content
+                    height:   hug-content
+                    overflow: visible
+                  react:
+                    component_name: IconButton
+                    element:        button
+                    css_module:     AddressRow.module.css
+                    notes:          "SDS IconButton from @sds/ui/primitives. aria-label='Copy address'. Icon: <IconCopy size='20' />."
+
+                - id:   "edit-button"
+                  name: "Icon Button (Edit)"
+                  type: component
+                  position:
+                    order:          12
+                    sibling_before: "copy-button"
+                    sibling_after:  null
+                    layout_role:    flex-child
+                  sizing:
+                    width:    hug-content
+                    height:   hug-content
+                    overflow: visible
+                  react:
+                    component_name: IconButton
+                    element:        button
+                    css_module:     AddressRow.module.css
+                    notes:          "SDS IconButton from @sds/ui/primitives. aria-label='Edit address'. Icon: <IconEdit2 size='20' />."

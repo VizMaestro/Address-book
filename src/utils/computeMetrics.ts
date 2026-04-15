@@ -1,3 +1,9 @@
+/**
+ * Derives five aggregate metrics from a flat Address array.
+ * Called server-side from addressService so the page can render
+ * the metrics row without a separate API request.
+ */
+
 import type { Address, AddressMetrics } from "@/src/types/address.types";
 
 export function computeMetrics(addresses: Address[]): AddressMetrics {

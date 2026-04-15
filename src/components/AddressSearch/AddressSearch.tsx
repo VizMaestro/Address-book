@@ -1,3 +1,9 @@
+/**
+ * Filter panel — Figma node 1:13240 "Container".
+ * Four controlled fields that emit the full filter state on every change,
+ * allowing the parent to run filtering without needing to debounce or batch.
+ */
+
 "use client";
 
 import type { JSX } from "react";
@@ -5,14 +11,9 @@ import { useState } from "react";
 
 import { InputField, SelectField, SelectItem } from "@sds/ui/primitives";
 
-import styles from "./AddressSearch.module.css";
+import type { AddressSearchFilters } from "@/src/types/address.types";
 
-interface AddressSearchFilters {
-  warehouseLocation: string;
-  vendor: string;
-  paymentPolicy: string;
-  status: string;
-}
+import styles from "./AddressSearch.module.css";
 
 interface AddressSearchProps {
   onSearch?: (filters: AddressSearchFilters) => void;

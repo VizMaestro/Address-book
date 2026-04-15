@@ -1,9 +1,9 @@
 /*
  * TOKEN SUMMARY
  * -------------
- * Total sections: 5
- * Total tokens mapped: 91
- * Hardcoded values flagged: 9
+ * Total sections: 6
+ * Total tokens mapped: 132
+ * Hardcoded values flagged: 14
  *
  * Sections:
  *   - Navigation
@@ -11,6 +11,7 @@
  *   - Metrics Row
  *   - Container
  *   - Map Container
+ *   - Search Results Card
  *
  * Flagged items requiring designer attention:
  *   - Navigation: menu item border-radius has no token binding — raw value 8px used
@@ -31,6 +32,12 @@
  *     (token var(--sds-typography-body-size-medium) = 16 exists; bind it in Figma)
  *   - Map Container: empty-state body font-size has no token binding — raw value 14px used
  *     (token var(--sds-typography-body-size-small) = 14 exists; bind it in Figma)
+ *   - Search Results Card: icon size has no token — raw value 20px used
+ *     (var(--sds-size-icon-medium) = 32px; no 20px token defined)
+ *   - Search Results Card: address row height has no token — raw value 48px used
+ *   - Search Results Card: vendor column width has no token — raw value 220px used
+ *   - Search Results Card: payment column width has no token — raw value 180px used
+ *   - Search Results Card: carrier column width has no token — raw value 160px used
  */
 
 
@@ -69,8 +76,8 @@
 /* ============================================================
    TOKEN MAP — generated from Figma
    Source: https://www.figma.com/design/nHuQyck4BJMI3IqadWrpBp/Address-book?node-id=1-13208
-   Generated: 2026-04-14
-   Sections: Navigation, Page Header, Metrics Row, Container, Map Container
+   Updated: 2026-04-15 (added Search Results Card — node 12:5949)
+   Sections: Navigation, Page Header, Metrics Row, Container, Map Container, Search Results Card
    ============================================================ */
 
 :root {
@@ -268,5 +275,75 @@
 
   /* Border */
   --border-map-container-width: var(--ld-semantic-scale-borderwidth-interactive);
+
+
+  /* ============================================================
+     SECTION: Search Results Card
+     Node: 12:5949 — Card (Slot): warehouse-grouped vendor address rows
+     ============================================================ */
+
+  /* Color */
+  --color-search-results-card-background: var(--sds-color-background-default-default);
+  --color-search-results-card-border: var(--sds-color-border-default-default);
+  --color-search-results-card-header-text: var(--ld-semantic-color-text, #2e2f32);
+  --color-search-results-row-border: var(--ld-semantic-color-border-disabled, #babbbe);
+  --color-search-results-vendor-text: var(--sds-color-text-default-default);
+  --color-search-results-detail-text: var(--sds-color-text-neutral-on-neutral-secondary);
+  --color-search-results-tag-active-background: var(--sds-color-background-positive-secondary);
+  --color-search-results-tag-active-text: var(--sds-color-text-positive-on-positive-secondary);
+  --color-search-results-icon-container-background: var(--sds-color-background-default-default);
+
+  /* Spacing */
+  --spacing-search-results-card-padding: var(--sds-size-space-600);
+  --spacing-search-results-card-gap: var(--sds-size-space-600);
+  --spacing-search-results-header-padding-bottom: var(--sds-size-space-300);
+  --spacing-search-results-header-padding-horizontal: var(--sds-size-space-600);
+  --spacing-search-results-header-gap: var(--sds-size-space-200);
+  --spacing-search-results-stack-gap: var(--ld-primitive-scale-space-200);
+  --spacing-search-results-row-padding: var(--sds-size-space-200);
+  --spacing-search-results-row-gap: var(--sds-size-space-200);
+  --spacing-search-results-icon-container-padding: var(--sds-size-space-300);
+
+  /* Corner radius */
+  --radius-search-results-card: var(--sds-size-radius-200);
+  --radius-search-results-row: var(--sds-size-radius-200);
+  --radius-search-results-icon-container: var(--sds-size-icon-medium);
+  --radius-search-results-tag: var(--sds-size-radius-200);
+
+  /* Typography — card header (Body Strong) */
+  --font-search-results-header-family: var(--sds-typography-body-font-family);
+  --font-search-results-header-weight: var(--sds-typography-body-font-weight-strong);
+  --font-search-results-header-size: var(--sds-typography-body-size-medium);
+
+  /* Typography — vendor name (Body Strong) */
+  --font-search-results-vendor-family: var(--sds-typography-body-font-family);
+  --font-search-results-vendor-weight: var(--sds-typography-body-font-weight-strong);
+  --font-search-results-vendor-size: var(--sds-typography-body-size-medium);
+
+  /* Typography — address / payment / carrier detail text (Body Small) */
+  --font-search-results-detail-family: var(--sds-typography-body-font-family);
+  --font-search-results-detail-weight: var(--sds-typography-body-font-weight-regular);
+  --font-search-results-detail-size: var(--sds-typography-body-size-small);
+
+  /* Shadow — Drop Shadow/200 (matches metrics-row card) */
+  --shadow-search-results-card:
+    var(--sds-size-depth-0) var(--sds-size-depth-025) var(--sds-size-depth-100) 0px var(--sds-color-black-200),
+    var(--sds-size-depth-0) var(--sds-size-depth-025) var(--sds-size-depth-100) 0px var(--sds-color-black-100);
+
+  /* Border */
+  --border-search-results-card-width: var(--sds-size-stroke-border);
+  --border-search-results-row-width: var(--sds-size-stroke-border);
+
+  /* Sizing */
+  /* ⚠ HARDCODED — no token found: 20px on icon size (var(--sds-size-icon-medium) = 32px; no 20px token defined) */
+  --size-search-results-icon: 20px;
+  /* ⚠ HARDCODED — no token found: 48px on address row height */
+  --size-search-results-row-height: 48px;
+  /* ⚠ HARDCODED — no token found: 220px vendor column width */
+  --size-search-results-vendor-column: 220px;
+  /* ⚠ HARDCODED — no token found: 180px payment column width */
+  --size-search-results-payment-column: 180px;
+  /* ⚠ HARDCODED — no token found: 160px carrier column width */
+  --size-search-results-carrier-column: 160px;
 
 }

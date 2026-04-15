@@ -4,6 +4,13 @@
  * Field names and types must stay in sync with the API contract — do not rename without updating addressApi.ts.
  */
 
+export interface AddressSearchFilters {
+  warehouseLocation: string;
+  vendor: string;
+  paymentPolicy: string;
+  status: string;
+}
+
 export interface Address {
   id: string;
   warehouseCode: string;

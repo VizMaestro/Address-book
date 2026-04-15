@@ -6,10 +6,6 @@
 
 import type { Address } from "@/src/types/address.types";
 
-export { Address } from "@/src/types/address.types";
-export { AddressMetrics } from "@/src/types/address.types";
-export { computeMetrics } from "@/src/utils/computeMetrics";
-
 export const mockAddresses: Address[] = [
   {
     id: "1",
