@@ -252,4 +252,4 @@ The following agent tasks have been completed against the Figma source:
 ## Learn More
 
 - [Next.js Documentation](https://nextjs.org/docs)
-- [Figma Design Source](https://www.figma.com/design/nHuQyck4BJMI3IqadWrpBp/Address-book?node-id=1-13208)
+- [Figma Design Source](https://www.figma.com/design/OnGD15bcgBmZ4KWdAR8J38/Address-book?m=auto&t=S9CMarTDAU3HS3LQ-6)
