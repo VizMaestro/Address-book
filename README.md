@@ -31,10 +31,12 @@ The app runs in **mock mode** by default — no environment variables are requir
 │
 ├── src/
 │   ├── api/
-│   │   └── addressApi.ts               # Fetch wrapper — PROD curl placeholder lives here
+│   │   ├── addressApi.ts               # Fetch wrapper for addresses — PROD curl placeholder lives here
+│   │   └── warehouseLocationsApi.ts    # Fetch wrapper for warehouse locations — PROD curl placeholder lives here
 │   ├── config/
 │   │   └── env.ts                      # Centralised environment config (lazy getters)
 │   ├── components/
+│   │   ├── AddAddressModal/            # Add address dialog — single entry form + bulk CSV upload
 │   │   ├── AddressRow/                 # Single vendor row inside a result card
 │   │   ├── AddressSearch/              # Filter bar (warehouse, vendor, policy, status)
 │   │   ├── AddressSearchContainer/     # Client boundary: holds filter state, runs filtering
@@ -45,13 +47,16 @@ The app runs in **mock mode** by default — no environment variables are requir
 │   │   └── SearchResultCard/           # One card per warehouse; wraps AddressRow list
 │   ├── data/
 │   │   ├── mockAddresses.ts            # 20-record mock dataset (mirrors API shape)
-│   │   └── navItems.ts                 # Sidebar nav item configuration
+│   │   ├── navItems.ts                 # Sidebar nav item configuration
+│   │   └── warehouseLocations.ts       # Typed warehouse location records (mirrors API shape)
 │   ├── services/
-│   │   └── addressService.ts           # fetchAddresses() + fetchMetrics()
+│   │   ├── addressService.ts           # fetchAddresses() + fetchMetrics()
+│   │   └── warehouseLocationsService.ts # fetchWarehouseLocations() — façade over the API wrapper
 │   ├── styles/
 │   │   └── tokens.css                  # CSS custom properties from Figma design tokens
 │   ├── types/
-│   │   └── address.types.ts            # Address, AddressMetrics, AddressSearchFilters interfaces
+│   │   ├── address.types.ts            # Address, AddressMetrics, AddressSearchFilters interfaces
+│   │   └── warehouseLocation.types.ts  # WarehouseLocationRecord, GetWarehouseLocationsParams interfaces
 │   └── utils/
 │       ├── computeMetrics.ts           # Derives 5 aggregate metrics from Address[]
 │       ├── filterAddresses.ts          # Pure client-side filter predicate
@@ -105,26 +110,38 @@ The server page (`app/page.tsx`) pre-fetches all addresses once with `fetchAddre
 
 ## API Layer
 
-The API layer is structured in three tiers following `APICreation.md`:
+The API layer is structured in three tiers following `APICreation.md`. Two datasources are fully wired:
 
 ```
-src/config/env.ts              → reads API_BASE_URL + API_TOKEN from process.env (lazy)
-src/api/addressApi.ts          → low-level fetch wrapper; all curl logic lives here
-src/services/addressService.ts → fetchAddresses() + fetchMetrics() for page use
+src/config/env.ts                        → reads API_BASE_URL + API_TOKEN from process.env (lazy)
+
+src/api/addressApi.ts                    → low-level fetch wrapper for addresses
+src/services/addressService.ts           → fetchAddresses() + fetchMetrics() for page use
+
+src/api/warehouseLocationsApi.ts         → low-level fetch wrapper for warehouse locations
+src/services/warehouseLocationsService.ts → fetchWarehouseLocations() for component use
 ```
+
+Both API wrappers follow the same mock-fallback pattern: when `API_BASE_URL` is absent (local dev without `.env.local`), the wrapper returns data from the typed mock file in `src/data/`. Setting `API_BASE_URL` in `.env.local` switches both to their respective live endpoints automatically — no code change required.
 
 ### Switching from mock to live data
 
-When your PROD endpoint is confirmed:
+When your PROD endpoints are confirmed:
 
 1. Copy `.env.example` → `.env.local` and set `API_BASE_URL` and `API_TOKEN`.
-2. The mock fallback in `addressApi.ts` deactivates automatically when `API_BASE_URL` is present.
-3. Verify the response shape matches `Address[]` in `src/types/address.types.ts`. Adjust field names if needed.
+2. The mock fallbacks deactivate automatically — `isMockMode` is driven by `!env.apiBaseUrl`.
+3. Verify the response shapes match `Address[]` and `WarehouseLocationRecord[]` in `src/types/`. Adjust field names if needed.
 
-The equivalent curl for the GET endpoint is documented inline in `src/api/addressApi.ts`:
+The equivalent curls for both endpoints are documented inline in their respective API files:
 
 ```bash
+# Addresses
 curl -X GET "$API_BASE_URL/addresses" \
+     -H "Authorization: Bearer $API_TOKEN" \
+     -H "Content-Type: application/json"
+
+# Warehouse locations
+curl -X GET "$API_BASE_URL/warehouse-locations" \
      -H "Authorization: Bearer $API_TOKEN" \
      -H "Content-Type: application/json"
 ```
@@ -139,11 +156,14 @@ All design tokens are stored as CSS custom properties in `src/styles/tokens.css`
 
 | Metric | Value |
 |--------|-------|
-| Total tokens mapped | 132 |
-| Sections | 6 (Navigation, Page Header, Metrics Row, Container, Map Container, Search Results Card) |
-| Hardcoded values flagged | 11 |
+| Total tokens mapped | 185 |
+| Sections | 8 (Navigation, Page Header, Metrics Row, Container, Map Container, Search Results Card, Add Address Dialog, Bulk Upload Panel) |
+| Hardcoded values flagged | 20 |
+| Fallback `--ld-*` tokens defined | `space-50` → `space-600`, `borderradius-100/200`, caption/heading-small typography |
 
 Every `var()` call in every CSS Module includes a hardcoded fallback as the second argument so the UI degrades gracefully if a token fails to resolve.
+
+The Bulk Upload Panel dropzone previously collapsed because `--ld-primitive-scale-space-600` (48 px) was absent from the local fallback block. Both `--ld-primitive-scale-space-600` and `--ld-primitive-scale-borderradius-200` are now defined, and `--radius-bulk-upload-dropzone` is bound to the token instead of a hardcoded `16px`.
 
 Flagged items are documented inline in `tokens.css` with `⚠ HARDCODED` comments and require Figma variable bindings before the next design handoff.
 
@@ -201,6 +221,7 @@ All code follows `architect.md` — the project's coding constitution. Key rules
 | `AddressBookPage` | `app/page.tsx` | Root async server component; pre-fetches all addresses + metrics |
 | `NavigationSidebar` | `src/components/NavigationSidebar/` | Left sidebar, WMS nav, user area |
 | `PageHeader` | `src/components/PageHeader/` | Title, subtitle, Download + Add address |
+| `AddAddressModal` | `src/components/AddAddressModal/` | Tabbed dialog — single-entry form + bulk CSV upload dropzone |
 | `MetricsRow` | `src/components/MetricsRow/` | Five-metric stats summary card |
 | `AddressSearchContainer` | `src/components/AddressSearchContainer/` | Client boundary; holds filter state |
 | `AddressSearch` | `src/components/AddressSearch/` | Four-field filter bar |
@@ -241,11 +262,13 @@ SDS icons render SVG paths with `stroke="var(--svg-stroke-color)"`. Set this pro
 
 The following agent tasks have been completed against the Figma source:
 
-1. **Token extraction** (`tokenparser.md`) — Parsed all Figma variables and styles from the Address Book frame, resolved token references, and wrote `src/styles/tokens.css`. Re-run after the search results card was added (Figma node 12:5949); token count grew from 91 to 132.
-2. **Structure generation** (`structuregenerator.md`) — Walked the full node tree, classified every frame, documented layout and token references, and wrote `.agent/structure`. Updated to include the results state (nodes 11:5556 and 12:5949).
-3. **API layer creation** (`APICreation.md`) — Created the full `config → api → service` stack with typed interfaces, environment config, fetch wrapper with PROD curl placeholder, and service functions.
+1. **Token extraction** (`tokenparser.md`) — Parsed all Figma variables and styles from the Address Book frame, resolved token references, and wrote `src/styles/tokens.css`. Re-run twice: after adding the Search Results Card (node 12:5949, count grew from 91 → 132) and again after adding the Add Address Dialog + Bulk Upload Panel (nodes 13:7305 + 14:1616, count grew to 185). Added `--ld-primitive-scale-space-600` and `--ld-primitive-scale-borderradius-200` to the fallback `:root` block; dropzone border-radius token migrated off hardcode.
+2. **Structure generation** (`structuregenerator.md`) — Walked the full node tree, classified every frame, documented layout and token references, and wrote `.agent/structure`. Extended to include the results state (nodes 11:5556 and 12:5949) and the Add Address Dialog / Bulk Upload Panel (nodes 13:7305 and 14:1616).
+3. **API layer creation** (`APICreation.md`) — Created the full `config → api → service` stack for the addresses datasource. Extended to cover the warehouse locations datasource: `warehouseLocationsApi.ts` (with PROD curl comment block) + `warehouseLocationsService.ts` + `src/types/warehouseLocation.types.ts`.
 4. **Search results UI** — Implemented `SearchResultCard` and `AddressRow` components from Figma node 12:5949. Added `AddressSearchContainer` as the client state boundary. `MapContainer` now toggles between empty state and grouped result cards.
-5. **Architecture refactor** (`architect.md`) — Applied all coding standards: extracted pure utilities into `src/utils/`, consolidated `AddressSearchFilters` into `src/types/`, removed barrel re-exports from `src/data/`, stripped Tailwind utility classes from JSX, added `var()` fallbacks to all CSS modules, and added file-level header comments throughout.
+5. **Add Address dialog UI** — Implemented `AddAddressModal` from Figma nodes 13:7305 (single-entry tab) + 14:1616 (bulk upload tab). Tabbed layout with SDS Dialog, two field rows, full-width textarea, footer buttons on single-entry, and the bulk upload dropzone. Warehouse locations sourced from the new typed data file.
+6. **Data file migration** — `src/data/warehouseLocations.json` replaced with `src/data/warehouseLocations.ts` (exports `WarehouseLocation` interface + typed array). JSON files are not permissible data sources under architect rule 3.7.
+7. **Architecture audit** (`architect.md`) — Applied all coding standards across the new and modified files: extracted pure utilities into `src/utils/`, consolidated types in `src/types/`, ensured every `var()` in every CSS Module has a hardcoded fallback, added file-level header comments, and verified import order throughout.
 
 ---
 

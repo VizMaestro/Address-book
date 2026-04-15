@@ -2,6 +2,8 @@
  * Filter panel — Figma node 1:13240 "Container".
  * Four controlled fields that emit the full filter state on every change,
  * allowing the parent to run filtering without needing to debounce or batch.
+ * Each SelectField has a "— Clear —" item as the first option so the user
+ * can reset that filter back to the unfiltered state.
  */
 
 "use client";
@@ -31,6 +33,15 @@ export default function AddressSearch({ onSearch }: AddressSearchProps): JSX.Ele
     const updated = { ...filters, [field]: value };
     setFilters(updated);
     onSearch?.(updated);
+  }
+
+  function handleSelectChange(
+    field: keyof AddressSearchFilters,
+    key: string | number | null
+  ): void {
+    // "__clear__" is the sentinel value for the clear option — maps to empty string
+    const value = !key || key === "__clear__" ? "" : String(key);
+    handleInputChange(field, value);
   }
 
   return (
@@ -63,10 +74,9 @@ export default function AddressSearch({ onSearch }: AddressSearchProps): JSX.Ele
             label="Payment policy"
             placeholder="Select a payment policy"
             selectedKey={filters.paymentPolicy || null}
-            onSelectionChange={(key) =>
-              handleInputChange("paymentPolicy", String(key ?? ""))
-            }
+            onSelectionChange={(key) => handleSelectChange("paymentPolicy", key as string | null)}
           >
+            <SelectItem id="__clear__">— Clear selection —</SelectItem>
             <SelectItem id="Prepaid">Prepaid</SelectItem>
             <SelectItem id="Collect">Collect</SelectItem>
           </SelectField>
@@ -77,10 +87,9 @@ export default function AddressSearch({ onSearch }: AddressSearchProps): JSX.Ele
             label="Status"
             placeholder="Select an address status"
             selectedKey={filters.status || null}
-            onSelectionChange={(key) =>
-              handleInputChange("status", String(key ?? ""))
-            }
+            onSelectionChange={(key) => handleSelectChange("status", key as string | null)}
           >
+            <SelectItem id="__clear__">— Clear selection —</SelectItem>
             <SelectItem id="Active">Active</SelectItem>
             <SelectItem id="Inactive">Inactive</SelectItem>
           </SelectField>

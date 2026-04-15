@@ -7,11 +7,11 @@
 #
 # SUMMARY
 # -------
-# Total sections:     5
-# Total nodes mapped: 89  (88 children + 1 root)
-# Components found:   29  (all nodes with type: component — DS instances + Metric items)
-# Hardcoded values:   23  (# ⚠ occurrences across the file)
-# Flags:              8   (items requiring designer attention before coding)
+# Total sections:     6
+# Total nodes mapped: 114 (113 children + 1 root)
+# Components found:   35  (all nodes with type: component — DS instances + Metric items)
+# Hardcoded values:   27  (# ⚠ occurrences across the file)
+# Flags:              12  (items requiring designer attention before coding)
 #
 # FLAGS
 # -----
@@ -2805,3 +2805,631 @@ results_state:
                     element:        button
                     css_module:     AddressRow.module.css
                     notes:          "SDS IconButton from @sds/ui/primitives. aria-label='Edit address'. Icon: <IconEdit2 size='20' />."
+
+# ============================================================
+# SECTION: Add Address Dialog
+# Source Figma URL: https://www.figma.com/design/nHuQyck4BJMI3IqadWrpBp/Address-book?node-id=13-7305
+# Appended: 2026-04-15
+# ============================================================
+
+- id:   "13:7305"
+  name: "Dialog Body"
+  type: section
+  position:
+    order:          1
+    sibling_before: null
+    sibling_after:  null
+    layout_role:    overlay
+  layout:
+    direction: vertical
+    alignment: start
+    wrap:      false
+    gap:       "var(--spacing-add-address-dialog-gap)"
+    padding:
+      top:    "var(--spacing-add-address-dialog-padding)"
+      right:  "var(--spacing-add-address-dialog-padding)"
+      bottom: "var(--spacing-add-address-dialog-padding)"
+      left:   "var(--spacing-add-address-dialog-padding)"
+  sizing:
+    width:    hug-content
+    height:   hug-content
+    overflow: visible
+  tokens:
+    color_background: "var(--color-add-address-dialog-background)"
+    color_border:     "var(--color-add-address-dialog-border)"
+    radius:           "var(--radius-add-address-dialog)"
+    shadow:           "var(--shadow-add-address-dialog)"
+    spacing_padding:  "var(--spacing-add-address-dialog-padding)"
+    spacing_gap:      "var(--spacing-add-address-dialog-gap)"
+  react:
+    component_name: AddAddressModal
+    element:        div
+    css_module:     AddAddressModal.module.css
+    notes:          "SDS Dialog from @sds/ui/primitives. Opened via DialogTrigger in PageHeader. isDismissable=true."
+  children:
+
+    - id:   "I13:7305;227:16985"
+      name: "Icon Button (close)"
+      type: component
+      position:
+        order:          1
+        sibling_before: null
+        sibling_after:  "Slot"
+        layout_role:    overlay
+      layout:
+        direction: none
+        alignment: center
+      sizing:
+        width:    hug-content
+        height:   hug-content
+        overflow: visible
+      tokens:
+        color_text: "var(--color-add-address-dialog-cancel-text)"
+      react:
+        component_name: DialogClose
+        element:        button
+        css_module:     AddAddressModal.module.css
+        notes:          "SDS DialogClose (absolute top-right). Uses dialog-close CSS class from SDS dialog.css."
+
+    - id:   "I13:7305;6031:9153;13:7754"
+      name: "Add address_fig"
+      type: group
+      position:
+        order:          2
+        sibling_before: "Icon Button (close)"
+        sibling_after:  null
+        layout_role:    flex-child
+      layout:
+        direction: vertical
+        alignment: start
+        wrap:      false
+        gap:       "var(--spacing-add-address-dialog-gap)"
+        padding:
+          top:    0
+          right:  0
+          bottom: 0
+          left:   0
+      sizing:
+        width:    "fixed-539px"  # ⚠ no token — raw value
+        height:   hug-content
+        overflow: visible
+      react:
+        component_name: null
+        element:        div
+        css_module:     AddAddressModal.module.css
+        notes:          "Inner content wrapper. Fixed 539px width — no sizing token."
+      children:
+
+        - id:   "I13:7305;6031:9153;13:7754;13:7874"
+          name: "Title frame"
+          type: group
+          position:
+            order:          1
+            sibling_before: null
+            sibling_after:  "Tabs"
+            layout_role:    flex-child
+          layout:
+            direction: horizontal
+            alignment: center
+            wrap:      false
+            gap:       0
+            padding:
+              top:    "var(--spacing-add-address-dialog-title-padding-y)"
+              right:  0
+              bottom: "var(--spacing-add-address-dialog-title-padding-y)"
+              left:   0
+          sizing:
+            width:  fill-container
+            height: hug-content
+          tokens:
+            color_text:  "var(--color-add-address-dialog-title)"
+            font_family: "var(--font-add-address-dialog-title-family)"
+            font_size:   "var(--font-add-address-dialog-title-size)"
+            font_weight: "var(--font-add-address-dialog-title-weight)"
+          react:
+            component_name: null
+            element:        div
+            css_module:     AddAddressModal.module.css
+            notes:          "Title row — renders DialogTitle 'Add address'."
+
+        - id:   "I13:7305;6031:9153;13:7754;13:7378"
+          name: "Tabs"
+          type: component
+          position:
+            order:          2
+            sibling_before: "Title frame"
+            sibling_after:  "Description"
+            layout_role:    flex-child
+          layout:
+            direction: horizontal
+            alignment: center
+            wrap:      false
+            gap:       0
+            padding:
+              top:    "var(--spacing-add-address-dialog-tabs-padding-y)"
+              right:  0
+              bottom: "var(--spacing-add-address-dialog-tabs-padding-y)"
+              left:   0
+          sizing:
+            width:    fill-container
+            height:   hug-content
+            overflow: hidden
+          tokens:
+            color_border:      "var(--color-add-address-dialog-tab-active-border)"
+            color_text:        "var(--color-add-address-dialog-tab-active-text)"
+            font_size:         "var(--font-add-address-dialog-body-size)"
+            font_weight:       "var(--font-add-address-dialog-body-weight)"
+          react:
+            component_name: Tabs
+            element:        div
+            css_module:     AddAddressModal.module.css
+            notes:          "SDS Tabs/TabList/Tab/TabPanel from @sds/ui/primitives. Default selected key: 'single-entry'."
+
+        - id:   "I13:7305;6031:9153;13:7754;1:13414"
+          name: "Description"
+          type: group
+          position:
+            order:          3
+            sibling_before: "Tabs"
+            sibling_after:  "Divider"
+            layout_role:    flex-child
+          layout:
+            direction: vertical
+            alignment: start
+            wrap:      false
+            gap:       "var(--spacing-add-address-dialog-description-gap)"
+            padding:
+              top:    0
+              right:  0
+              bottom: 0
+              left:   0
+          sizing:
+            width:  fill-container
+            height: hug-content
+          tokens:
+            font_family:  "var(--font-add-address-dialog-body-family)"
+            font_size:    "var(--font-add-address-dialog-body-size)"
+          react:
+            component_name: null
+            element:        div
+            css_module:     AddAddressModal.module.css
+            notes:          "Two-line description. First line: body strong. Second line: body small tertiary."
+
+        - id:   "I13:7305;6031:9153;13:7754;13:19276"
+          name: "Divider"
+          type: group
+          position:
+            order:          4
+            sibling_before: "Description"
+            sibling_after:  "Row 1"
+            layout_role:    flex-child
+          layout:
+            direction: none
+            alignment: start
+          sizing:
+            width:  fill-container
+            height: "fixed-1px"  # ⚠ no token — raw value (border line)
+          tokens:
+            color_border: "var(--color-add-address-dialog-border)"
+          react:
+            component_name: null
+            element:        hr
+            css_module:     AddAddressModal.module.css
+            notes:          "Horizontal rule. 1px height, full width, border-top color from token."
+
+        - id:   "I13:7305;6031:9153;13:7754;1:13418"
+          name: "Row 1"
+          type: group
+          position:
+            order:          5
+            sibling_before: "Divider"
+            sibling_after:  "Row 2"
+            layout_role:    flex-child
+          layout:
+            direction: horizontal
+            alignment: start
+            wrap:      false
+            gap:       "var(--spacing-add-address-dialog-row-gap)"
+            padding:
+              top:    0
+              right:  0
+              bottom: 0
+              left:   0
+          sizing:
+            width:  fill-container
+            height: hug-content
+          react:
+            component_name: null
+            element:        div
+            css_module:     AddAddressModal.module.css
+            notes:          "Two-column row. Each field: flex 1."
+          children:
+
+            - id:   "I13:7305;6031:9153;13:7754;13:7562"
+              name: "Select Field — Warehouse location"
+              type: component
+              position:
+                order:          1
+                sibling_before: null
+                sibling_after:  "Input Field — Vendor"
+                layout_role:    flex-child
+              sizing:
+                width:  fill-container
+                height: hug-content
+              tokens:
+                color_label:       "var(--color-add-address-dialog-label)"
+                color_border:      "var(--color-add-address-dialog-input-border)"
+                color_placeholder: "var(--color-add-address-dialog-placeholder)"
+                font_size:         "var(--font-add-address-dialog-body-size)"
+                font_weight:       "var(--font-add-address-dialog-body-weight)"
+                radius:            "var(--radius-add-address-dialog-input)"
+              react:
+                component_name: SelectField
+                element:        div
+                css_module:     AddAddressModal.module.css
+                notes:          "SDS SelectField. label='Warehouse location'. placeholder='Select a warehouse location'. Options from warehouseLocations.json."
+
+            - id:   "I13:7305;6031:9153;13:7754;13:7579"
+              name: "Input Field — Vendor"
+              type: component
+              position:
+                order:          2
+                sibling_before: "Select Field — Warehouse location"
+                sibling_after:  null
+                layout_role:    flex-child
+              sizing:
+                width:  fill-container
+                height: hug-content
+              tokens:
+                color_label:       "var(--color-add-address-dialog-label)"
+                color_border:      "var(--color-add-address-dialog-input-border)"
+                color_placeholder: "var(--color-add-address-dialog-placeholder)"
+                font_size:         "var(--font-add-address-dialog-body-size)"
+                font_weight:       "var(--font-add-address-dialog-body-weight)"
+                radius:            "var(--radius-add-address-dialog-input)"
+              react:
+                component_name: InputField
+                element:        input
+                css_module:     AddAddressModal.module.css
+                notes:          "SDS InputField. label='Vendor'. placeholder='Enter a vendor name'."
+
+        - id:   "I13:7305;6031:9153;13:7754;13:7592"
+          name: "Row 2"
+          type: group
+          position:
+            order:          6
+            sibling_before: "Row 1"
+            sibling_after:  "Textarea Field — Address"
+            layout_role:    flex-child
+          layout:
+            direction: horizontal
+            alignment: start
+            wrap:      false
+            gap:       "var(--spacing-add-address-dialog-row-gap)"
+            padding:
+              top:    0
+              right:  0
+              bottom: 0
+              left:   0
+          sizing:
+            width:  fill-container
+            height: hug-content
+          react:
+            component_name: null
+            element:        div
+            css_module:     AddAddressModal.module.css
+            notes:          "Two-column row. Each field: flex 1."
+          children:
+
+            - id:   "I13:7305;6031:9153;13:7754;13:7623"
+              name: "Select Field — Payment policy"
+              type: component
+              position:
+                order:          1
+                sibling_before: null
+                sibling_after:  "Input Field — Carrier name"
+                layout_role:    flex-child
+              sizing:
+                width:  fill-container
+                height: hug-content
+              tokens:
+                color_label:       "var(--color-add-address-dialog-label)"
+                color_border:      "var(--color-add-address-dialog-input-border)"
+                color_placeholder: "var(--color-add-address-dialog-placeholder)"
+                font_size:         "var(--font-add-address-dialog-body-size)"
+                font_weight:       "var(--font-add-address-dialog-body-weight)"
+                radius:            "var(--radius-add-address-dialog-input)"
+              react:
+                component_name: SelectField
+                element:        div
+                css_module:     AddAddressModal.module.css
+                notes:          "SDS SelectField. label='Payment policy'. placeholder='Select a payment policy'. Options: Prepaid, Collect."
+
+            - id:   "I13:7305;6031:9153;13:7754;13:7594"
+              name: "Input Field — Carrier name"
+              type: component
+              position:
+                order:          2
+                sibling_before: "Select Field — Payment policy"
+                sibling_after:  null
+                layout_role:    flex-child
+              sizing:
+                width:  fill-container
+                height: hug-content
+              tokens:
+                color_label:       "var(--color-add-address-dialog-label)"
+                color_border:      "var(--color-add-address-dialog-input-border)"
+                color_placeholder: "var(--color-add-address-dialog-placeholder)"
+                font_size:         "var(--font-add-address-dialog-body-size)"
+                font_weight:       "var(--font-add-address-dialog-body-weight)"
+                radius:            "var(--radius-add-address-dialog-input)"
+              react:
+                component_name: InputField
+                element:        input
+                css_module:     AddAddressModal.module.css
+                notes:          "SDS InputField. label='Carrier name'. placeholder='Enter a carrier name'."
+
+        - id:   "I13:7305;6031:9153;13:7754;13:7691"
+          name: "Textarea Field — Address"
+          type: component
+          position:
+            order:          7
+            sibling_before: "Row 2"
+            sibling_after:  "Button Group"
+            layout_role:    flex-child
+          sizing:
+            width:    fill-container
+            height:   hug-content
+            min_height: "var(--size-add-address-dialog-textarea-min-height)"
+          tokens:
+            color_label:       "var(--color-add-address-dialog-label)"
+            color_border:      "var(--color-add-address-dialog-input-border)"
+            color_placeholder: "var(--color-add-address-dialog-placeholder)"
+            font_size:         "var(--font-add-address-dialog-body-size)"
+            font_weight:       "var(--font-add-address-dialog-body-weight)"
+            radius:            "var(--radius-add-address-dialog-input)"
+          react:
+            component_name: TextareaField
+            element:        textarea
+            css_module:     AddAddressModal.module.css
+            notes:          "SDS TextareaField. label='Address'. placeholder='Enter the address'. isResizable=true."
+
+        - id:   "I13:7305;6031:9153;13:7754;13:7720"
+          name: "Button Group"
+          type: component
+          position:
+            order:          8
+            sibling_before: "Textarea Field — Address"
+            sibling_after:  null
+            layout_role:    flex-child
+          layout:
+            direction: horizontal
+            alignment: center
+            wrap:      false
+            gap:       "var(--spacing-add-address-dialog-footer-gap)"
+            padding:
+              top:    "var(--spacing-add-address-dialog-footer-padding-top)"
+              right:  0
+              bottom: 0
+              left:   0
+          sizing:
+            width:  fill-container
+            height: hug-content
+          tokens:
+            color_border: "var(--color-add-address-dialog-footer-border)"
+            spacing_gap:  "var(--spacing-add-address-dialog-footer-gap)"
+          react:
+            component_name: ButtonGroup
+            element:        div
+            css_module:     AddAddressModal.module.css
+            notes:          "SDS ButtonGroup align='end'. Border-top 1px. Two buttons: Close (subtle) and Add address (primary). Lives INSIDE single-entry TabPanel — bulk upload has no footer buttons."
+
+# ============================================================
+# SECTION: Bulk Upload Panel
+# Source Figma URL: https://www.figma.com/design/nHuQyck4BJMI3IqadWrpBp/Address-book?node-id=14-1616
+# Appended: 2026-04-15
+# ============================================================
+#
+# This content populates TabPanel id="bulk-upload" within the AddAddressModal.
+# Structure mirrors the single-entry panel up to the divider, then diverges
+# to show a file-upload dropzone instead of form fields.
+# Footer buttons are NOT present — the only close paths are the X icon button
+# and the inline "Close" text button inside the dropzone.
+
+- id:   "I14:1616;6031:9153;14:1615"
+  name: "Add address_fig (bulk upload variant)"
+  type: group
+  position:
+    order:          1
+    sibling_before: null
+    sibling_after:  null
+    layout_role:    flex-child
+  layout:
+    direction: vertical
+    alignment: start
+    wrap:      false
+    gap:       "var(--spacing-add-address-dialog-content-gap)"
+    padding:
+      top:    0
+      right:  0
+      bottom: 0
+      left:   0
+  sizing:
+    width:  fill-container
+    height: hug-content
+  react:
+    component_name: null
+    element:        div
+    css_module:     AddAddressModal.module.css
+    notes:          "Rendered as TabPanel id='bulk-upload' in AddAddressModal."
+  children:
+
+    - id:   "I14:1616;6031:9153;14:1615;14:1362"
+      name: "Description (bulk upload)"
+      type: group
+      position:
+        order:          1
+        sibling_before: null
+        sibling_after:  "Divider"
+        layout_role:    flex-child
+      layout:
+        direction: vertical
+        alignment: start
+        wrap:      false
+        gap:       "var(--spacing-add-address-dialog-description-gap)"
+        padding:
+          top:    0
+          right:  0
+          bottom: 0
+          left:   0
+      sizing:
+        width:  fill-container
+        height: hug-content
+      tokens:
+        color_text:   "var(--color-add-address-dialog-description-heading)"
+        font_family:  "var(--font-add-address-dialog-body-family)"
+        font_size:    "var(--font-add-address-dialog-body-size)"
+      react:
+        component_name: null
+        element:        div
+        css_module:     AddAddressModal.module.css
+        notes:          "Heading: 'Upload addresses at bulk' (TextStrong). Body: 14px body-small tertiary."
+
+    - id:   "I14:1616;6031:9153;14:1615;14:1365"
+      name: "Divider"
+      type: group
+      position:
+        order:          2
+        sibling_before: "Description (bulk upload)"
+        sibling_after:  "Upload Dropzone"
+        layout_role:    flex-child
+      layout:
+        direction: none
+        alignment: start
+      sizing:
+        width:  fill-container
+        height: "fixed-1px"  # ⚠ no token — raw value
+      tokens:
+        color_border: "var(--color-add-address-dialog-border)"
+      react:
+        component_name: null
+        element:        hr
+        css_module:     AddAddressModal.module.css
+        notes:          "Same .divider class as single-entry tab."
+
+    - id:   "I14:1616;6031:9153;14:1615;14:1430"
+      name: "Upload Dropzone"
+      type: component
+      position:
+        order:          3
+        sibling_before: "Divider"
+        sibling_after:  null
+        layout_role:    flex-child
+      layout:
+        direction: vertical
+        alignment: center
+        wrap:      false
+        gap:       "var(--spacing-bulk-upload-dropzone-gap)"
+        padding:
+          top:    "var(--spacing-bulk-upload-dropzone-padding-y)"
+          right:  0
+          bottom: "var(--spacing-bulk-upload-dropzone-padding-y)"
+          left:   0
+      sizing:
+        width:  fill-container
+        height: hug-content
+      tokens:
+        color_background: "var(--color-bulk-upload-dropzone-bg)"
+        color_border:     "var(--color-bulk-upload-dropzone-border)"
+        radius:           "var(--radius-bulk-upload-dropzone)"
+        spacing_padding:  "var(--spacing-bulk-upload-dropzone-padding-y)"
+        spacing_gap:      "var(--spacing-bulk-upload-dropzone-gap)"
+      react:
+        component_name: null
+        element:        div
+        css_module:     AddAddressModal.module.css
+        notes:          "CSS class .dropzone. Border 1px solid green. Border-radius 16px hardcoded."
+      children:
+
+        - id:   "I14:1616;6031:9153;14:1615;14:1432"
+          name: "Upload Icon"
+          type: icon
+          position:
+            order:          1
+            sibling_before: null
+            sibling_after:  "Dropzone Text Block"
+            layout_role:    flex-child
+          sizing:
+            width:  "fixed-40px"  # ⚠ no token
+            height: "fixed-40px"
+          tokens:
+            color_text: "var(--color-bulk-upload-dropzone-border)"
+          react:
+            component_name: IconUpload
+            element:        span
+            css_module:     AddAddressModal.module.css
+            notes:          "SDS IconUpload size='40'. Color: green (positive-tertiary)."
+
+        - id:   "I14:1616;6031:9153;14:1615;14:1433"
+          name: "Dropzone Text Block"
+          type: group
+          position:
+            order:          2
+            sibling_before: "Upload Icon"
+            sibling_after:  null
+            layout_role:    flex-child
+          layout:
+            direction: vertical
+            alignment: center
+            wrap:      false
+            gap:       0
+            padding:
+              top:    0
+              right:  0
+              bottom: 0
+              left:   0
+          sizing:
+            width:  fill-container
+            height: hug-content
+          tokens:
+            color_text: "var(--color-bulk-upload-dropzone-text)"
+            font_size:  "var(--font-add-address-dialog-small-size)"
+          react:
+            component_name: null
+            element:        div
+            css_module:     AddAddressModal.module.css
+            notes:          "Two lines. Line 1: plain text. Line 2: inline row with Button (subtle, 'Close') between text segments."
+          children:
+
+            - id:   "I14:1616;6031:9153;14:1615;14:1434"
+              name: "Upload instruction text"
+              type: text
+              position:
+                order:          1
+                sibling_before: null
+                sibling_after:  "Inline action row"
+                layout_role:    flex-child
+              react:
+                component_name: null
+                element:        p
+                css_module:     AddAddressModal.module.css
+                notes:          "'Upload .csv template file after making the' — .csv in bold. Class .dropzoneText."
+
+            - id:   "I14:1616;6031:9153;14:1615;14:1435"
+              name: "Inline action row"
+              type: group
+              position:
+                order:          2
+                sibling_before: "Upload instruction text"
+                sibling_after:  null
+                layout_role:    flex-child
+              layout:
+                direction: horizontal
+                alignment: center
+                wrap:      true
+                gap:       "var(--spacing-bulk-upload-item-gap)"
+              react:
+                component_name: null
+                element:        div
+                css_module:     AddAddressModal.module.css
+                notes:          "Class .dropzoneInlineRow. Contains: 'necessary changes.' text + Button(subtle,'Close') + 'from here' text."

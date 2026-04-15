@@ -67,3 +67,27 @@
   margin: 0;
   width: 100%;
 }
+
+/*
+ * Add address dialog — width and horizontal padding overrides.
+ * The SDS .dialog class adds padding-top/bottom (--dialog-padding-y = 32px).
+ * We add the matching horizontal padding and cap max-width to fit the
+ * 539px content area (from Figma node 13:7305) plus 32px padding each side.
+ */
+.addAddressDialog {
+  padding-left: var(--spacing-add-address-dialog-padding, 2rem);
+  padding-right: var(--spacing-add-address-dialog-padding, 2rem);
+  max-width: calc(
+    var(--size-add-address-dialog-content-width, 539px) +
+    var(--spacing-add-address-dialog-padding, 2rem) * 2
+  );
+}
+
+/*
+ * Black translucent overlay behind the dialog card.
+ * Overrides the SDS scrim variable with the project token so the backdrop
+ * is visibly dark rather than transparent/near-white.
+ */
+.addAddressOverlay {
+  background: var(--color-add-address-dialog-overlay, rgba(12, 12, 13, 0.55));
+}

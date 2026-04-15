@@ -1,0 +1,185 @@
+/*
+ * AddAddressModal — Figma nodes 13:7305 (single entry) + 14:1616 (bulk upload)
+ *
+ * All visual values trace to tokens in src/styles/tokens.css.
+ * The SDS Dialog element supplies padding-top/bottom (via --dialog-padding-y).
+ * Horizontal padding and max-width are applied via .addAddressDialog in
+ * PageHeader.module.css (the rendering context for this dialog).
+ *
+ * Gap note
+ * ────────
+ * --spacing-add-address-dialog-gap      = 24 px  (outer dialog sections)
+ * --spacing-add-address-dialog-content-gap = 16 px  ("Add address_fig" frame gap, Figma)
+ * .content and .tabPanel use the 16 px content gap; the footer's own 24 px
+ * padding-top produces the correct visual spacing to the action buttons.
+ */
+
+/* ── Inner content wrapper ───────────────────────────────────────────────── */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-add-address-dialog-content-gap, 1rem);
+  width: 100%;
+}
+
+/* ── Title row ───────────────────────────────────────────────────────────── */
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  padding-block: var(--spacing-add-address-dialog-title-padding-y, 0.25rem);
+}
+
+.title {
+  color: var(--color-add-address-dialog-title, #303030);
+  font-family: var(--font-add-address-dialog-title-family, system-ui, sans-serif);
+  font-size: var(--font-add-address-dialog-title-size, 24px);
+  font-weight: var(--font-add-address-dialog-title-weight, 600);
+  line-height: var(--font-add-address-dialog-title-line-height, 1.2);
+  /* letter-spacing -0.48px: no token found — flagged in tokens.css */
+  letter-spacing: -0.48px;
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+}
+
+/* ── Tabs ────────────────────────────────────────────────────────────────── */
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  overflow: clip;
+}
+
+.tabList {
+  display: flex;
+  padding-block: var(--spacing-add-address-dialog-tabs-padding-y, 0.375rem);
+  overflow: clip;
+}
+
+/*
+ * Override SDS default tab colours to match the Figma:
+ *   inactive → neutral-tertiary text + neutral-tertiary border (1 px)
+ *   selected → positive (green) text + positive (green) border (2 px)
+ */
+.tabList :global(.tab) {
+  --color: var(--color-add-address-dialog-tab-inactive-text, #767676);
+  --border-color: var(--color-add-address-dialog-tab-inactive-border, #b2b2b2);
+  font-family: var(--font-add-address-dialog-body-family, system-ui, sans-serif);
+  font-size: var(--font-add-address-dialog-body-size, 16px);
+  font-weight: var(--font-add-address-dialog-body-weight, 400);
+  line-height: var(--font-add-address-dialog-body-line-height, 1.4);
+}
+
+.tabList :global(.tab[data-selected]) {
+  --color: var(--color-add-address-dialog-tab-active-text, #02542d);
+  --border-color: var(--color-add-address-dialog-tab-active-border, #02542d);
+  border-bottom-width: var(--border-add-address-dialog-tab-active-width, 2px);
+}
+
+/* Remove the SDS tab-panel default padding (12 px). Each panel manages its
+   own internal layout via flex + content-gap. */
+.tabPanel {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-add-address-dialog-content-gap, 1rem);
+}
+
+/* ── Description block ───────────────────────────────────────────────────── */
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-add-address-dialog-description-gap, 0.5rem);
+}
+
+.descriptionBody {
+  color: var(--color-add-address-dialog-description-body, #767676);
+}
+
+/* ── Horizontal divider ──────────────────────────────────────────────────── */
+
+.divider {
+  border: none;
+  border-top: var(--border-add-address-dialog-width, 1px) solid
+    var(--color-add-address-dialog-border, #d9d9d9);
+  margin: 0;
+  width: 100%;
+}
+
+/* ── Two-column field rows (single-entry tab) ────────────────────────────── */
+
+.fieldsRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-add-address-dialog-row-gap, 0.5rem);
+}
+
+.fieldsRow > * {
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+/* ── Footer button group (inside single-entry TabPanel only) ─────────────── */
+
+.footer {
+  border-top: var(--border-add-address-dialog-width, 1px) solid
+    var(--color-add-address-dialog-footer-border, #d9d9d9);
+  padding-top: var(--spacing-add-address-dialog-footer-padding-top, 1.5rem);
+}
+
+/* ── Bulk upload dropzone ────────────────────────────────────────────────── */
+
+.dropzone {
+  background: var(--color-bulk-upload-dropzone-bg, #f5f5f5);
+  border: var(--border-bulk-upload-dropzone-width, 1px) solid
+    var(--color-bulk-upload-dropzone-border, #14ae5c);
+  border-radius: var(--radius-bulk-upload-dropzone, 1rem);
+  padding-block: var(--spacing-bulk-upload-dropzone-padding-y, 3rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-bulk-upload-dropzone-gap, 0.5rem);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Force the SDS Icon to inherit the green border colour */
+.uploadIcon {
+  --svg-stroke-color: var(--color-bulk-upload-dropzone-border, #14ae5c);
+  width: var(--size-bulk-upload-icon, 40px);
+  height: var(--size-bulk-upload-icon, 40px);
+  flex-shrink: 0;
+}
+
+.dropzoneTextBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+}
+
+.dropzoneText {
+  color: var(--color-bulk-upload-dropzone-text, #434343);
+  font-family: var(--font-add-address-dialog-body-family, system-ui, sans-serif);
+  font-size: var(--font-add-address-dialog-small-size, 14px);
+  font-weight: var(--font-add-address-dialog-body-weight, 400);
+  line-height: var(--font-add-address-dialog-body-line-height, 1.4);
+  text-align: center;
+}
+
+.dropzoneCsvBold {
+  font-weight: 700;
+  color: var(--color-bulk-upload-dropzone-text, #434343);
+}
+
+.dropzoneInlineRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-bulk-upload-item-gap, 0.25rem);
+  flex-wrap: wrap;
+}

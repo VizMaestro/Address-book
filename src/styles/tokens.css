@@ -1,9 +1,9 @@
 /*
  * TOKEN SUMMARY
  * -------------
- * Total sections: 6
- * Total tokens mapped: 132
- * Hardcoded values flagged: 14
+ * Total sections: 8
+ * Total tokens mapped: 185
+ * Hardcoded values flagged: 20
  *
  * Sections:
  *   - Navigation
@@ -12,6 +12,8 @@
  *   - Container
  *   - Map Container
  *   - Search Results Card
+ *   - Add Address Dialog
+ *   - Bulk Upload Panel
  *
  * Flagged items requiring designer attention:
  *   - Navigation: menu item border-radius has no token binding — raw value 8px used
@@ -54,9 +56,11 @@
   --ld-primitive-scale-space-200: 1rem;      /* 16px */
   --ld-primitive-scale-space-250: 1.25rem;   /* 20px */
   --ld-primitive-scale-space-300: 1.5rem;    /* 24px */
+  --ld-primitive-scale-space-600: 3rem;      /* 48px */
 
   /* Primitive scale — border-radius */
-  --ld-primitive-scale-borderradius-100: 0.5rem; /* 8px */
+  --ld-primitive-scale-borderradius-100: 0.5rem; /* 8px  */
+  --ld-primitive-scale-borderradius-200: 1rem;   /* 16px */
 
   /* Semantic scale — border width */
   --ld-semantic-scale-borderwidth-interactive: 1px;
@@ -345,5 +349,113 @@
   --size-search-results-payment-column: 180px;
   /* ⚠ HARDCODED — no token found: 160px carrier column width */
   --size-search-results-carrier-column: 160px;
+
+
+  /* ============================================================
+     SECTION: Add Address Dialog
+     Figma node: 13:7305 — Dialog Body
+     ============================================================ */
+
+  /* Color */
+  --color-add-address-dialog-background: var(--sds-color-background-default-default);
+  --color-add-address-dialog-border: var(--sds-color-border-default-default);
+  --color-add-address-dialog-title: var(--sds-color-text-neutral-default);
+  --color-add-address-dialog-label: var(--sds-color-text-default-default);
+  --color-add-address-dialog-placeholder: var(--sds-color-text-default-tertiary);
+  --color-add-address-dialog-description-heading: var(--sds-color-text-neutral-on-neutral-secondary);
+  --color-add-address-dialog-description-body: var(--sds-color-text-neutral-tertiary);
+  --color-add-address-dialog-tab-active-border: var(--sds-color-border-positive-default);
+  --color-add-address-dialog-tab-active-text: var(--sds-color-text-positive-default);
+  --color-add-address-dialog-tab-inactive-border: var(--sds-color-border-neutral-tertiary);
+  --color-add-address-dialog-tab-inactive-text: var(--sds-color-text-neutral-tertiary);
+  --color-add-address-dialog-input-background: var(--sds-color-background-default-default);
+  --color-add-address-dialog-input-border: var(--sds-color-border-default-default);
+  --color-add-address-dialog-footer-border: var(--sds-color-border-default-default);
+  --color-add-address-dialog-cancel-text: var(--sds-color-text-default-default);
+
+  /* Spacing */
+  --spacing-add-address-dialog-padding: var(--sds-size-space-800);
+  --spacing-add-address-dialog-gap: var(--sds-size-space-600);
+  --spacing-add-address-dialog-title-padding-y: var(--sds-size-space-100);
+  --spacing-add-address-dialog-tabs-padding-y: var(--sds-size-space-150);
+  --spacing-add-address-dialog-tab-padding-x: var(--sds-size-space-300);
+  --spacing-add-address-dialog-tab-padding-y: var(--sds-size-space-100);
+  --spacing-add-address-dialog-description-gap: var(--ld-primitive-scale-space-100);
+  --spacing-add-address-dialog-row-gap: var(--ld-primitive-scale-space-100);
+  --spacing-add-address-dialog-field-gap: var(--sds-size-space-200);
+  --spacing-add-address-dialog-input-padding-x: var(--sds-size-space-400);
+  --spacing-add-address-dialog-input-padding-y: var(--sds-size-space-300);
+  --spacing-add-address-dialog-footer-padding-top: var(--sds-size-space-600);
+  --spacing-add-address-dialog-footer-gap: var(--sds-size-space-400);
+
+  /* Corner radius */
+  --radius-add-address-dialog: var(--sds-size-radius-200);
+  --radius-add-address-dialog-input: var(--sds-size-radius-200);
+  --radius-add-address-dialog-tab: var(--sds-size-radius-100);
+
+  /* Typography */
+  --font-add-address-dialog-title-family: var(--sds-typography-heading-font-family);
+  --font-add-address-dialog-title-size: var(--sds-typography-heading-size-base);
+  --font-add-address-dialog-title-weight: var(--sds-typography-heading-font-weight);
+  --font-add-address-dialog-title-line-height: 1.2;
+  --font-add-address-dialog-body-family: var(--sds-typography-body-font-family);
+  --font-add-address-dialog-body-size: var(--sds-typography-body-size-medium);
+  --font-add-address-dialog-body-weight: var(--sds-typography-body-font-weight-regular);
+  --font-add-address-dialog-body-line-height: 1.4;
+  --font-add-address-dialog-body-strong-weight: var(--sds-typography-body-font-weight-strong);
+  --font-add-address-dialog-small-size: var(--sds-typography-body-size-small);
+
+  /* Shadow */
+  --shadow-add-address-dialog:
+    var(--sds-size-depth-0) var(--sds-size-depth-400) var(--sds-size-depth-800) 0px var(--sds-color-black-200),
+    var(--sds-size-depth-0) var(--sds-size-depth-100) var(--sds-size-depth-100) 0px var(--sds-color-black-100);
+
+  /* Border */
+  --border-add-address-dialog-width: var(--sds-size-stroke-border);
+  --border-add-address-dialog-tab-active-width: var(--sds-size-stroke-focus-ring);
+
+  /* Sizing */
+  /* ⚠ HARDCODED — no token found: 539px dialog content width */
+  --size-add-address-dialog-content-width: 539px;
+  /* ⚠ HARDCODED — no token found: 40px input field height */
+  --size-add-address-dialog-input-height: 40px;
+  /* ⚠ HARDCODED — no token found: 80px textarea min-height */
+  --size-add-address-dialog-textarea-min-height: 80px;
+  /* ⚠ HARDCODED — no token found: 16px action icon size */
+  --size-add-address-dialog-icon: 16px;
+  /* ⚠ HARDCODED — no token found: 20px close icon size */
+  --size-add-address-dialog-close-icon: 20px;
+
+  /* Content-level gap within the "Add address_fig" frame — 16px */
+  --spacing-add-address-dialog-content-gap: var(--sds-size-space-400);
+
+  /* Dark scrim overlay behind the dialog card */
+  --color-add-address-dialog-overlay: rgba(12, 12, 13, 0.55);
+
+
+  /* ============================================================
+     SECTION: Bulk Upload Panel
+     Figma node: 14:1616 — Dialog Body (Bulk upload tab active)
+     ============================================================ */
+
+  /* Color */
+  --color-bulk-upload-dropzone-bg:     var(--sds-color-background-default-default-hover);
+  --color-bulk-upload-dropzone-border: var(--sds-color-icon-positive-tertiary);
+  --color-bulk-upload-dropzone-text:   var(--sds-color-text-neutral-on-neutral-tertiary);
+
+  /* Border */
+  --border-bulk-upload-dropzone-width: var(--ld-semantic-scale-borderwidth-interactive);
+
+  /* Corner radius */
+  --radius-bulk-upload-dropzone: var(--ld-primitive-scale-borderradius-200, 1rem);
+
+  /* Spacing */
+  --spacing-bulk-upload-dropzone-padding-y: var(--ld-primitive-scale-space-600); /* 48px */
+  --spacing-bulk-upload-dropzone-gap:       var(--ld-primitive-scale-space-100); /* 8px  */
+  --spacing-bulk-upload-item-gap:           var(--ld-primitive-scale-space-50);  /* 4px  */
+
+  /* Sizing */
+  /* ⚠ HARDCODED — no token found: 40px upload icon size */
+  --size-bulk-upload-icon: 40px;
 
 }

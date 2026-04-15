@@ -38,3 +38,35 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* ── Dialog enter / exit animations ─────────────────────────────────────────
+ * React Aria's ModalOverlay sets [data-entering] on open and [data-exiting]
+ * on close. RAC waits for the declared animation-duration to elapse before
+ * unmounting, so the exit animation plays fully before the DOM is removed.
+ *
+ * Backdrop: fade in/out.
+ * Card    : slide up 14 px + scale 0.97 → 1 on enter (spring easing);
+ *           reverse on exit (ease-in for a crisp departure).
+ * ────────────────────────────────────────────────────────────────────────── */
+
+@keyframes backdropIn  { from { opacity: 0 } to { opacity: 1 } }
+@keyframes backdropOut { from { opacity: 1 } to { opacity: 0 } }
+
+@keyframes dialogIn {
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+@keyframes dialogOut {
+  from { opacity: 1; transform: translateY(0)   scale(1);    }
+  to   { opacity: 0; transform: translateY(8px) scale(0.97); }
+}
+
+.dialog-backdrop[data-entering] { animation: backdropIn  220ms ease-out forwards; }
+.dialog-backdrop[data-exiting]  { animation: backdropOut 180ms ease-in  forwards; }
+
+.dialog-backdrop[data-entering] > .dialog-container {
+  animation: dialogIn  280ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.dialog-backdrop[data-exiting]  > .dialog-container {
+  animation: dialogOut 180ms ease-in forwards;
+}
