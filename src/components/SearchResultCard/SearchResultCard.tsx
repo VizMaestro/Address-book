@@ -1,5 +1,5 @@
 /**
- * Warehouse group card — Figma node 12:5949 "Card (Slot)".
+ * Warehouse group card — "Card (Slot)" section.
  * Renders one card per warehouse code: a header with the location identifier
  * and a stacked list of AddressRow components for every vendor at that location.
  */

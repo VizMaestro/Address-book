@@ -1,5 +1,5 @@
 /**
- * Address statistics summary — Figma node 6:4558 "Metrics Row".
+ * Address statistics summary — "Metrics Row" section.
  * Displays five aggregate counts derived from the full address dataset.
  * Receives pre-computed metrics as a prop so it has no data-fetching dependency.
  */

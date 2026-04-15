@@ -1,7 +1,7 @@
 /**
  * Add / Edit address dialog content.
  *
- * Figma nodes: 13:7305 (single entry) + 14:1616 (bulk upload).
+ * Single entry and bulk upload panels.
  * Rendered inside an SDS Dialog opened either from PageHeader ("add" mode)
  * or from DashboardClient ("edit" mode).
  *

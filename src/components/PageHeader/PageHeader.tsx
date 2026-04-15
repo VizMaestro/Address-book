@@ -1,5 +1,5 @@
 /**
- * Page title bar — Figma node 5:4174 "Page Header".
+ * Page title bar — "Page Header" section.
  * Contains the application title, subtitle, and two action buttons.
  * The "Add address" button opens the AddAddressModal dialog via SDS DialogTrigger.
  * onDownload is optional so the component renders safely without a handler wired.

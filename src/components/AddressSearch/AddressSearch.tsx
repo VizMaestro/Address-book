@@ -1,5 +1,5 @@
 /**
- * Filter panel — Figma node 1:13240 "Container".
+ * Filter panel — "Container" section.
  * Four controlled fields that emit the full filter state on every change,
  * allowing the parent to run filtering without needing to debounce or batch.
  * Each SelectField has a "— Clear —" item as the first option so the user

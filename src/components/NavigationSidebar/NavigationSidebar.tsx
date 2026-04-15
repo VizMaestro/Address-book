@@ -1,5 +1,5 @@
 /**
- * Vertical navigation sidebar — Figma node 1:13210 "Navigation".
+ * Vertical navigation sidebar — "Navigation" section.
  * iconMap is defined in this file (not in src/data/) because it maps icon names
  * to JSX elements, which cannot be expressed in a plain data module.
  */

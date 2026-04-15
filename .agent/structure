@@ -1,6 +1,5 @@
 # STRUCTURE
 # ---------
-# Source Figma URL:   https://www.figma.com/design/nHuQyck4BJMI3IqadWrpBp/Address-book?node-id=1-13208
 # Root frame:         Address book - Default
 # Generated:          2026-04-14
 # Companion file:     src/styles/tokens.css
@@ -2367,8 +2366,6 @@ root:
 # =============================================================
 # SECOND STATE: Address book — With Results
 # ---------
-# Source Figma URL:   https://www.figma.com/design/nHuQyck4BJMI3IqadWrpBp/Address-book?node-id=11-5556
-#                     (card detail) node-id=12-5949
 # Root frame:         Address book - Default (results state)
 # Generated:          2026-04-15
 # Companion file:     src/styles/tokens.css
@@ -2818,7 +2815,6 @@ results_state:
 
 # ============================================================
 # SECTION: Add Address Dialog
-# Source Figma URL: https://www.figma.com/design/nHuQyck4BJMI3IqadWrpBp/Address-book?node-id=13-7305
 # Appended: 2026-04-15
 # ============================================================
 
@@ -3236,7 +3232,6 @@ results_state:
 
 # ============================================================
 # SECTION: Bulk Upload Panel
-# Source Figma URL: https://www.figma.com/design/nHuQyck4BJMI3IqadWrpBp/Address-book?node-id=14-1616
 # Appended: 2026-04-15
 # ============================================================
 #

@@ -22,7 +22,7 @@
 }
 
 .logoIcon {
-  /* 32px matches the Figma Briefcase node (5:3919) which renders at 32×32 */
+  /* 32px — matches the Figma Briefcase icon which renders at 32×32 */
   width: var(--sds-size-icon-large, 32px);
   height: var(--sds-size-icon-large, 32px);
   display: flex;
@@ -97,7 +97,7 @@
   --svg-stroke-color: var(--color-navigation-menu-item-active-text, #f3f3f3);
 }
 
-/* 57px matches the Figma label width constraint (node 1:13227) */
+/* 57px — matches the Figma label width constraint */
 .navLabel {
   text-align: center;
   width: 57px;
@@ -108,7 +108,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* 64px matches the Figma user area container (node 1:13231) */
+  /* 64px — matches the Figma user area container width */
   width: 64px;
   border: var(--border-navigation-user-area-width, 1px) solid var(--color-navigation-user-area-border, #02542d);
   border-radius: var(--radius-navigation-user-area, 8px);
@@ -137,7 +137,7 @@
 }
 
 .chevronIcon {
-  /* 24px matches the Figma chevron icon size (node 1:13236) */
+  /* 24px — matches the Figma chevron icon size */
   width: var(--sds-size-icon-small, 24px);
   height: var(--sds-size-icon-small, 24px);
   display: flex;

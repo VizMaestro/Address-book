@@ -6,7 +6,6 @@
  * the edit-dialog state so both children always read from the same source of
  * truth without a context provider or a global store.
  *
- * Figma root: 1:13208 "Address book - Default"
  */
 
 "use client";

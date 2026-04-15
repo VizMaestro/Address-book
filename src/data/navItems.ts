@@ -1,6 +1,5 @@
 /**
  * Static navigation item configuration for the sidebar.
- * Figma source: https://www.figma.com/design/nHuQyck4BJMI3IqadWrpBp/Address-book — node 1:13210
  * The `active` flag marks the current page; update it when routing is added.
  */
 

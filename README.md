@@ -173,8 +173,6 @@ curl -X GET "$API_BASE_URL/warehouse-locations" \
 
 ## Design Token Pipeline
 
-**Figma source:** [Address Book](https://www.figma.com/design/nHuQyck4BJMI3IqadWrpBp/Address-book?node-id=1-13208)
-
 All design tokens are stored as CSS custom properties in `src/styles/tokens.css` — the single source of truth for every colour, spacing, radius, shadow, border, and typography value.
 
 | Metric | Value |
@@ -191,7 +189,7 @@ Every `var()` call in every CSS Module includes a hardcoded fallback as the seco
 - `--ld-primitive-scale-space-600` and `--ld-primitive-scale-borderradius-200` added — resolved dropzone collapse and migrated `--radius-bulk-upload-dropzone` off a raw `16px`.
 - `--ld-semantic-font-heading-small-size: 1.125rem` (18 px) added — enables `--font-container-heading-size` to reference the heading-small semantic scale.
 
-**Gap corrections (Figma VQA, node 1:13349):**
+**Gap corrections (Figma VQA, AddressRow):**
 
 - `--spacing-search-results-row-gap` — row-level flex gap between column groups (8 px).
 - `--spacing-search-results-column-gap` (new) — icon-to-label gap within each column (12 px, `var(--sds-size-space-300)`).
@@ -298,15 +296,15 @@ SDS icons render SVG paths with `stroke="var(--svg-stroke-color)"`. Set this pro
 
 The following agent tasks have been completed against the Figma source:
 
-1. **Token extraction** (`tokenparser.md`) — Parsed all Figma variables and styles from the Address Book frame, resolved token references, and wrote `src/styles/tokens.css`. Re-run twice: after adding the Search Results Card (node 12:5949, count grew from 91 → 132) and again after adding the Add Address Dialog + Bulk Upload Panel (nodes 13:7305 + 14:1616, count grew to 185). Added `--ld-primitive-scale-space-600` and `--ld-primitive-scale-borderradius-200` to the fallback `:root` block; dropzone border-radius token migrated off hardcode.
-2. **Structure generation** (`structuregenerator.md`) — Walked the full node tree, classified every frame, documented layout and token references, and wrote `.agent/structure`. Extended to include the results state (nodes 11:5556 and 12:5949) and the Add Address Dialog / Bulk Upload Panel (nodes 13:7305 and 14:1616).
+1. **Token extraction** (`tokenparser.md`) — Parsed all Figma variables and styles from the Address Book frame, resolved token references, and wrote `src/styles/tokens.css`. Re-run twice: after adding the Search Results Card section (count grew from 91 → 132) and again after adding the Add Address Dialog and Bulk Upload Panel sections (count grew to 185). Added `--ld-primitive-scale-space-600` and `--ld-primitive-scale-borderradius-200` to the fallback `:root` block; dropzone border-radius token migrated off hardcode.
+2. **Structure generation** (`structuregenerator.md`) — Walked the full node tree, classified every frame, documented layout and token references, and wrote `.agent/structure`. Extended to include the results state (Search Results Card and AddressRow) and the Add Address Dialog / Bulk Upload Panel sections.
 3. **API layer creation** (`APICreation.md`) — Created the full `config → api → service` stack for the addresses datasource. Extended to cover the warehouse locations datasource: `warehouseLocationsApi.ts` (with PROD curl comment block) + `warehouseLocationsService.ts` + `src/types/warehouseLocation.types.ts`.
-4. **Search results UI** — Implemented `SearchResultCard` and `AddressRow` components from Figma node 12:5949. Added `AddressSearchContainer` as the client state boundary. `MapContainer` now toggles between empty state and grouped result cards.
-5. **Add Address dialog UI** — Implemented `AddAddressModal` from Figma nodes 13:7305 (single-entry tab) + 14:1616 (bulk upload tab). Tabbed layout with SDS Dialog, two field rows, full-width textarea, footer buttons on single-entry, and the bulk upload dropzone. Warehouse locations sourced from the new typed data file.
+4. **Search results UI** — Implemented `SearchResultCard` and `AddressRow` components from the Search Results Card section. Added `AddressSearchContainer` as the client state boundary. `MapContainer` now toggles between empty state and grouped result cards.
+5. **Add Address dialog UI** — Implemented `AddAddressModal` from the Add Address Dialog and Bulk Upload Panel sections. Tabbed layout with SDS Dialog, two field rows, full-width textarea, footer buttons on single-entry, and the bulk upload dropzone. Warehouse locations sourced from the new typed data file.
 6. **Data file migration** — `src/data/warehouseLocations.json` replaced with `src/data/warehouseLocations.ts` (exports `WarehouseLocation` interface + typed array). JSON files are not permissible data sources under architect rule 3.7.
 7. **Architecture audit** (`architect.md`) — Applied all coding standards across the new and modified files: extracted pure utilities into `src/utils/`, consolidated types in `src/types/`, ensured every `var()` in every CSS Module has a hardcoded fallback, added file-level header comments, and verified import order throughout.
 8. **Add / Edit address flow** — Introduced `DashboardClient` as the shared state owner for the address list. `AddAddressModal` extended with `mode` / `initialValues` props to support both add and edit without code duplication. `src/utils/parseAddress.ts` created: `parseAddressText()` converts free-text textarea input into structured address fields; `formatAddressToText()` serialises a stored `Address` back into the textarea string for pre-filling. Edit is triggered by the row-level edit icon and opens the modal pre-filled without tabs.
-9. **AddressRow gap VQA** — Compared node 1:13349 against the live CSS. Corrected two token mismatches: the row-level flex gap (`.row`) now uses `--spacing-search-results-row-gap` (8 px / `var(--sds-size-space-200)`) and each column's internal icon-to-label gap uses the new `--spacing-search-results-column-gap` token (12 px / `var(--sds-size-space-300)`). Token count updated to 186; `.agent/structure` flags updated.
+9. **AddressRow gap VQA** — Compared the AddressRow design against the live CSS. Corrected two token mismatches: the row-level flex gap (`.row`) now uses `--spacing-search-results-row-gap` (8 px / `var(--sds-size-space-200)`) and each column's internal icon-to-label gap uses the new `--spacing-search-results-column-gap` token (12 px / `var(--sds-size-space-300)`). Token count updated to 186; `.agent/structure` flags updated.
 10. **Token resolution pass** — Resolved 13 of the original 20 flagged hardcoded values by mapping each to the nearest existing design-system token. Added `--ld-semantic-font-heading-small-size` (18 px) to the fallback `:root` block. 7 values remain hardcoded with documented reasons (no DS token equivalent). Flagged count in `tokens.css` header updated 20 → 7; `.agent/structure` sizing flags updated.
 
 ---
@@ -314,4 +312,3 @@ The following agent tasks have been completed against the Figma source:
 ## Learn More
 
 - [Next.js Documentation](https://nextjs.org/docs)
-- [Figma Design Source](https://www.figma.com/design/OnGD15bcgBmZ4KWdAR8J38/Address-book?m=auto&t=S9CMarTDAU3HS3LQ-6)

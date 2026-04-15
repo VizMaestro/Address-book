@@ -78,8 +78,7 @@
 
 /* ============================================================
    TOKEN MAP — generated from Figma
-   Source: https://www.figma.com/design/nHuQyck4BJMI3IqadWrpBp/Address-book?node-id=1-13208
-   Updated: 2026-04-15 (added Search Results Card — node 12:5949)
+   Updated: 2026-04-15 (added Search Results Card section)
    Sections: Navigation, Page Header, Metrics Row, Container, Map Container, Search Results Card
    ============================================================ */
 
@@ -87,7 +86,7 @@
 
   /* ============================================================
      SECTION: Navigation
-     Node: 1:13210 — Left sidebar with WMS logo, nav items, user area
+     Navigation — left sidebar with WMS logo, nav items, user area
      ============================================================ */
 
   /* Color */
@@ -132,7 +131,7 @@
 
   /* ============================================================
      SECTION: Page Header
-     Node: 5:4174 — Page title, subtitle, Download data + Add address buttons
+     Page Header — page title, subtitle, Download data + Add address buttons
      ============================================================ */
 
   /* Color */
@@ -170,7 +169,7 @@
 
   /* ============================================================
      SECTION: Metrics Row
-     Node: 6:4558 — Stats summary card showing 5 address metrics
+     Metrics Row — stats summary card showing 5 address metrics
      ============================================================ */
 
   /* Color */
@@ -207,7 +206,7 @@
 
   /* ============================================================
      SECTION: Container
-     Node: 1:13240 — Address search section heading and filter fields
+     Container — address search section heading and filter fields
      ============================================================ */
 
   /* Color */
@@ -245,7 +244,7 @@
 
   /* ============================================================
      SECTION: Map Container
-     Node: 1:13248 — Address results area / empty-state panel
+     Map Container — address results area / empty-state panel
      ============================================================ */
 
   /* Color */
@@ -276,7 +275,7 @@
 
   /* ============================================================
      SECTION: Search Results Card
-     Node: 12:5949 — Card (Slot): warehouse-grouped vendor address rows
+     Search Results Card — warehouse-grouped vendor address rows
      ============================================================ */
 
   /* Color */
@@ -347,7 +346,7 @@
 
   /* ============================================================
      SECTION: Add Address Dialog
-     Figma node: 13:7305 — Dialog Body
+     Add Address Dialog — dialog body (single entry tab)
      ============================================================ */
 
   /* Color */
@@ -429,7 +428,7 @@
 
   /* ============================================================
      SECTION: Bulk Upload Panel
-     Figma node: 14:1616 — Dialog Body (Bulk upload tab active)
+     Bulk Upload Panel — dialog body (bulk upload tab active)
      ============================================================ */
 
   /* Color */

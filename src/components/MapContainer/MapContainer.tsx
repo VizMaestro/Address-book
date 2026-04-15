@@ -1,5 +1,5 @@
 /**
- * Results area — Figma node 1:13248 "Map Container".
+ * Results area — "Map Container" section.
  * Toggles between an empty-state illustration (no active filter) and a
  * scrollable list of SearchResultCard components (filter has returned results).
  * Grouping by warehouse is deferred to this component so SearchResultCard

@@ -1,5 +1,5 @@
 /**
- * Single vendor address row — Figma node 1:13342 "Address_fig".
+ * Single vendor address row.
  * Renders five fixed/flex columns (vendor, address, payment, carrier, status)
  * separated by 1px dividers, plus two action icon buttons.
  * Marked "use client" because IconButton uses react-aria press handlers.
