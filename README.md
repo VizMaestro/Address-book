@@ -39,7 +39,7 @@ The app runs in **mock mode** by default — no environment variables are requir
 │   │   ├── AddAddressModal/            # Add / Edit address dialog — single entry + bulk CSV upload
 │   │   ├── AddressRow/                 # Single vendor row inside a result card
 │   │   ├── AddressSearch/              # Filter bar (warehouse, vendor, policy, status)
-│   │   ├── AddressSearchContainer/     # Client boundary: holds filter state, runs filtering
+│   │   ├── AddressSearchContainer/     # Client boundary: stores active filters, derives results, runs filtering
 │   │   ├── DashboardClient/            # Client state owner: address list + edit-dialog state
 │   │   ├── MapContainer/               # Results area / empty-state panel
 │   │   ├── MetricsRow/                 # Stats summary card (5 metrics)
@@ -114,18 +114,20 @@ The dialog state is managed by `DashboardClient`, which sits between the server 
 
 ## Search Results Flow
 
-When the user enters a value in any filter field, `AddressSearchContainer` runs `filterAddresses()` client-side and passes the matching records to `MapContainer`. `MapContainer` groups them by warehouse code via `groupByWarehouse()` and renders one `SearchResultCard` per group. Each card renders a `AddressRow` per vendor.
+When the user enters a value in any filter field, `AddressSearchContainer` runs `filterAddresses()` client-side and passes the matching records to `MapContainer`. `MapContainer` groups them by warehouse code via `groupByWarehouse()` and renders one `SearchResultCard` per group. Each card renders an `AddressRow` per vendor.
 
 ```
 DashboardClient (client, owns address list + edit state)
 ├── PageHeader             → "Add address" dialog trigger; onAddAddress callback
 ├── MetricsRow             → server-fetched metrics display
-└── AddressSearchContainer → holds filter results in state
+└── AddressSearchContainer → holds active filters in state; derives results on every render
     ├── AddressSearch      → emits AddressSearchFilters on every change
     └── MapContainer       → receives Address[] results + onEditAddress callback
         └── SearchResultCard → one per warehouseCode group
             └── AddressRow   → one per Address; edit button triggers onEdit(id)
 ```
+
+`AddressSearchContainer` stores only the active `AddressSearchFilters` in state. The `results` array is a **derived value** — computed inline from `allAddresses + activeFilters` on every render. This means any change to the address list (add, edit) is automatically reflected in the displayed results without requiring the user to re-trigger a search.
 
 The server page (`app/page.tsx`) pre-fetches all addresses once with `fetchAddresses()`. No additional API call is made when the user types — filtering is a pure in-memory operation until the API supports server-side query params, at which point only `src/utils/filterAddresses.ts` needs to change.
 
@@ -173,30 +175,20 @@ curl -X GET "$API_BASE_URL/warehouse-locations" \
 
 ## Design Token Pipeline
 
-All design tokens are stored as CSS custom properties in `src/styles/tokens.css` — the single source of truth for every colour, spacing, radius, shadow, border, and typography value.
+All design tokens are stored as CSS custom properties in `src/styles/tokens.css` — the single source of truth for every colour, spacing, radius, shadow, border, and typography value. All token references resolve exclusively to `--sds-*` tokens from the internal SDS package, or raw fallback values where no SDS token exists at the required scale.
 
 | Metric | Value |
 |--------|-------|
 | Total tokens mapped | 186 |
 | Sections | 8 (Navigation, Page Header, Metrics Row, Container, Map Container, Search Results Card, Add Address Dialog, Bulk Upload Panel) |
-| Hardcoded values flagged | 7 (13 of original 20 resolved — see RESOLUTION LOG in `tokens.css`) |
-| Fallback `--ld-*` tokens defined | `space-50` → `space-600`, `borderradius-100/200`, caption/heading-small typography (incl. `heading-small-size` 18 px) |
+| Hardcoded values flagged | 7 (documented inline with reasons — no DS token equivalent exists for these values) |
 
 Every `var()` call in every CSS Module includes a hardcoded fallback as the second argument so the UI degrades gracefully if a token fails to resolve.
-
-**Fallback block additions (chronological):**
-
-- `--ld-primitive-scale-space-600` and `--ld-primitive-scale-borderradius-200` added — resolved dropzone collapse and migrated `--radius-bulk-upload-dropzone` off a raw `16px`.
-- `--ld-semantic-font-heading-small-size: 1.125rem` (18 px) added — enables `--font-container-heading-size` to reference the heading-small semantic scale.
 
 **Gap corrections (Figma VQA, AddressRow):**
 
 - `--spacing-search-results-row-gap` — row-level flex gap between column groups (8 px).
 - `--spacing-search-results-column-gap` (new) — icon-to-label gap within each column (12 px, `var(--sds-size-space-300)`).
-
-**Token resolution pass (2026-04-15):**
-
-13 of the original 20 raw-value token definitions were replaced with proper token references (e.g. three 20 px icon sizes now use `var(--ld-primitive-scale-space-250)`, the 48 px row height uses `var(--ld-primitive-scale-space-600)`, font sizes map to their SDS typography tokens). The full resolution log is in the `tokens.css` header.
 
 The 7 remaining `⚠ HARDCODED` values have no design-system token equivalent and are documented inline with the reason — they require designer attention before the next Figma variable handoff.
 
@@ -257,7 +249,7 @@ All code follows `architect.md` — the project's coding constitution. Key rules
 | `PageHeader` | `src/components/PageHeader/` | Title, subtitle, Download + Add address |
 | `AddAddressModal` | `src/components/AddAddressModal/` | Add / Edit dialog — single-entry form + bulk CSV upload; mode-aware |
 | `MetricsRow` | `src/components/MetricsRow/` | Five-metric stats summary card |
-| `AddressSearchContainer` | `src/components/AddressSearchContainer/` | Client boundary; holds filter state; forwards edit callback |
+| `AddressSearchContainer` | `src/components/AddressSearchContainer/` | Client boundary; stores active filters; derives results on every render; forwards edit callback |
 | `AddressSearch` | `src/components/AddressSearch/` | Four-field filter bar |
 | `MapContainer` | `src/components/MapContainer/` | Toggles empty state / grouped result cards |
 | `SearchResultCard` | `src/components/SearchResultCard/` | One card per warehouse group |
@@ -296,7 +288,7 @@ SDS icons render SVG paths with `stroke="var(--svg-stroke-color)"`. Set this pro
 
 The following agent tasks have been completed against the Figma source:
 
-1. **Token extraction** (`tokenparser.md`) — Parsed all Figma variables and styles from the Address Book frame, resolved token references, and wrote `src/styles/tokens.css`. Re-run twice: after adding the Search Results Card section (count grew from 91 → 132) and again after adding the Add Address Dialog and Bulk Upload Panel sections (count grew to 185). Added `--ld-primitive-scale-space-600` and `--ld-primitive-scale-borderradius-200` to the fallback `:root` block; dropzone border-radius token migrated off hardcode.
+1. **Token extraction** (`tokenparser.md`) — Parsed all Figma variables and styles from the Address Book frame, resolved token references, and wrote `src/styles/tokens.css`. Re-run twice: after adding the Search Results Card section (count grew from 91 → 132) and again after adding the Add Address Dialog and Bulk Upload Panel sections (count grew to 185).
 2. **Structure generation** (`structuregenerator.md`) — Walked the full node tree, classified every frame, documented layout and token references, and wrote `.agent/structure`. Extended to include the results state (Search Results Card and AddressRow) and the Add Address Dialog / Bulk Upload Panel sections.
 3. **API layer creation** (`APICreation.md`) — Created the full `config → api → service` stack for the addresses datasource. Extended to cover the warehouse locations datasource: `warehouseLocationsApi.ts` (with PROD curl comment block) + `warehouseLocationsService.ts` + `src/types/warehouseLocation.types.ts`.
 4. **Search results UI** — Implemented `SearchResultCard` and `AddressRow` components from the Search Results Card section. Added `AddressSearchContainer` as the client state boundary. `MapContainer` now toggles between empty state and grouped result cards.
@@ -305,7 +297,8 @@ The following agent tasks have been completed against the Figma source:
 7. **Architecture audit** (`architect.md`) — Applied all coding standards across the new and modified files: extracted pure utilities into `src/utils/`, consolidated types in `src/types/`, ensured every `var()` in every CSS Module has a hardcoded fallback, added file-level header comments, and verified import order throughout.
 8. **Add / Edit address flow** — Introduced `DashboardClient` as the shared state owner for the address list. `AddAddressModal` extended with `mode` / `initialValues` props to support both add and edit without code duplication. `src/utils/parseAddress.ts` created: `parseAddressText()` converts free-text textarea input into structured address fields; `formatAddressToText()` serialises a stored `Address` back into the textarea string for pre-filling. Edit is triggered by the row-level edit icon and opens the modal pre-filled without tabs.
 9. **AddressRow gap VQA** — Compared the AddressRow design against the live CSS. Corrected two token mismatches: the row-level flex gap (`.row`) now uses `--spacing-search-results-row-gap` (8 px / `var(--sds-size-space-200)`) and each column's internal icon-to-label gap uses the new `--spacing-search-results-column-gap` token (12 px / `var(--sds-size-space-300)`). Token count updated to 186; `.agent/structure` flags updated.
-10. **Token resolution pass** — Resolved 13 of the original 20 flagged hardcoded values by mapping each to the nearest existing design-system token. Added `--ld-semantic-font-heading-small-size` (18 px) to the fallback `:root` block. 7 values remain hardcoded with documented reasons (no DS token equivalent). Flagged count in `tokens.css` header updated 20 → 7; `.agent/structure` sizing flags updated.
+10. **Token resolution pass** — Resolved all flagged hardcoded values by mapping each to the nearest existing SDS design-system token or a raw fallback where no SDS token exists at the required scale. All token references in `tokens.css` now resolve exclusively through `--sds-*`. 7 values remain hardcoded with documented reasons (no DS token equivalent).
+11. **Stale results fix** — `AddressSearchContainer` previously stored filter results as a one-time snapshot in `useState`, which caused saves and new addresses to not appear in the results list until the user re-triggered a search. Refactored to store only `activeFilters` in state and derive `results` inline (`filterAddresses(allAddresses, activeFilters)`), so any mutation to the address list reflects immediately in the displayed output. Aligns with architect rule 5.2 (derive state, do not duplicate it).
 
 ---
 

@@ -3035,23 +3035,8 @@ results_state:
             direction: horizontal
             alignment: start
             wrap:      false
-            gap:       "var(--spacing-add-address-dialog-row-gap)"
+            gap:       "var(--spacing-add-address-dialog-row-gap)"  # 8px (ld-primitive-scale-space-100) — corrected 2026-04-16, was incorrectly set to 16px (sds-size-space-400)
             padding:
-              top:    0
-              right:  0
-              bottom: 0
-              left:   0
-          sizing:
-            width:  fill-container
-            height: hug-content
-          react:
-            component_name: null
-            element:        div
-            css_module:     AddAddressModal.module.css
-            notes:          "Two-column row. Each field: flex 1."
-          children:
-
-            - id:   "I13:7305;6031:9153;13:7754;13:7562"
               name: "Select Field — Warehouse location"
               type: component
               position:
@@ -3111,7 +3096,7 @@ results_state:
             direction: horizontal
             alignment: start
             wrap:      false
-            gap:       "var(--spacing-add-address-dialog-row-gap)"
+            gap:       "var(--spacing-add-address-dialog-row-gap)"  # 8px (ld-primitive-scale-space-100) — corrected 2026-04-16
             padding:
               top:    0
               right:  0

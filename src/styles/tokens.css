@@ -25,56 +25,29 @@
  *   - Add Address Dialog: textarea min-height 80px — no DS token for this value
  *
  * RESOLUTION LOG (2026-04-15) — 13 values resolved:
- *   --radius-navigation-menu-item     8px   → var(--ld-primitive-scale-borderradius-100)
- *   --size-navigation-icon            20px  → var(--ld-primitive-scale-space-250)
+ *   --radius-navigation-menu-item     8px   → var(--sds-size-radius-200)
+ *   --size-navigation-icon            20px  → 1.25rem (raw; no SDS token for 20px)
  *   --font-page-header-title-size     24px  → var(--sds-typography-heading-size-base)
  *   --font-page-header-subtitle-size  14px  → var(--sds-typography-body-size-small)
- *   --size-metrics-row-icon           20px  → var(--ld-primitive-scale-space-250)
- *   --font-container-heading-size     18px  → var(--ld-semantic-font-heading-small-size)
+ *   --size-metrics-row-icon           20px  → 1.25rem (raw; no SDS token for 20px)
+ *   --font-container-heading-size     18px  → 1.125rem (raw; falls between SDS 16px and 20px)
  *   --font-map-container-heading-size 16px  → var(--sds-typography-body-size-medium)
  *   --font-map-container-body-size    14px  → var(--sds-typography-body-size-small)
- *   --size-search-results-icon        20px  → var(--ld-primitive-scale-space-250)
- *   --size-search-results-row-height  48px  → var(--ld-primitive-scale-space-600)
+ *   --size-search-results-icon        20px  → 1.25rem (raw; no SDS token for 20px)
+ *   --size-search-results-row-height  48px  → var(--sds-size-space-1200)
  *   --size-add-address-dialog-icon    16px  → var(--sds-size-space-400)
- *   --size-add-address-dialog-close-icon 20px → var(--ld-primitive-scale-space-250)
+ *   --size-add-address-dialog-close-icon 20px → 1.25rem (raw; no SDS token for 20px)
  *   --size-bulk-upload-icon           40px  → var(--sds-size-icon-large)
+ *
+ * CORRECTION LOG (2026-04-16) — spacing value corrected via Figma verification:
+ *   --spacing-add-address-dialog-row-gap  was sds-size-space-400 (16px), corrected to
+ *     sds-size-space-200 (8px) — Figma field-row gap confirmed as 8px
+ *
+ * REFACTOR LOG (2026-04-16) — all --ld-primitive-* and --ld-semantic-* tokens removed:
+ *   All references replaced with direct SDS equivalents or raw fallback values.
+ *   The --ld-* fallback definitions :root block has been deleted entirely.
  */
 
-
-/* ============================================================
-   FALLBACK DEFINITIONS for --ld-* tokens not present in @sds/ui/theme.css
-   These map to equivalent SDS values or explicit px fallbacks.
-   ============================================================ */
-
-:root {
-  /* Primitive scale — spacing */
-  --ld-primitive-scale-space-50:  0.25rem;   /* 4px  */
-  --ld-primitive-scale-space-100: 0.5rem;    /* 8px  */
-  --ld-primitive-scale-space-150: 0.75rem;   /* 12px */
-  --ld-primitive-scale-space-200: 1rem;      /* 16px */
-  --ld-primitive-scale-space-250: 1.25rem;   /* 20px */
-  --ld-primitive-scale-space-300: 1.5rem;    /* 24px */
-  --ld-primitive-scale-space-600: 3rem;      /* 48px */
-
-  /* Primitive scale — border-radius */
-  --ld-primitive-scale-borderradius-100: 0.5rem; /* 8px  */
-  --ld-primitive-scale-borderradius-200: 1rem;   /* 16px */
-
-  /* Semantic scale — border width */
-  --ld-semantic-scale-borderwidth-interactive: 1px;
-
-  /* Semantic font — caption */
-  --ld-semantic-font-caption-family:     var(--sds-typography-body-font-family, system-ui, sans-serif);
-  --ld-semantic-font-caption-size:       0.75rem; /* 12px */
-  --ld-semantic-font-caption-lineheight: 1.4;
-  --ld-semantic-font-caption-weight-default: 400;
-
-  /* Semantic font — heading small */
-  --ld-semantic-font-heading-small-family:         var(--sds-typography-heading-font-family, system-ui, sans-serif);
-  --ld-semantic-font-heading-small-weight-default: var(--sds-typography-heading-font-weight, 600);
-  --ld-semantic-font-heading-small-size:           1.125rem; /* 18px */
-  --ld-semantic-font-heading-small-lineheight:     1.25;
-}
 
 /* ============================================================
    TOKEN MAP — generated from Figma
@@ -90,23 +63,26 @@
      ============================================================ */
 
   /* Color */
-  --color-navigation-background: var(--sds-color-background-positive-secondary-hover);
-  --color-navigation-menu-item-active-background: var(--sds-color-background-positive-hover);
-  --color-navigation-menu-item-text: var(--sds-color-text-neutral-default);
-  --color-navigation-menu-item-active-text: var(--sds-color-text-neutral-on-neutral);
-  --color-navigation-title-text: var(--sds-color-text-default-default);
-  --color-navigation-user-area-border: var(--sds-color-border-positive-default);
+  /* Locked to Figma light-theme values for exact visual parity. */
+  --color-navigation-background: #aff4c6;
+  --color-navigation-menu-item-active-background: #009951;
+  --color-navigation-menu-item-text: #303030;
+  --color-navigation-menu-item-active-text: #f3f3f3;
+  --color-navigation-menu-item-icon: #02542d;
+  --color-navigation-menu-item-active-icon: #f3f3f3;
+  --color-navigation-title-text: #1e1e1e;
+  --color-navigation-user-area-border: #02542d;
 
   /* Spacing */
-  --spacing-navigation-padding-horizontal: var(--ld-primitive-scale-space-100);
-  --spacing-navigation-padding-vertical: var(--ld-primitive-scale-space-250);
-  --spacing-navigation-logo-gap: var(--ld-primitive-scale-space-150);
-  --spacing-navigation-menu-item-padding-vertical: var(--ld-primitive-scale-space-200);
-  --spacing-navigation-user-area-padding-vertical: var(--ld-primitive-scale-space-300);
+  --spacing-navigation-padding-horizontal: var(--sds-size-space-200);
+  --spacing-navigation-padding-vertical: 1.25rem;
+  --spacing-navigation-logo-gap: var(--sds-size-space-300);
+  --spacing-navigation-menu-item-padding-vertical: var(--sds-size-space-400);
+  --spacing-navigation-user-area-padding-vertical: var(--sds-size-space-600);
 
   /* Corner radius */
-  --radius-navigation-menu-item: var(--ld-primitive-scale-borderradius-100, 8px);
-  --radius-navigation-user-area: var(--ld-primitive-scale-borderradius-100, 8px);
+  --radius-navigation-menu-item: var(--sds-size-radius-200);
+  --radius-navigation-user-area: var(--sds-size-radius-200);
 
   /* Typography — WMS title / active nav item (Body Small Strong) */
   --font-navigation-title-family: var(--sds-typography-body-font-family);
@@ -114,19 +90,19 @@
   --font-navigation-title-size: var(--sds-typography-body-size-small);
 
   /* Typography — inactive nav item caption (ld/semantic/textStyle/caption/default) */
-  --font-navigation-caption-family: var(--ld-semantic-font-caption-family);
-  --font-navigation-caption-size: var(--ld-semantic-font-caption-size);
-  --font-navigation-caption-line-height: var(--ld-semantic-font-caption-lineheight);
-  --font-navigation-caption-weight: var(--ld-semantic-font-caption-weight-default);
+  --font-navigation-caption-family: var(--sds-typography-body-font-family);
+  --font-navigation-caption-size: 0.75rem;
+  --font-navigation-caption-line-height: 1.4;
+  --font-navigation-caption-weight: var(--sds-typography-body-font-weight-regular);
 
   /* Border */
-  --border-navigation-user-area-width: var(--ld-semantic-scale-borderwidth-interactive);
+  --border-navigation-user-area-width: var(--sds-size-stroke-border);
 
   /* Sizing */
   --size-navigation-avatar: var(--sds-size-icon-large);
   --size-navigation-avatar-radius: var(--sds-size-radius-full);
-  /* 20px — resolved via primitive space scale (1.25rem) */
-  --size-navigation-icon: var(--ld-primitive-scale-space-250, 20px);
+  /* 20px — no SDS token for this value; nearest SDS icon sizes are 32px (medium) and 40px (large) */
+  --size-navigation-icon: 1.25rem;
 
 
   /* ============================================================
@@ -180,7 +156,7 @@
   /* Spacing */
   --spacing-metrics-row-card-padding: var(--sds-size-space-400);
   --spacing-metrics-row-metric-gap: var(--sds-size-space-300);
-  --spacing-metrics-row-label-value-gap: var(--ld-primitive-scale-space-50);
+  --spacing-metrics-row-label-value-gap: var(--sds-size-space-100);
 
   /* Corner radius */
   --radius-metrics-row-card: var(--sds-size-radius-200);
@@ -200,8 +176,8 @@
                              var(--sds-size-depth-0) var(--sds-size-depth-025) var(--sds-size-depth-100) 0px var(--sds-color-black-100);
 
   /* Sizing */
-  /* 20px — resolved via primitive space scale (1.25rem); icon-medium=32px and icon-large=40px are both too large */
-  --size-metrics-row-icon: var(--ld-primitive-scale-space-250, 20px);
+  /* 20px — no SDS token for this value; icon-medium=32px and icon-large=40px are both too large */
+  --size-metrics-row-icon: 1.25rem;
 
 
   /* ============================================================
@@ -217,20 +193,20 @@
   --color-container-input-placeholder-text: var(--sds-color-text-default-tertiary);
 
   /* Spacing */
-  --spacing-container-section-gap: var(--ld-primitive-scale-space-100);
+  --spacing-container-section-gap: var(--sds-size-space-200);
   --spacing-container-filter-panel-padding-horizontal: var(--sds-size-space-400);
   --spacing-container-filter-panel-padding-vertical: var(--sds-size-space-300);
   --spacing-container-field-label-gap: var(--sds-size-space-200);
 
   /* Corner radius */
-  --radius-container-filter-panel: var(--ld-primitive-scale-borderradius-100);
+  --radius-container-filter-panel: var(--sds-size-radius-200);
   --radius-container-input: var(--sds-size-radius-200);
 
   /* Typography — section heading (ld/semantic/textStyle/heading/small/default) */
-  --font-container-heading-family: var(--ld-semantic-font-heading-small-family);
-  --font-container-heading-weight: var(--ld-semantic-font-heading-small-weight-default);
-  --font-container-heading-line-height: var(--ld-semantic-font-heading-small-lineheight);
-  --font-container-heading-size: var(--ld-semantic-font-heading-small-size, 18px);
+  --font-container-heading-family: var(--sds-typography-heading-font-family);
+  --font-container-heading-weight: var(--sds-typography-heading-font-weight);
+  --font-container-heading-line-height: 1.25;
+  --font-container-heading-size: 1.125rem;
 
   /* Typography — field labels and input text (Single Line/Body Base) */
   --font-container-field-label-family: var(--sds-typography-body-font-family);
@@ -238,7 +214,7 @@
   --font-container-field-label-size: var(--sds-typography-body-size-medium);
 
   /* Border */
-  --border-container-filter-panel-width: var(--ld-semantic-scale-borderwidth-interactive);
+  --border-container-filter-panel-width: var(--sds-size-stroke-border);
   --border-container-input-width: var(--sds-size-stroke-border);
 
 
@@ -255,7 +231,7 @@
 
   /* Spacing */
   --spacing-map-container-content-gap: var(--sds-size-space-400);
-  --spacing-map-container-text-gap: var(--ld-primitive-scale-space-50);
+  --spacing-map-container-text-gap: var(--sds-size-space-100);
 
   /* Corner radius */
   --radius-map-container: var(--sds-size-radius-400);
@@ -270,7 +246,7 @@
   --font-map-container-body-size: var(--sds-typography-body-size-small, 14px);
 
   /* Border */
-  --border-map-container-width: var(--ld-semantic-scale-borderwidth-interactive);
+  --border-map-container-width: var(--sds-size-stroke-border);
 
 
   /* ============================================================
@@ -281,8 +257,8 @@
   /* Color */
   --color-search-results-card-background: var(--sds-color-background-default-default);
   --color-search-results-card-border: var(--sds-color-border-default-default);
-  --color-search-results-card-header-text: var(--ld-semantic-color-text, #2e2f32);
-  --color-search-results-row-border: var(--ld-semantic-color-border-disabled, #babbbe);
+  --color-search-results-card-header-text: var(--sds-color-text-neutral-default);
+  --color-search-results-row-border: var(--sds-color-border-neutral-tertiary);
   --color-search-results-vendor-text: var(--sds-color-text-default-default);
   --color-search-results-detail-text: var(--sds-color-text-neutral-on-neutral-secondary);
   --color-search-results-tag-active-background: var(--sds-color-background-positive-secondary);
@@ -295,7 +271,7 @@
   --spacing-search-results-header-padding-bottom: var(--sds-size-space-300);
   --spacing-search-results-header-padding-horizontal: var(--sds-size-space-600);
   --spacing-search-results-header-gap: var(--sds-size-space-200);
-  --spacing-search-results-stack-gap: var(--ld-primitive-scale-space-200);
+  --spacing-search-results-stack-gap: var(--sds-size-space-400);
   --spacing-search-results-row-padding: var(--sds-size-space-200);
   /* Row-level flex gap — between column groups and vertical dividers (8px) */
   --spacing-search-results-row-gap: var(--sds-size-space-200);
@@ -334,10 +310,10 @@
   --border-search-results-row-width: var(--sds-size-stroke-border);
 
   /* Sizing */
-  /* 20px — resolved via primitive space scale (1.25rem); icon-medium=32px is too large for inline icons */
-  --size-search-results-icon: var(--ld-primitive-scale-space-250, 20px);
-  /* 48px — resolved via primitive space-600 (3rem) */
-  --size-search-results-row-height: var(--ld-primitive-scale-space-600, 48px);
+  /* 20px — no SDS token for this value; icon-medium=32px is too large for inline icons */
+  --size-search-results-icon: 1.25rem;
+  /* 48px — resolved via sds-size-space-1200 (3rem) */
+  --size-search-results-row-height: var(--sds-size-space-1200);
   /* ⚠ HARDCODED — content-driven column widths; no DS sizing token maps to these layout values */
   --size-search-results-vendor-column: 220px;
   --size-search-results-payment-column: 180px;
@@ -373,8 +349,8 @@
   --spacing-add-address-dialog-tabs-padding-y: var(--sds-size-space-150);
   --spacing-add-address-dialog-tab-padding-x: var(--sds-size-space-300);
   --spacing-add-address-dialog-tab-padding-y: var(--sds-size-space-100);
-  --spacing-add-address-dialog-description-gap: var(--ld-primitive-scale-space-100);
-  --spacing-add-address-dialog-row-gap: var(--ld-primitive-scale-space-100);
+  --spacing-add-address-dialog-description-gap: var(--sds-size-space-200);
+  --spacing-add-address-dialog-row-gap: var(--sds-size-space-200);
   --spacing-add-address-dialog-field-gap: var(--sds-size-space-200);
   --spacing-add-address-dialog-input-padding-x: var(--sds-size-space-400);
   --spacing-add-address-dialog-input-padding-y: var(--sds-size-space-300);
@@ -416,8 +392,8 @@
   --size-add-address-dialog-textarea-min-height: 80px;
   /* 16px action icon — resolved via SDS space-400 (4px step scale, step 4 = 16px) */
   --size-add-address-dialog-icon: var(--sds-size-space-400, 16px);
-  /* 20px close icon — resolved via primitive space scale (1.25rem) */
-  --size-add-address-dialog-close-icon: var(--ld-primitive-scale-space-250, 20px);
+  /* 20px close icon — no SDS token for this value; nearest SDS icon sizes are 32px (medium) and 40px (large) */
+  --size-add-address-dialog-close-icon: 1.25rem;
 
   /* Content-level gap within the "Add address_fig" frame — 16px */
   --spacing-add-address-dialog-content-gap: var(--sds-size-space-400);
@@ -437,15 +413,15 @@
   --color-bulk-upload-dropzone-text:   var(--sds-color-text-neutral-on-neutral-tertiary);
 
   /* Border */
-  --border-bulk-upload-dropzone-width: var(--ld-semantic-scale-borderwidth-interactive);
+  --border-bulk-upload-dropzone-width: var(--sds-size-stroke-border);
 
   /* Corner radius */
-  --radius-bulk-upload-dropzone: var(--ld-primitive-scale-borderradius-200, 1rem);
+  --radius-bulk-upload-dropzone: var(--sds-size-radius-400);
 
   /* Spacing */
-  --spacing-bulk-upload-dropzone-padding-y: var(--ld-primitive-scale-space-600); /* 48px */
-  --spacing-bulk-upload-dropzone-gap:       var(--ld-primitive-scale-space-100); /* 8px  */
-  --spacing-bulk-upload-item-gap:           var(--ld-primitive-scale-space-50);  /* 4px  */
+  --spacing-bulk-upload-dropzone-padding-y: var(--sds-size-space-1200); /* 48px */
+  --spacing-bulk-upload-dropzone-gap:       var(--sds-size-space-200);  /* 8px  */
+  --spacing-bulk-upload-item-gap:           var(--sds-size-space-100);  /* 4px  */
 
   /* Sizing */
   /* 40px upload icon — resolved via sds-size-icon-large (matches SDS icon-large = 40px) */

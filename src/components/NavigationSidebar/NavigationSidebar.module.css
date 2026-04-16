@@ -29,6 +29,10 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+}
+
+.logoIcon :global(.icon) {
+  --icon-color: var(--color-navigation-title-text, #1e1e1e);
   --svg-stroke-color: var(--color-navigation-title-text, #1e1e1e);
 }
 
@@ -89,12 +93,20 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  --svg-stroke-color: var(--color-navigation-menu-item-text, #303030);
 }
 
-/* Active item: icon must use the on-neutral token (near-white #f3f3f3) */
-.navItem.active .navIcon {
-  --svg-stroke-color: var(--color-navigation-menu-item-active-text, #f3f3f3);
+/*
+ * SDS .icon class sets its own --icon-color / --svg-stroke-color on the svg
+ * element, so we must target the svg itself instead of only the wrapper span.
+ */
+.navIcon :global(.icon) {
+  --icon-color: var(--color-navigation-menu-item-icon, #02542d);
+  --svg-stroke-color: var(--color-navigation-menu-item-icon, #02542d);
+}
+
+.navItem.active .navIcon :global(.icon) {
+  --icon-color: var(--color-navigation-menu-item-active-icon, #f3f3f3);
+  --svg-stroke-color: var(--color-navigation-menu-item-active-icon, #f3f3f3);
 }
 
 /* 57px — matches the Figma label width constraint */
@@ -133,7 +145,11 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  --svg-stroke-color: var(--color-navigation-menu-item-text, #303030);
+}
+
+.userActionIcon :global(.icon) {
+  --icon-color: var(--color-navigation-menu-item-icon, #02542d);
+  --svg-stroke-color: var(--color-navigation-menu-item-icon, #02542d);
 }
 
 .chevronIcon {
@@ -144,5 +160,9 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  --svg-stroke-color: var(--color-navigation-menu-item-text, #303030);
+}
+
+.chevronIcon :global(.icon) {
+  --icon-color: var(--color-navigation-menu-item-icon, #02542d);
+  --svg-stroke-color: var(--color-navigation-menu-item-icon, #02542d);
 }

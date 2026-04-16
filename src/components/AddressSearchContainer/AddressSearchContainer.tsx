@@ -10,10 +10,11 @@
 import type { JSX } from "react";
 import { useState } from "react";
 
-import type { Address, AddressSearchFilters } from "@/src/types/address.types";
-import { filterAddresses } from "@/src/utils/filterAddresses";
 import AddressSearch from "@/src/components/AddressSearch";
 import MapContainer from "@/src/components/MapContainer";
+
+import type { Address, AddressSearchFilters } from "@/src/types/address.types";
+import { filterAddresses } from "@/src/utils/filterAddresses";
 
 interface AddressSearchContainerProps {
   allAddresses: Address[];
@@ -25,10 +26,11 @@ export default function AddressSearchContainer({
   allAddresses,
   onEditAddress,
 }: AddressSearchContainerProps): JSX.Element {
-  const [results, setResults] = useState<Address[] | undefined>(undefined);
+  const [activeFilters, setActiveFilters] = useState<AddressSearchFilters | null>(null);
+  const results = activeFilters ? filterAddresses(allAddresses, activeFilters) : undefined;
 
   function handleSearch(filters: AddressSearchFilters): void {
-    setResults(filterAddresses(allAddresses, filters));
+    setActiveFilters(filters);
   }
 
   return (

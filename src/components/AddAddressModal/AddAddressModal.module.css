@@ -49,6 +49,7 @@
 .tabs {
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-add-address-dialog-content-gap, 1rem);
   overflow: clip;
 }
 
@@ -128,6 +129,18 @@
   border-top: var(--border-add-address-dialog-width, 1px) solid
     var(--color-add-address-dialog-footer-border, #d9d9d9);
   padding-top: var(--spacing-add-address-dialog-footer-padding-top, 1.5rem);
+}
+
+/*
+ * SDS Dialog applies default ButtonGroup spacing intended for generic dialogs:
+ * - margin-top: 24px
+ * - padding-inline: 32px
+ * The AddAddress Figma spec uses a full-width footer row with only top padding.
+ */
+:global(.dialog) .footer {
+  margin-top: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* ── Bulk upload dropzone ────────────────────────────────────────────────── */
